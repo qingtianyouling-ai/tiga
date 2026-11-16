@@ -1,0 +1,13 @@
+# 依赖与临时产物（不进仓库）
+node_modules/
+.tmp/
+package.json
+package-lock.json
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 说明：images/works（105MB 母版）与 videos（260MB 母版）默认随仓库发布，
+# 因为它们是你在 GitHub 上唯一的一份备份。若想缩小仓库，可手动删除后再推送，
+# 但网页只依赖 images/web、videos/web（及 videos/ 里已是 H.264 的原片）。
