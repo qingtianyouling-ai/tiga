@@ -74,25 +74,26 @@ const P = window.portfolio;
 const titles = (sel) => $$(sel + " .work-title").map((n) => n.textContent);
 
 /* ── 数据 ─────────────────────────────────────────────────────────────── */
-check("数据：39 条 = 27 视频 + 12 平面，刺绣 / 模型 / 版式 / 图集都已删", () => {
-  assert(P && P.works.length === 39, `作品数应为 39，实际 ${P && P.works.length}`);
+check("数据：37 条 = 25 视频 + 12 平面，微电影 / 刺绣 / 模型 / 版式 / 图集都已删", () => {
+  assert(P && P.works.length === 37, `作品数应为 37，实际 ${P && P.works.length}`);
   const video = P.works.filter((w) => !!w.video);
   const still = P.works.filter((w) => !w.video);
-  assert(video.length === 27, `视频应为 27，实际 ${video.length}`);
+  assert(video.length === 25, `视频应为 25，实际 ${video.length}`);
   assert(still.length === 12, `平面应为 12，实际 ${still.length}`);
   assert(!P.works.some((w) => /yuanxiang|刺绣|Mom deserve/i.test(w.video + w.title)), "刺绣两条应已移除");
+  assert(!P.works.some((w) => w.cat === "microfilm"), "两条微电影应已删除");
   assert(!P.works.some((w) => w.id === "poster-05" || w.id === "poster-06" || w.id === "poster-07"), "模型三条应已移除");
   const gone = ["layout-01","layout-02","layout-03","layout-04","layout-05","layout-06","brand-vi","chongyang"];
   assert(!P.works.some((w) => gone.includes(w.id)), "版式 6 条与两个图集应已删除");
   assert(!P.collections, "图集数据应已删除");
   const noPreview = video.filter((w) => !w.preview);
   assert(noPreview.length === 0, `缺预览：${noPreview.map((w) => w.id).join(",")}`);
-  return "27 视频 / 12 平面";
+  return "25 视频 / 12 平面";
 });
 
 check("作品板块筛选按钮按分类顺序生成", () => {
   const chips = $$("#workFilters .filter").map((c) => c.textContent);
-  assert(chips.join("/") === "全部/商业广告/微电影/创意短片/纪实活动", `实际：${chips.join("/")}`);
+  assert(chips.join("/") === "全部/商业广告/创意短片/纪实活动", `实际：${chips.join("/")}`);
   const gchips = $$("#graphicFilters .filter").map((c) => c.textContent);
   assert(gchips.join("/") === "全部/平面摄影/风光纪实", `实际：${gchips.join("/")}`);
   return `${chips.length} + ${gchips.length} 个`;
@@ -102,15 +103,15 @@ check("作品板块首屏只露 10 个 + 展开按钮", () => {
   assert($$("#workGrid .work-card").length === 10, `应为 10，实际 ${$$("#workGrid .work-card").length}`);
   const btn = $("#workExpand");
   assert(btn && btn.hidden === false, "展开按钮应可见");
-  assert(btn.textContent.includes("17"), `应提示还剩 17 件，实际「${btn.textContent}」`);
+  assert(btn.textContent.includes("15"), `应提示还剩 15 件，实际「${btn.textContent}」`);
   return btn.textContent;
 });
 
-check("点展开 → 27 个，按钮隐藏，焦点交给第一张新卡片", () => {
+check("点展开 → 25 个，按钮隐藏，焦点交给第一张新卡片", () => {
   $("#workExpand").click();
-  assert($$("#workGrid .work-card").length === 27, `应为 27，实际 ${$$("#workGrid .work-card").length}`);
+  assert($$("#workGrid .work-card").length === 25, `应为 25，实际 ${$$("#workGrid .work-card").length}`);
   assert($("#workExpand").hidden === true, "展开后按钮应隐藏");
-  assert($("#workCount").textContent === "27 Projects", `计数不对：${$("#workCount").textContent}`);
+  assert($("#workCount").textContent === "25 Projects", `计数不对：${$("#workCount").textContent}`);
   const cards = $$("#workGrid .work-trigger");
   assert(doc.activeElement === cards[10], "键盘展开后焦点应落到第 11 张（第一张新增）");
   return $("#workCount").textContent + " · 焦点 → 第 11 张";
@@ -163,10 +164,10 @@ check("卡片三行文案：标题 / 规格 / 职责", () => {
   return `${sub.textContent} ｜ ${roles.textContent}`;
 });
 
-check("微电影筛选 → 2 张，计数 2 / 27", () => {
-  $$("#workFilters .filter").find((c) => c.textContent === "微电影").click();
-  assert($$("#workGrid .work-card").length === 2, "应为 2 张");
-  assert($("#workCount").textContent === "2 / 27 Projects", `计数不对：${$("#workCount").textContent}`);
+check("创意短片筛选 → 5 张，计数 5 / 25", () => {
+  $$("#workFilters .filter").find((c) => c.textContent === "创意短片").click();
+  assert($$("#workGrid .work-card").length === 5, `应为 5 张，实际 ${$$("#workGrid .work-card").length}`);
+  assert($("#workCount").textContent === "5 / 25 Projects", `计数不对：${$("#workCount").textContent}`);
   return $("#workCount").textContent;
 });
 
