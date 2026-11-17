@@ -71,6 +71,16 @@ for (const m of app.matchAll(/icon\("([\w-]+)"\)/g)) {
   if (!new RegExp(`symbol id="${m[1]}"`).test(html)) errors.push(`app.js 引用了未定义图标 ${m[1]}`);
 }
 
+/* 社交分享图：og:image 写的是绝对地址，上面的引用扫描抓不到，单独验一次 */
+const og = html.match(/<meta property="og:image" content="([^"]+)"/);
+if (!og) {
+  errors.push("缺少 og:image（分享到微信/微博时没有大图）");
+} else {
+  const ogRel = og[1].replace(/^https?:\/\/[^/]+\/tiga\//, "");
+  if (!exists(ogRel)) errors.push(`og:image 指向的文件不存在: ${ogRel}`);
+  else if (sizeOf(ogRel) > 300 * 1024) errors.push(`og:image 过大: ${mb(sizeOf(ogRel))}（应 < 300KB）`);
+}
+
 /* ── 存在性 + 体积 ──────────────────────────────────────────────────────── */
 let totalImg = 0;
 let totalVid = 0;

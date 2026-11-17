@@ -609,8 +609,10 @@ button,
   font-size: clamp(30px, 4.4vw, 58px);
   letter-spacing: -0.04em;
   line-height: 1.12;
+  text-wrap: balance;
 }
 .about-heading em {
+  display: block;
   font-style: normal;
   color: var(--quiet);
 }
@@ -737,7 +739,7 @@ button,
 .work-note {
   font-size: 11px;
   letter-spacing: 0.06em;
-  color: rgba(241, 240, 237, 0.42);
+  color: rgba(241, 240, 237, 0.55);
   white-space: nowrap;
 }
 .filters {
@@ -905,7 +907,7 @@ button,
 .work-year {
   font-size: 10px;
   letter-spacing: 1.3px;
-  color: rgba(241, 240, 237, 0.36);
+  color: rgba(241, 240, 237, 0.52);
 }
 .work-sub {
   display: block;
@@ -1093,6 +1095,7 @@ button,
   font-size: clamp(24px, 2.6vw, 34px);
   letter-spacing: -0.03em;
   line-height: 1.2;
+  text-wrap: balance;
 }
 .dialog-desc {
   color: var(--muted);
@@ -1117,17 +1120,6 @@ button,
   text-transform: uppercase;
   color: var(--quiet);
   padding-top: 3px;
-}
-.dialog-roles {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-.dialog-roles span {
-  font-size: 11px;
-  border: 1px solid var(--line);
-  color: var(--muted);
-  padding: 3px 9px;
 }
 .dialog-note {
   font-size: 11px;
@@ -1158,11 +1150,11 @@ button,
   width: 16px;
   height: 16px;
 }
-/* 视频弹层的声音开关 */
+/* 视频弹层的声音开关：放左上角，避开原生控制条（右下角是播放条与全屏键） */
 .dialog-audio {
   position: absolute;
-  right: 16px;
-  bottom: 16px;
+  left: 16px;
+  top: 16px;
   z-index: 4;
   padding: 6px 14px;
   font-size: 10px;
@@ -1324,8 +1316,8 @@ button,
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
 }
-.contact-links a,
-.contact-links div {
+.contact-links > a,
+.contact-links > div {
   background: var(--bg);
   display: flex;
   align-items: center;
@@ -1339,6 +1331,14 @@ button,
 }
 .contact-links > :nth-last-child(-n + 2) {
   border-bottom: 0;
+}
+/* 行内内容块：标签在左、值在右，不带分割线（分割线只属于最外层每一行） */
+.contact-links > a > div,
+.contact-links > div > div {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  min-width: 0;
 }
 .contact-links a:hover {
   color: #fff;
@@ -1475,9 +1475,6 @@ button,
   }
   .hero-name {
     gap: 12px;
-  }
-  .hero-name em {
-    padding-bottom: 4px;
   }
   .hero-now {
     display: none;

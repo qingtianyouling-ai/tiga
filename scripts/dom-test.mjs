@@ -262,6 +262,21 @@ check("导航含「平面」，锚点存在", () => {
   return navs.join(" / ");
 });
 
+check("移动端菜单与桌面导航同序同项（含平面）", () => {
+  const desk = $$("[data-nav]").map((a) => a.getAttribute("data-nav"));
+  const mob = $$("#mobileNav a").map((a) => a.getAttribute("href").slice(1));
+  assert(mob.join("/") === desk.join("/"), `移动端：${mob.join("/")} ≠ 桌面：${desk.join("/")}`);
+  return mob.join(" / ");
+});
+
+check("联系区 4 行，都是 .contact-links 的直接子元素", () => {
+  const rows = $$(".contact-links > *");
+  assert(rows.length === 4, `应为 4 行（Email/Phone/WeChat/Douyin），实际 ${rows.length}`);
+  const nested = $$(".contact-links > * > div").length;
+  assert(nested === 4, `每行应只有一个内容块，实际 ${nested}`);
+  return rows.map((r) => (r.querySelector(".k") || {}).textContent).join(" / ");
+});
+
 check("所有卡片都有可读名称与封面", () => {
   const cards = $$("#workGrid .work-card").concat($$("#graphicGrid .work-card"));
   const bad = cards.filter((c) => {
