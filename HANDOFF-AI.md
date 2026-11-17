@@ -1,7 +1,7 @@
 # TIGA 个人站 · AI 交接文档
 
 > 这份文档是给「另一个 AI／另一台电脑」看的：读完就能接手，不需要历史对话。
-> 最后更新：2026-11-17 ｜ 线上版本：commit `4a61150` ｜ 本地已提交待推送：commit `910ce3b`（推上去后线上才生效）
+> 最后更新：2026-11-17 ｜ 线上版本：commit `4a61150` ｜ 本地 main 已比 origin 多 3 个提交、尚未推送（`git log origin/main..HEAD` 可看），推上去后线上才生效
 
 ---
 
@@ -197,7 +197,7 @@ powershell -ExecutionPolicy Bypass -File scripts/build-assets.ps1 [-OnlyImages|-
 
 ```powershell
 node scripts/audit.mjs      # 45 条作品 / 289 引用 / 0 缺失；检查 webp/png/jpg 文件头与体积、og:image
-node scripts/dom-test.mjs   # 27 条断言：数据、筛选、展开、年份、弹层、焦点、导航（桌面+移动）、联系区、Hero、About
+node scripts/dom-test.mjs   # 28 条断言：数据、筛选、展开与焦点、年份、弹层、导航（桌面+移动）、联系区、Hero、About
 ```
 
 `dom-test` 会真执行 `content.js` + `app.js`，任何运行时异常都会 fail —— 改完必须 0 错。
@@ -247,6 +247,7 @@ git clone git@github.com:qingtianyouling-ai/tiga.git
 11. 移动端菜单漏了「平面」，手机上根本进不去平面板块；现在与桌面导航同序同项（dom-test 有断言）。
 12. 关于标题在 1440 下从「让作 / 品被看见」中间断开 → `em` 独占一行 + `text-wrap: balance`。
 13. 视频弹层「开启声音」原来压在原生控制条上，挡住全屏键 → 移到画面左上角。
+14. 键盘点「展开更多」后按钮 `hidden`，焦点掉回 body → 现在把焦点送到第一张新增卡片；计数加了 `aria-live`。
 
 ---
 

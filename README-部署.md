@@ -198,7 +198,7 @@ GitHub Pages 建议仓库 <1GB，当前总量约 386MB，仍在安全范围内�
 
 ```powershell
 node scripts/audit.mjs      # 引用完整性 + 体积预算（当前：全部通过）
-node scripts/dom-test.mjs   # jsdom 真跑页面：45 件作品、双板块筛选与展开、弹层与 Esc、焦点、导航（桌面+移动）、联系区、Hero、About（27/27 通过）
+node scripts/dom-test.mjs   # jsdom 真跑页面：45 件作品、双板块筛选与展开、弹层与 Esc、焦点、导航（桌面+移动）、联系区、Hero、About（28/28 通过）
 ```
 
 `dom-test.mjs` 依赖 `.tmp/node_modules/jsdom`（已装好；`.tmp/` 不进仓库）。

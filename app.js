@@ -472,9 +472,16 @@
       });
 
     if (expandBtn) {
-      expandBtn.addEventListener("click", function () {
+      expandBtn.addEventListener("click", function (e) {
+        var before = shown;
         shown = currentList.length;
         paint(false);
+        /* 键盘（Enter/Space）触发时按钮会随 hidden 消失，焦点掉回 body；
+           把焦点送到第一张新卡片，键盘用户不用重新从头 Tab */
+        if (e.detail === 0) {
+          var firstNew = grid.querySelectorAll(".work-trigger")[before];
+          if (firstNew) firstNew.focus();
+        }
       });
     }
 

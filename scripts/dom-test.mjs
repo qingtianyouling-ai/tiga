@@ -104,12 +104,21 @@ check("作品板块首屏只露 10 个 + 展开按钮", () => {
   return btn.textContent;
 });
 
-check("点展开 → 25 个，按钮隐藏", () => {
+check("点展开 → 25 个，按钮隐藏，焦点交给第一张新卡片", () => {
   $("#workExpand").click();
   assert($$("#workGrid .work-card").length === 25, `应为 25，实际 ${$$("#workGrid .work-card").length}`);
   assert($("#workExpand").hidden === true, "展开后按钮应隐藏");
   assert($("#workCount").textContent === "25 Projects", `计数不对：${$("#workCount").textContent}`);
-  return $("#workCount").textContent;
+  const cards = $$("#workGrid .work-trigger");
+  assert(doc.activeElement === cards[10], "键盘展开后焦点应落到第 11 张（第一张新增）");
+  return $("#workCount").textContent + " · 焦点 → 第 11 张";
+});
+
+check("计数变化对读屏可感知（aria-live）", () => {
+  const a = $("#workCount").getAttribute("aria-live");
+  const b = $("#graphicCount").getAttribute("aria-live");
+  assert(a === "polite" && b === "polite", `实际：${a} / ${b}`);
+  return "polite ×2";
 });
 
 check("年份：前六条 2026，其余 2025", () => {
