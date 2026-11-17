@@ -1,7 +1,7 @@
 # TIGA 个人站 · AI 交接文档
 
 > 这份文档是给「另一个 AI／另一台电脑」看的：读完就能接手，不需要历史对话。
-> 最后更新：2026-11-17 ｜ 线上版本：commit `7dc8d8a`（已推送，Pages 已上线）｜ 本地 main 与 origin/main 同步
+> 最后更新：2026-11-17 ｜ 线上版本：commit `373c998`（已推送，Pages 已上线）｜ 本地 main 与 origin/main 同步
 > 给 GPT／别的 AI 接手：直接给仓库地址 <https://github.com/qingtianyouling-ai/tiga> 最稳；聊天里传文件就用 `tiga-code-*.zip`。
 
 ---
