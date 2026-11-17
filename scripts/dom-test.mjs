@@ -155,7 +155,7 @@ check("卡片三行文案：标题 / 规格 / 职责", () => {
   const sub = card.querySelector(".work-sub");
   const roles = card.querySelector(".work-roles");
   assert(sub, "应有第二行规格");
-  assert(sub.textContent === "AI 商业产品广告 · 0:41", `规格不对：${sub.textContent}`);
+  assert(sub.textContent === "AI 商业产品广告 · 0:40", `规格不对：${sub.textContent}`);
   assert(roles.textContent.includes(" / "), `职责应用斜杠分隔：${roles.textContent}`);
   assert(roles.textContent.includes("AI 概念生成"), `职责不对：${roles.textContent}`);
   return `${sub.textContent} ｜ ${roles.textContent}`;

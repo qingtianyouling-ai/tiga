@@ -154,8 +154,8 @@ GitHub Pages 建议仓库 <1GB，当前总量约 386MB，仍在安全范围内�
 ## 7. 首屏轮播怎么换镜头 / 重新生成简历
 
 首屏是 3 条无声片，每条 **7 秒**，**一条播完接一条**（监听 `ended`，9 秒兜底）：
-小米 SU7 沙漠车身（`slide-xiaomi.mp4`，源片 7–14s）
-→ 雷鸟眼镜工作室段（`slide-rayneo.mp4`，源片 23–30s）
+小米 SU7 沙漠车身（`slide-xiaomi.mp4`，源片 14.5–21.5s）
+→ 雷鸟眼镜光轨段（`slide-rayneo.mp4`，源片 17–24s）
 → 舍得酒大师勾调（`slide-shede.mp4`，源片 16–23s）。
 `<video>` 上**不能加 `loop`**，否则 `ended` 不触发、接不上。
 原始的黄昏车尾片段留在 `_backup/hero-dusk/`，想换回来搬回 `videos/hero/` 即可。

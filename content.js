@@ -44,7 +44,7 @@ window.portfolio = (function () {
   /* ── 作品：45 条（视频 25 / 平面 20）────────────────────────────────── */
   var works = [
     /* ── 商业广告 ───────────────────────────────────────────────────── */
-    { id: "commercial-07", cat: "commercial", year: "2026", title: "小米 SU7 · 汽车概念短片", desc: "AI 商业产品广告 · 0:41", video: "videos/web/xiaomi-su7.mp4", preview: PV + "xiaomi-su7.mp4", poster: M + "xiaomi-su7.webp", full: F + "xiaomi-su7.webp", roles: ["AI 概念生成", "视觉方向", "成片审阅"] },
+    { id: "commercial-07", cat: "commercial", year: "2026", title: "小米 SU7 · 汽车概念短片", desc: "AI 商业产品广告 · 0:40", video: "videos/web/xiaomi-su7.mp4", preview: PV + "xiaomi-su7.mp4", poster: M + "xiaomi-su7.webp", full: F + "xiaomi-su7.webp", roles: ["AI 概念生成", "视觉方向", "成片审阅"] },
     { id: "commercial-08", cat: "commercial", year: "2026", title: "雷鸟眼镜 iO · 产品概念 TVC", desc: "AI 商业产品广告 · 1:20", video: "videos/web/rayneo-io.mp4", preview: PV + "rayneo-io.mp4", poster: M + "rayneo-io.webp", full: F + "rayneo-io.webp", roles: ["AI 概念生成", "逐镜生成", "审阅 / 混音"] },
     { id: "commercial-04", cat: "commercial", year: "2026", title: "保时捷 Taycan Turbo GT · 汽车概念影像", desc: "AI 商业产品广告 · 0:30", video: "videos/web/taycan.mp4", preview: PV + "taycan.mp4", poster: M + "hero-porsche.webp", full: F + "hero-porsche.webp", roles: ["AI 概念生成", "镜头调度", "视觉设计"] },
     { id: "commercial-05", cat: "commercial", year: "2026", title: "iPhone 18 Pro · 产品概念 TVC", desc: "AI 商业产品广告 · 0:30", video: "videos/web/iphone18pro.mp4", preview: PV + "iphone18pro.mp4", poster: M + "cover-iphone18pro.webp", full: F + "cover-iphone18pro.webp", roles: ["AI 概念生成", "工业设计推演", "镜头调度"] },

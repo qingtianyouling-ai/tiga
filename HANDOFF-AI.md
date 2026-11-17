@@ -118,7 +118,7 @@ _backup/        旧站原文件 + 备用素材（不参与页面）
 
 | # | id | 标题 | 第二行 | 职责 | 年份 |
 |---|---|---|---|---|---|
-| 1 | `commercial-07` | 小米 SU7 · 汽车概念短片 | AI 商业产品广告 · 0:41 | AI 概念生成 / 视觉方向 / 成片审阅 | 2026 |
+| 1 | `commercial-07` | 小米 SU7 · 汽车概念短片 | AI 商业产品广告 · 0:40 | AI 概念生成 / 视觉方向 / 成片审阅 | 2026 |
 | 2 | `commercial-08` | 雷鸟眼镜 iO · 产品概念 TVC | AI 商业产品广告 · 1:20 | AI 概念生成 / 逐镜生成 / 审阅 / 混音 | 2026 |
 | 3 | `commercial-04` | 保时捷 Taycan Turbo GT · 汽车概念影像 | AI 商业产品广告 · 0:30 | AI 概念生成 / 镜头调度 / 视觉设计 | 2026 |
 | 4 | `commercial-05` | iPhone 18 Pro · 产品概念 TVC | AI 商业产品广告 · 0:30 | AI 概念生成 / 工业设计推演 / 镜头调度 | 2026 |
@@ -182,8 +182,8 @@ powershell -ExecutionPolicy Bypass -File scripts/build-assets.ps1 [-OnlyImages|-
 
 每条剪 **7 秒**、无声、1920×1080（移动端另出 1280×720），H.264 + `+faststart`：
 
-- `slide-xiaomi.mp4`：`02_小米SU7/SU7-TVC/交付/SU7-自在而行-41秒声画候选.mp4` 的 7–14s（沙漠车身）。
-- `slide-rayneo.mp4`：`03_雷鸟眼镜/.../RayNeo-iO_80秒_当前最新审片版.mp4` 的 23–30s（工作室段；**别用 20–23s 的浅灰棚拍**，白字会看不清）。
+- `slide-xiaomi.mp4`：`02_小米SU7/外部参考/jlyzw0zRJgDQB198_1080p.mp4` 的 14.5–21.5s（沙漠车身；**别用 5–13s**，那里有内嵌字幕会压到首屏文字）。
+- `slide-rayneo.mp4`：`03_雷鸟眼镜/外部参考/jlyzw0zBRpKQB198_1080p.mp4` 的 17–24s（光轨 + 产品，画面够暗，白字清楚）。
 - `slide-shede.mp4`：`videos/舍得酒.mp4` 的 16–23s。
 - 编码：`-crf 26 -maxrate 2200k`（移动端 `-crf 28 -maxrate 900k`），单条约 2MB。
 
