@@ -83,8 +83,8 @@
   var heroDots = $$(".hero-dot");
   var heroNow = $("#heroNow");
   var motionToggle = $("#motionToggle");
-  var HERO_NAMES = ["保时捷 Taycan Turbo GT", "iPhone 18 Pro", "舍得酒 · 大师勾调"];
-  var HERO_INTERVAL = 8000;
+  var HERO_NAMES = ["小米 SU7 · 自在而行", "雷鸟眼镜 iO", "舍得酒 · 大师勾调"];
+  var HERO_FALLBACK = 9000; /* 视频没触发 ended 时的兜底，正常情况由 ended 接力 */
   var heroEnabled = !reducedMotion.matches;
   var heroIndex = 0;
   var heroTimer = null;
@@ -118,18 +118,27 @@
     });
   }
 
+  function heroNext() {
+    if (!heroEnabled || heroPaused || heroOffscreen || document.hidden) return;
+    heroSet(heroIndex + 1);
+  }
+
+  /* 一个播完接下一个：优先听 ended，兜底 9 秒（自动播放被拒 / 解码失败时也能走） */
   function heroStartTimer() {
     heroStopTimer();
-    if (!heroEnabled || heroPaused) return;
-    heroTimer = setInterval(function () {
-      heroSet(heroIndex + 1);
-    }, HERO_INTERVAL);
+    if (!heroEnabled || heroPaused || heroOffscreen) return;
+    heroTimer = setTimeout(heroNext, HERO_FALLBACK);
   }
   function heroStopTimer() {
     if (heroTimer) {
-      clearInterval(heroTimer);
+      clearTimeout(heroTimer);
       heroTimer = null;
     }
+  }
+
+  function heroPauseCurrent() {
+    var v = heroVideos[heroIndex];
+    if (v && !v.paused) v.pause();
   }
 
   var heroLeaveTimers = new Map();
@@ -175,6 +184,7 @@
       heroPlay();
       /* 提前把下一镜的元数据拉回来，切换时不至于停在封面上 */
       heroLoad((heroIndex + 1) % heroSlides.length);
+      heroStartTimer();
     }
   }
 
@@ -212,15 +222,37 @@
       }
     });
 
-    /* 鼠标停在首屏时先不自动切换，方便看画面 */
-    hero.addEventListener("mouseenter", heroStopTimer);
-    hero.addEventListener("mouseleave", heroStartTimer);
-    hero.addEventListener("focusin", heroStopTimer);
-    hero.addEventListener("focusout", heroStartTimer);
+    /* 每条放完自己接力下一条 */
+    heroVideos.forEach(function (v) {
+      v.addEventListener("ended", heroNext);
+    });
+
+    /* 鼠标停在首屏时先停住，方便看画面；移开继续 */
+    hero.addEventListener("mouseenter", function () {
+      heroStopTimer();
+      heroPauseCurrent();
+    });
+    hero.addEventListener("mouseleave", function () {
+      heroPlay();
+      heroStartTimer();
+    });
+    hero.addEventListener("focusin", function () {
+      heroStopTimer();
+      heroPauseCurrent();
+    });
+    hero.addEventListener("focusout", function () {
+      heroPlay();
+      heroStartTimer();
+    });
 
     document.addEventListener("visibilitychange", function () {
-      if (document.hidden) heroStopAll();
-      else heroPlay();
+      if (document.hidden) {
+        heroStopAll();
+        heroStopTimer();
+      } else {
+        heroPlay();
+        heroStartTimer();
+      }
     });
 
     /* 滚动进度：文字上移淡出、画面轻微推近、滚出视口后停视频 */
@@ -232,8 +264,13 @@
       var off = window.scrollY > h * 0.92;
       if (off !== heroOffscreen) {
         heroOffscreen = off;
-        if (off) heroStopAll();
-        else heroPlay();
+        if (off) {
+          heroStopAll();
+          heroStopTimer();
+        } else {
+          heroPlay();
+          heroStartTimer();
+        }
       }
     }
     window.addEventListener(

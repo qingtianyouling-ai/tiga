@@ -62,6 +62,11 @@ for (const m of html.matchAll(/href="(#[\w-]+)"/g)) {
 for (const m of html.matchAll(/use href="#([\w-]+)"/g)) {
   if (!new RegExp(`symbol id="${m[1]}"`).test(html)) errors.push(`图标 ${m[1]} 未定义`);
 }
+/* 首屏视频的 poster / data-src 不走 src 属性，单独收集一遍 */
+for (const m of html.matchAll(/poster="([^"]+)"/g)) add(m[1], "index.html:hero-poster");
+for (const m of html.matchAll(/data-src="([^"]+)"/g)) add(m[1], "index.html:hero-video");
+for (const m of html.matchAll(/data-src-mobile="([^"]+)"/g)) add(m[1], "index.html:hero-video-mobile");
+
 /* app.js 里用到的 icon id */
 const app = read("app.js");
 for (const m of app.matchAll(/icon\("([\w-]+)"\)/g)) {
@@ -132,8 +137,8 @@ const firstPaint = [
   "content.js",
   "app.js",
   "assets/favicon.svg",
-  "images/web/1600/hero-porsche-cut.webp",
-  "videos/hero/slide-porsche-cut.mp4"
+  "images/web/1600/hero-xiaomi.webp",
+  "videos/hero/slide-xiaomi.mp4"
 ];
 let firstBytes = 0;
 for (const p of firstPaint) {

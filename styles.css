@@ -341,7 +341,7 @@ button,
   inset: 0;
   z-index: 0;
   overflow: hidden;
-  background: #0a0a0a url("images/web/1600/hero-porsche-cut.webp") center/cover no-repeat;
+  background: #0a0a0a url("images/web/1600/hero-xiaomi.webp") center/cover no-repeat;
   transform: scale(calc(1 + var(--hp) * 0.06));
 }
 .hero-slide {
