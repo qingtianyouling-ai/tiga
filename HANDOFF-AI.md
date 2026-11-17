@@ -201,6 +201,7 @@ powershell -ExecutionPolicy Bypass -File scripts/build-assets.ps1 [-OnlyImages|-
 
 ```powershell
 node scripts/audit.mjs      # 39 条作品 / 145 引用 / 0 缺失；检查 webp/png/jpg 文件头与体积、og:image、首屏 poster/data-src
+node scripts/audit.mjs --no-media   # 代码包里用：跳过 videos/ 下缺失的详情播放版
 node scripts/dom-test.mjs   # 25 条断言：数据、筛选、展开与焦点、年份、弹层、导航（桌面+移动）、联系区、Hero
 ```
 
@@ -290,5 +291,5 @@ git clone git@github.com:qingtianyouling-ai/tiga.git
 ## 13. 交付包（2026-11-17）
 
 - `tiga-full-2026-11-17.zip`：**整站**，不含 `.git` / `.tmp` / `node_modules`；解压后 `node scripts/serve.mjs` 就能跑，也可以直接推到 GitHub Pages（约 460MB）。
-- `tiga-code-2026-11-17.zip`：**给 AI 上传的源码包**（约 21MB），含全部代码、文档、`images/web` 封面、首屏片与 5 秒预览；**不含** 27 条详情播放版和 `images/works` 母版——点开详情视频会 404，属正常。
+- `tiga-code-2026-11-17.zip`：**给 AI 上传的源码包**（约 18MB），含全部代码、文档、`images/web` 封面、首屏片与 5 秒预览；**不含** 27 条详情播放版和 `images/works` 母版。这个包里 audit 要加 `--no-media`（跳过视频缺失），否则会报 27 条缺失——**别靠删数据去「修」**。
 - 两个包都带 `START-HERE.md`（30 秒上手）和这份 `HANDOFF-AI.md`。

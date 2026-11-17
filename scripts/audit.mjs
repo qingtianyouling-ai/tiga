@@ -9,6 +9,8 @@ import fs from "node:fs";
 import path from "node:path";
 
 const ROOT = process.cwd();
+/* 代码包里没放详情播放版（几十 MB 的视频）：加 --no-media 跳过视频缺失，其余照查 */
+const NO_MEDIA = process.argv.includes("--no-media");
 const read = (p) => fs.readFileSync(path.join(ROOT, p), "utf8");
 const exists = (p) => fs.existsSync(path.join(ROOT, p));
 const sizeOf = (p) => (exists(p) ? fs.statSync(path.join(ROOT, p)).size : 0);
@@ -84,6 +86,7 @@ let totalPrev = 0;
 let missing = 0;
 for (const r of refs) {
   if (!exists(r.path)) {
+    if (NO_MEDIA && r.path.startsWith("videos/")) continue;
     missing++;
     errors.push(`缺失文件: ${r.path}  (${r.what})`);
     continue;
@@ -137,7 +140,7 @@ const firstPaint = [
 let firstBytes = 0;
 for (const p of firstPaint) {
   const s = sizeOf(p);
-  if (!s) errors.push(`首屏文件缺失: ${p}`);
+  if (!s && !(NO_MEDIA && p.startsWith("videos/"))) errors.push(`首屏文件缺失: ${p}`);
   firstBytes += s;
 }
 
@@ -148,6 +151,7 @@ const biggest = refs
   .slice(0, 8);
 
 console.log("=== TIGA SITE AUDIT ===");
+if (NO_MEDIA) console.log("模式: --no-media（代码包：跳过 videos/ 下缺失的详情播放版）");
 console.log(`作品: ${P.works.length} 条（视频 ${P.works.filter((w) => w.video).length} / 平面 ${P.works.filter((w) => !w.video).length}）`);
 console.log(`被引用文件: ${refs.length} | 缺失: ${missing}`);
 console.log(`首屏负载(未压缩): ${kb(firstBytes)}`);

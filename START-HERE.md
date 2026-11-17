@@ -9,7 +9,7 @@
 3. 改完必跑，两条都必须 0 错：
    ```bash
    npm install --prefix .tmp jsdom     # 只装一次，.tmp/ 不进仓库
-   node scripts/audit.mjs              # 引用完整性 + 体积预算 + 图片健康
+   node scripts/audit.mjs --no-media   # 引用完整性 + 体积预算 + 图片健康（这个包没放详情视频，必须加 --no-media）
    node scripts/dom-test.mjs           # jsdom 真跑页面，25 条断言
    ```
 
@@ -24,7 +24,8 @@
 
 ## 这个包里少了什么
 
-- **27 条详情播放版视频**（`videos/web/*.mp4`，约 56MB）和 **`images/works` 母版**（104MB）没放进来——点开作品详情时视频会 404，其余一切正常。
+- **27 条详情播放版视频**（`videos/*.mp4` 与 `videos/web/*.mp4`，约 330MB）和 **`images/works` 母版**（104MB）没放进来——点开作品详情时视频会 404，其余一切正常；`audit` 也因此要加 `--no-media`。
+- **不要去删 `content.js` 里的作品数据来「修」这个报错**，`.tmp` 之外的文件都别动。
 - `documents/resume.pdf` 没放（个人文件，站点也已不再链接）。
 
 需要完整媒体时，向用户要「完整包」（`tiga-site-*.zip`）或让他把仓库推上 GitHub。
