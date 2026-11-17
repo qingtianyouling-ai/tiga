@@ -305,7 +305,7 @@ git clone git@github.com:qingtianyouling-ai/tiga.git
 
 ## 13. 交付包（2026-11-17）
 
-- `tiga-full-2026-11-17.zip`：**整站**，不含 `.git` / `.tmp` / `node_modules`；解压后 `node scripts/serve.mjs` 就能跑，也可以直接推到 GitHub Pages（约 460MB）。
+- `tiga-full-2026-11-17.zip`：**整站**，不含 `.git` / `.tmp` / `node_modules`；解压后 `node scripts/serve.mjs` 就能跑，也可以直接推到 GitHub Pages（约 445MB）。
 - `tiga-code-2026-11-17.zip`：**给 AI 上传的源码包**（约 18MB），含全部代码、文档、`images/web` 封面、首屏片与 5 秒预览；**不含** 27 条详情播放版和 `images/works` 母版。这个包里 audit 要加 `--no-media`（跳过视频缺失），否则会报 27 条缺失——**别靠删数据去「修」**。
-- 两个包都带 `START-HERE.md`（30 秒上手）和这份 `HANDOFF-AI.md`。
+- 两个包都带 `START-HERE.md`（30 秒上手）和这份 `HANDOFF-AI.md`；代码包根目录另有 `READ-ME-FIRST.md`（给 GPT 的一句话接手指令）。
 - **仓库已公开推送**：之后让别的 AI 接手，优先给 <https://github.com/qingtianyouling-ai/tiga>；`tiga-code` 包只作为聊天上传的备选。
