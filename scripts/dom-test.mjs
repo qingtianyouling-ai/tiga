@@ -265,12 +265,14 @@ check("移动端菜单与桌面导航同序同项（含平面）", () => {
   return mob.join(" / ");
 });
 
-check("联系区 4 行，都是 .contact-links 的直接子元素", () => {
+check("联系区 3 项，都是 .contact-links 的直接子元素（抖音已删）", () => {
   const rows = $$(".contact-links > *");
-  assert(rows.length === 4, `应为 4 行（Email/Phone/WeChat/Douyin），实际 ${rows.length}`);
+  assert(rows.length === 3, `应为 3 项（Email/Phone/WeChat），实际 ${rows.length}`);
   const nested = $$(".contact-links > * > div").length;
-  assert(nested === 4, `每行应只有一个内容块，实际 ${nested}`);
-  return rows.map((r) => (r.querySelector(".k") || {}).textContent).join(" / ");
+  assert(nested === 3, `每项应只有一个内容块，实际 ${nested}`);
+  const labels = rows.map((r) => (r.querySelector(".k") || {}).textContent).join(" / ");
+  assert(!/douyin|抖音/i.test($("#contact").textContent), "抖音联系方式应已删除");
+  return labels;
 });
 
 check("所有卡片都有可读名称与封面", () => {

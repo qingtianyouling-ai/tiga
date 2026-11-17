@@ -1078,7 +1078,7 @@ button,
 .contact-links {
   margin-top: 54px;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1px;
   background: var(--line-soft);
   border-top: 1px solid var(--line);
@@ -1091,14 +1091,10 @@ button,
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 24px 6px 24px 0;
+  padding: 24px 18px 24px 0;
   font-size: clamp(15px, 1.7vw, 20px);
   letter-spacing: -0.01em;
-  border-bottom: 1px solid var(--line-soft);
   transition: color 0.2s, padding 0.2s;
-}
-.contact-links > :nth-last-child(-n + 2) {
-  border-bottom: 0;
 }
 /* 行内内容块：标签在左、值在右，不带分割线（分割线只属于最外层每一行） */
 .contact-links > a > div,
@@ -1275,12 +1271,6 @@ button,
   }
   .contact-links {
     grid-template-columns: 1fr;
-  }
-  .contact-links > :nth-last-child(-n + 2) {
-    border-bottom: 1px solid var(--line-soft);
-  }
-  .contact-links > :last-child {
-    border-bottom: 0;
   }
   .site-footer {
     flex-direction: column;

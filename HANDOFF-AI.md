@@ -31,7 +31,7 @@ node scripts/dom-test.mjs         # jsdom 真跑页面，25 条断言
 | 站点 | https://qingtianyouling-ai.github.io/tiga/ |
 | 仓库 | https://github.com/qingtianyouling-ai/tiga （分支 `main`，Pages 从仓库根目录发布） |
 | 作者 | 冼正 / TIGA，深圳，摄影 + 平面设计 + 平台内容运营 |
-| 联系 | qingtianyouling@qq.com ｜ 13267074941 ｜ 微信 `Pareght` ｜ 抖音 @tiga_xian |
+| 联系 | qingtianyouling@qq.com ｜ 13267074941 ｜ 微信 `Pareght`（抖音链接 2026-11-17 已按要求从站点删除） |
 | 参考站 | https://ctlasdm.studioslate.cn （张皓的作品集，深色编辑式排版） |
 | 设计语言 | 深色 `#101010`、等宽感小标签、1px 分割线、巨型拉丁标题、编号章节 `01—03` |
 
