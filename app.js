@@ -267,7 +267,7 @@
       },
       { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
     );
-    ["about", "work", "graphic", "platform", "contact"].forEach(function (id) {
+    ["work", "graphic", "contact"].forEach(function (id) {
       var sec = document.getElementById(id);
       if (sec) navObserver.observe(sec);
     });
@@ -727,98 +727,6 @@
       if (e.key === "ArrowRight") { e.preventDefault(); gallery.next(); }
       if (e.key === "ArrowLeft") { e.preventDefault(); gallery.prev(); }
     }
-  });
-
-  /* ── 平台数据 ────────────────────────────────────────────────────────── */
-  var statsEl = $("#stats");
-  $("#statsNote").textContent = P.statsNote;
-
-  P.stats.forEach(function (s) {
-    var box = el("div", "stat");
-    var num = el("b", null, s.display);
-    num.setAttribute("data-value", String(s.value));
-    num.setAttribute("data-display", s.display);
-    box.appendChild(num);
-    box.appendChild(el("span", null, s.label));
-    box.appendChild(el("i", null, s.note));
-    statsEl.appendChild(box);
-  });
-
-  function animateStat(node) {
-    var value = Number(node.getAttribute("data-value"));
-    var finalText = node.getAttribute("data-display");
-    var duration = 1400;
-    var start = null;
-    function fmt(n) {
-      if (value >= 10000) {
-        var w = n / 10000;
-        return (w >= 10 ? Math.round(w) : Math.round(w * 10) / 10) + "万+";
-      }
-      return Math.round(n) + "+";
-    }
-    function step(ts) {
-      if (!start) start = ts;
-      var p = Math.min((ts - start) / duration, 1);
-      var eased = 1 - Math.pow(2, -10 * p);
-      node.textContent = p === 1 ? finalText : fmt(eased * value);
-      if (p < 1) requestAnimationFrame(step);
-      else node.textContent = finalText;
-    }
-    requestAnimationFrame(step);
-  }
-
-  if ("IntersectionObserver" in window && !reducedMotion.matches) {
-    var statObserver = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          $$(".stat b", statsEl).forEach(animateStat);
-          statObserver.disconnect();
-        });
-      },
-      { threshold: 0.35 }
-    );
-    statObserver.observe(statsEl);
-  }
-
-  /* ── 渠道 ────────────────────────────────────────────────────────────── */
-  var channelsEl = $("#channels");
-  P.channels.forEach(function (ch) {
-    var row = el("div", "channel");
-    var head = el("div", "channel-head");
-    head.appendChild(el("h3", null, ch.platform));
-    head.appendChild(el("p", null, ch.handle));
-    var link = el("a", null, "");
-    link.href = ch.url;
-    link.target = "_blank";
-    link.rel = "noopener";
-    link.appendChild(document.createTextNode("前往主页 "));
-    link.appendChild(icon("i-external"));
-    head.appendChild(link);
-    row.appendChild(head);
-
-    var media = el("div", "channel-media" + (ch.items.length === 2 ? " is-duo" : ""));
-    ch.items.forEach(function (item) {
-      var tag = item.url ? "a" : "div";
-      var card = el(tag, "channel-card");
-      if (item.url) {
-        card.href = item.url;
-        card.target = "_blank";
-        card.rel = "noopener";
-      }
-      var img = el("img");
-      img.src = item.cover;
-      img.alt = item.label;
-      img.width = 800;
-      img.height = 1420;
-      img.setAttribute("loading", "lazy");
-      img.setAttribute("decoding", "async");
-      card.appendChild(img);
-      card.appendChild(el("span", null, item.label));
-      media.appendChild(card);
-    });
-    row.appendChild(media);
-    channelsEl.appendChild(row);
   });
 
   /* ── 启动 ────────────────────────────────────────────────────────────── */

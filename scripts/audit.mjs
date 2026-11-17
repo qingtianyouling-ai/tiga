@@ -46,9 +46,6 @@ for (const [key, col] of Object.entries(P.collections)) {
     add(it.thumb, `collection:${key}:${i}:thumb`);
   });
 }
-for (const ch of P.channels) {
-  ch.items.forEach((it, i) => add(it.cover, `channel:${ch.platform}:${i}`));
-}
 
 /* index.html 里写死的引用 */
 const html = read("index.html");
@@ -152,7 +149,7 @@ const biggest = refs
   .slice(0, 8);
 
 console.log("=== TIGA SITE AUDIT ===");
-console.log(`作品: ${P.works.length} 条 | 图集: ${Object.values(P.collections).map((c) => c.items.length).join(" / ")} 张 | 渠道: ${P.channels.length}`);
+console.log(`作品: ${P.works.length} 条 | 图集: ${Object.values(P.collections).map((c) => c.items.length).join(" / ")} 张`);
 console.log(`被引用文件: ${refs.length} | 缺失: ${missing}`);
 console.log(`首屏负载(未压缩): ${kb(firstBytes)}`);
 console.log(`封面合计: ${mb(totalImg)} | 播放版视频合计: ${mb(totalVid)} | 预览小样合计: ${mb(totalPrev)}`);

@@ -238,22 +238,6 @@ check("作品板块打开视频弹层（静音起播 + 声音开关）", () => {
 });
 
 /* ── 其余板块 ─────────────────────────────────────────────────────────── */
-check("平台数据：4 格且显示终值", () => {
-  const stats = $$("#stats .stat");
-  assert(stats.length === 4, `应为 4 格，实际 ${stats.length}`);
-  const texts = stats.map((s) => s.querySelector("b").textContent);
-  assert(texts.join(",") === "2万+,15万+,100万+,200+", `数值异常：${texts.join(",")}`);
-  return texts.join(" ");
-});
-
-check("渠道：抖音 2 张 / 小红书 3 张", () => {
-  const rows = $$("#channels .channel");
-  assert(rows.length === 2, `应为 2 行，实际 ${rows.length}`);
-  assert(rows[0].querySelectorAll(".channel-card").length === 2, "抖音应为 2 张");
-  assert(rows[1].querySelectorAll(".channel-card").length === 3, "小红书应为 3 张");
-  return "2 / 3";
-});
-
 check("移动端菜单 aria 状态翻转", () => {
   const btn = $("#navToggle");
   assert(btn.getAttribute("aria-expanded") === "false", "初始应为 false");
@@ -264,10 +248,11 @@ check("移动端菜单 aria 状态翻转", () => {
   return "ok";
 });
 
-check("导航含「平面」，锚点存在", () => {
+check("导航只有 作品 / 平面 / 联系，且锚点都存在", () => {
   const navs = $$("[data-nav]").map((a) => a.getAttribute("data-nav"));
-  assert(navs.join("/") === "about/work/graphic/platform/contact", `实际：${navs.join("/")}`);
-  assert($("#graphic"), "#graphic 板块应存在");
+  assert(navs.join("/") === "work/graphic/contact", `实际：${navs.join("/")}`);
+  navs.forEach((id) => assert(doc.getElementById(id), `#${id} 板块应存在`));
+  assert(!$("#about") && !$("#platform"), "关于与平台运营应已删除");
   return navs.join(" / ");
 });
 
@@ -343,29 +328,15 @@ check("Hero：暂停按钮切换", () => {
 
 check("Hero：下滑引导 + 滚动淡出已接线", () => {
   const cue = $(".hero-cue");
-  assert(cue && cue.getAttribute("href") === "#about", "引导应指向关于我");
-  assert(cue.textContent.includes("下滑了解我"), "引导文案不对");
+  assert(cue && cue.getAttribute("href") === "#work", "引导应指向作品");
+  assert(cue.textContent.includes("下滑看作品"), "引导文案不对");
   const flatCss = fs.readFileSync(path.join(ROOT, "styles.css"), "utf8").replace(/\s+/g, "");
   assert(flatCss.includes("opacity:calc(1-var(--hp)"), "缺 --hp 淡出样式");
   assert(appJs.includes('setProperty("--hp"'), "app.js 没写 --hp");
-  return "cue → #about";
+  return "cue → #work";
 });
 
 /* ── About / 标题区 ───────────────────────────────────────────────────── */
-check("关于区：标题 + 短自述 + 合作品牌（学历/职务/技能交给简历）", () => {
-  const about = $("#about");
-  assert(about.querySelectorAll("img").length === 0, "不应有图片");
-  assert(about.querySelector(".about-heading"), "应有大标题");
-  const lead = about.querySelector(".about-lead");
-  assert(lead && lead.textContent.replace(/\s+/g, "").length > 20, "应有介绍段");
-  const brand = about.querySelector(".about-brand");
-  assert(brand && brand.textContent.includes("极氪"), "应有合作品牌行");
-  assert(!/学历|深圳大学|在校职务|融媒体中心社长/.test(about.textContent), "学历/职务等简历里有的内容不应在站点重复");
-  assert(!about.querySelector(".craft, .about-facts"), "技能三栏与事实清单应已移除（与简历重复）");
-  assert(!doc.querySelector(".resume-btn"), "简历下载按钮应已移除（随简历一起投递）");
-  return "标题 + 自述 + 合作品牌";
-});
-
 check("作品区：主标题独立，说明降为右侧小字", () => {
   const note = $(".work-note");
   assert(note && note.textContent.trim() === "每一件，都有我参与的环节。", "右侧小字不对");

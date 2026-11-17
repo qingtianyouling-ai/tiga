@@ -146,37 +146,6 @@ window.portfolio = (function () {
     works: works,
     collections: collections,
     catLabels: catLabels,
-    defaultRoles: DEFAULT_ROLES,
-
-    /* 平台运营数据：请按真实后台数字核对后再发布 */
-    stats: [
-      { label: "累计粉丝", display: "2万+", value: 20000, note: "持续增长" },
-      { label: "获赞与收藏", display: "15万+", value: 150000, note: "热门内容" },
-      { label: "总播放量", display: "100万+", value: 1000000, note: "稳定上升" },
-      { label: "发布作品数", display: "200+", value: 200, note: "持续创作" }
-    ],
-    statsNote: "数据总览 · 截至 2026 年 6 月",
-
-    channels: [
-      {
-        platform: "抖音",
-        handle: "@tiga_xian",
-        url: "https://www.douyin.com/user/MS4wLjABAAAAKUYDylBQsCo3nC0_UEtuPfjJQKuYoRk7El6K3b6ZI7j-F0qwXzV18H2XMf1EPm_C",
-        items: [
-          { label: "抖音作品 ①", cover: M + "douyin-cover-01.webp", url: "https://www.douyin.com/video/7494606604516527371" },
-          { label: "抽象系四大护法", cover: M + "douyin-cover-02.webp", url: "https://www.douyin.com/user/MS4wLjABAAAAKUYDylBQsCo3nC0_UEtuPfjJQKuYoRk7El6K3b6ZI7j-F0qwXzV18H2XMf1EPm_C?modal_id=7490879906478427433" }
-        ]
-      },
-      {
-        platform: "小红书",
-        handle: "@Tiga",
-        url: "https://www.xiaohongshu.com/",
-        items: [
-          { label: "HALOMOJI", cover: M + "xhs-01.webp" },
-          { label: "叁柒玛", cover: M + "xhs-02.webp" },
-          { label: "深圳升学教育", cover: M + "xhs-03.webp" }
-        ]
-      }
-    ]
+    defaultRoles: DEFAULT_ROLES
   };
 })();
