@@ -1,7 +1,7 @@
 # TIGA 个人站 · AI 交接文档
 
 > 这份文档是给「另一个 AI／另一台电脑」看的：读完就能接手，不需要历史对话。
-> 最后更新：2026-11-17 ｜ 线上版本：commit `4a61150` ｜ 本地 main 已比 origin 多 9 个提交、尚未推送（`git log origin/main..HEAD` 可看），推上去后线上才生效
+> 最后更新：2026-11-17 ｜ 线上版本：commit `4a61150` ｜ 本地 main 已领先 origin/main、尚未推送（`git log origin/main..HEAD` 可看），推上去后线上才生效
 
 ---
 
@@ -21,6 +21,8 @@ node scripts/dom-test.mjs         # jsdom 真跑页面，25 条断言
 ```
 
 `dom-test.mjs` 需要 jsdom：`npm install --prefix .tmp jsdom`（`.tmp/` 不进仓库）。
+
+> 如果你拿到的是 **zip 交付包**而不是 git 仓库：跳过第 1 步，解压后直接 `npm install --prefix .tmp jsdom` + `node scripts/serve.mjs`；包内缺什么见 §13。
 
 ---
 
@@ -275,8 +277,18 @@ git clone git@github.com:qingtianyouling-ai/tiga.git
 
 ---
 
-## 12. 用户机器上的原始素材（仅那台机器有效）
+## 12. 素材原件（这台 Mac 上）
 
-- `D:\my rice bowl\` —— 全部作品母版：`商业广告/`、`校园微电影/`、`创意视频/`、`纪实活动/`、`风光纪实/`、`平面摄影/`、`版式设计/`、`VI手册/`、`重阳节/`、`小红书/`、`冼正/`（简历 PDF/DOCX）。
-- 每个视频旁通常有同名「XXX封面.png」，那是用户自己做的封面，优先用它们。
-- `保时捷taycan turbo gt.mp4`（30s HEVC）、`Iphone 18 pro.mp4`、`Iphone Duo.mp4` 都在根目录。
+- `~/Desktop/xz/AI做片项目归档/` —— 11GB 项目归档：`01_保时捷与汽车`、`02_小米SU7`、`03_雷鸟眼镜`、`04_iPhone`、`05_宠物理发器`、`06_Paw-to-Wear`、`07_社会故事`、`08_制作工作流`、`09_跨项目工作素材` + `归档清单.tsv`。
+- 小米成片：`02_小米SU7/外部参考/jlyzw0zRJgDQB198_1080p.mp4`（39.6s，首屏 14.5–21.5s 就是从它剪的）。
+- 雷鸟成片：`03_雷鸟眼镜/外部参考/jlyzw0zBRpKQB198_1080p.mp4`（79.7s，首屏 17–24s）。
+- 宠物理发器、Paw-to-Wear 只有素材和脚本，**没有成片**。
+- 早期 Windows 机器上的 `D:\my rice bowl\` 这套母版这台机器上没有，别再找。
+
+---
+
+## 13. 交付包（2026-11-17）
+
+- `tiga-full-2026-11-17.zip`：**整站**，不含 `.git` / `.tmp` / `node_modules`；解压后 `node scripts/serve.mjs` 就能跑，也可以直接推到 GitHub Pages（约 460MB）。
+- `tiga-code-2026-11-17.zip`：**给 AI 上传的源码包**（约 21MB），含全部代码、文档、`images/web` 封面、首屏片与 5 秒预览；**不含** 27 条详情播放版和 `images/works` 母版——点开详情视频会 404，属正常。
+- 两个包都带 `START-HERE.md`（30 秒上手）和这份 `HANDOFF-AI.md`。
