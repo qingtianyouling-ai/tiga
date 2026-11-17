@@ -1,7 +1,7 @@
 # TIGA 个人站 · AI 交接文档
 
 > 这份文档是给「另一个 AI／另一台电脑」看的：读完就能接手，不需要历史对话。
-> 最后更新：2026-11-17 ｜ 对应线上版本：commit `4a61150`
+> 最后更新：2026-11-17 ｜ 线上版本：commit `4a61150` ｜ 本地已提交待推送：commit `910ce3b`（推上去后线上才生效）
 
 ---
 
@@ -64,6 +64,7 @@ styles.css      设计令牌 + 组件样式（一个文件，含响应式与 red
 content.js      ★ 唯一数据源：作品、图集、平台数据、分类名
 app.js          渲染与交互：首屏轮播、双网格、筛选、弹层、计数、悬停预览
 assets/favicon.svg
+assets/og.jpg     分享大图 1200×630（og:image / twitter:image 用它）
 images/works/   母版图片（用户原件，不参与页面直达）
 images/web/800/   卡片封面（webp，长边 ≤800，q80）
 images/web/1600/  详情大图（webp，长边 ≤1600，q82）
@@ -182,6 +183,10 @@ powershell -ExecutionPolicy Bypass -File scripts/build-assets.ps1 [-OnlyImages|-
 - `slide-shede.mp4`：原片 16–24s 酿酒/勾调。
 - 全部 1920×1080、H.264、无音轨、`+faststart`；移动端另出 1280×720。
 
+### 社交分享大图（`assets/og.jpg`）
+
+首屏截图成 1200×630：无头 Chrome 打开 `/?`（禁 JS 以固定画面），隐藏 `.site-header`、`.hero-cue`、`.hero-dock`、`.hero-cta` 与 `<video>`，把 `.hero-shade` 中间压深一档，再截 `assets/og.jpg`（q86，约 58KB）。**换了首屏主视觉就重出一张**：微信/微博的分享卡片用的就是它，audit 会检查它存在且 < 300KB。
+
 ### 体积预算（audit 会卡）
 
 首屏 < 3.5MB、首页文字资源 < 600KB、封面合计 < 25MB、预览小样 < 6MB、单条播放版 < 45MB、无缺失引用、无数据错误、图片文件头有效。
@@ -191,8 +196,8 @@ powershell -ExecutionPolicy Bypass -File scripts/build-assets.ps1 [-OnlyImages|-
 ## 7. 校验脚本
 
 ```powershell
-node scripts/audit.mjs      # 45 条作品 / 289 引用 / 0 缺失；检查 webp/png/jpg 文件头与体积
-node scripts/dom-test.mjs   # 25 条断言：数据、筛选、展开、年份、弹层、焦点、Hero、About
+node scripts/audit.mjs      # 45 条作品 / 289 引用 / 0 缺失；检查 webp/png/jpg 文件头与体积、og:image
+node scripts/dom-test.mjs   # 27 条断言：数据、筛选、展开、年份、弹层、焦点、导航（桌面+移动）、联系区、Hero、About
 ```
 
 `dom-test` 会真执行 `content.js` + `app.js`，任何运行时异常都会 fail —— 改完必须 0 错。
@@ -238,6 +243,10 @@ git clone git@github.com:qingtianyouling-ai/tiga.git
 7. 轮播交叉淡入时新旧两屏都半透明 → 透出黑底；现在旧镜垫在下面保持不透明。
 8. 竖构图封面在 16:9 卡里被裁成一条 → 模糊底填充。
 9. 卡片封面 404 时原来 `visibility:hidden` 变空白 → 改三级兜底（大图 → 标题占位 / 视频首帧）。
+10. 联系区用 `.contact-links div` 连行内的内容块一起选中 → 每行多出一条短分割线；改成 `>` 只作用于直接子元素，行内块单独给 flex。
+11. 移动端菜单漏了「平面」，手机上根本进不去平面板块；现在与桌面导航同序同项（dom-test 有断言）。
+12. 关于标题在 1440 下从「让作 / 品被看见」中间断开 → `em` 独占一行 + `text-wrap: balance`。
+13. 视频弹层「开启声音」原来压在原生控制条上，挡住全屏键 → 移到画面左上角。
 
 ---
 

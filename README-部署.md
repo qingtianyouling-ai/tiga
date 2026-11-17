@@ -10,7 +10,7 @@
 | 维度 | 改造前 | 改造后 |
 | --- | --- | --- |
 | 结构 | 单个 96KB `index.html`，CSS/JS/内容全塞在里面 | `index.html`（骨架）+ `styles.css` + `content.js`（数据）+ `app.js`（交互） |
-| 视觉 | 亮色 + 黑底夹层、居中大标题、emoji 图标 | 深色 `#101010` 编辑式排版、编号章节 `01—04`、1px 分割线、SVG 图标 |
+| 视觉 | 亮色 + 黑底夹层、居中大标题、emoji 图标 | 深色 `#101010` 编辑式排版、编号章节 `01—05`、1px 分割线、SVG 图标 |
 | 浏览作品 | 每类一次只能看 1 条，35 条要点箭头翻 | 拆成两个板块：**作品（视频 25 件，首屏 10 件 + 展开更多）**、**摄影平面（20 件，首屏 10 件 + 展开更多）**；卡片三行文案（名称·片种 / 品类·规格 / 职责）；各自独立筛选、悬停静音预览、点击进详情弹层 |
 | 图集 | 54 页 VI 与重阳节塞进同一个轮播 DOM | 收成 2 个"图集"作品，弹层内缩略图 + ←/→ 翻页 |
 | 首图 | 无 | **三条精选镜头轮播**：① 保时捷四镜剪辑（车尾/车轮/全身/行驶，各 1 秒硬切）② iPhone 18 Pro 相机模组 ③ 舍得酒大师勾调；8 秒一切、淡入不淡黑；右下角 01/02/03 手动切换；文字居中（巨型两行拉丁名 + 中文名 + 方向 + 圆形箭头按钮）；「下滑了解我」引导；滚动时整块文字上移淡出 |
@@ -21,7 +21,7 @@
 | 数据看板 | 未滚动到就永远是 `0`，`100W+` 格式不一致 | HTML 里就写好终值，进视口才从 0 动画，统一 `2万+ / 15万+ / 100万+ / 200+` |
 | 缺陷 | 重阳节海报点击报 `ReferenceError`；`commercial` 数据键重复；空状态与轮播同时可见；两个全局 ←/→ 监听互相打架 | 全部消除（事件委托、单一数据源、单一键盘监听） |
 | 无障碍 | 无 skip-link、无焦点陷阱、无 `prefers-reduced-motion` | skip-link、`role="dialog"` + 焦点陷阱 + 焦点归还、`aria-expanded/pressed/current`、降级动效、关闭态不可聚焦 |
-| SEO/分享 | 无 favicon、无 og | SVG favicon、og:title/description、theme-color、canonical 化的相对路径 |
+| SEO/分享 | 无 favicon、无 og | SVG favicon、og:title/description/image（1200×630 分享大图 `assets/og.jpg`）、twitter card、theme-color、canonical |
 | 简历 | 无 | `documents/resume.pdf`（一页 A4 深色，含作品精选条） |
 
 ---
@@ -198,7 +198,7 @@ GitHub Pages 建议仓库 <1GB，当前总量约 386MB，仍在安全范围内�
 
 ```powershell
 node scripts/audit.mjs      # 引用完整性 + 体积预算（当前：全部通过）
-node scripts/dom-test.mjs   # jsdom 真跑页面：50 张卡、筛选、弹层、Esc、焦点、计数（16/16 通过）
+node scripts/dom-test.mjs   # jsdom 真跑页面：45 件作品、双板块筛选与展开、弹层与 Esc、焦点、导航（桌面+移动）、联系区、Hero、About（27/27 通过）
 ```
 
 `dom-test.mjs` 依赖 `.tmp/node_modules/jsdom`（已装好；`.tmp/` 不进仓库）。
