@@ -1,0 +1,270 @@
+# TIGA 个人站 · AI 交接文档
+
+> 这份文档是给「另一个 AI／另一台电脑」看的：读完就能接手，不需要历史对话。
+> 最后更新：2026-11-17 ｜ 对应线上版本：commit `4a61150`
+
+---
+
+## 0. 三步接手
+
+```powershell
+# 1) 拿代码（公开仓库）
+git clone git@github.com:qingtianyouling-ai/tiga.git
+cd tiga
+
+# 2) 本地预览（带热重载，改文件自动刷新）
+node scripts/serve.mjs            # → http://127.0.0.1:5188/
+
+# 3) 自检（改完必跑）
+node scripts/audit.mjs            # 引用完整性 + 体积预算 + 图片健康
+node scripts/dom-test.mjs         # jsdom 真跑页面，25 条断言
+```
+
+`dom-test.mjs` 需要 jsdom：`npm install --prefix .tmp jsdom`（`.tmp/` 不进仓库）。
+
+---
+
+## 1. 项目事实
+
+| 项 | 值 |
+|---|---|
+| 站点 | https://qingtianyouling-ai.github.io/tiga/ |
+| 仓库 | https://github.com/qingtianyouling-ai/tiga （分支 `main`，Pages 从仓库根目录发布） |
+| 作者 | 冼正 / TIGA，深圳，摄影 + 平面设计 + 平台内容运营 |
+| 联系 | qingtianyouling@qq.com ｜ 13267074941 ｜ 微信 `Pareght` ｜ 抖音 @tiga_xian |
+| 参考站 | https://ctlasdm.studioslate.cn （张皓的作品集，深色编辑式排版） |
+| 设计语言 | 深色 `#101010`、等宽感小标签、1px 分割线、巨型拉丁标题、编号章节 `01—05` |
+
+**五个章节**：`01 About` / `02 Selected Work`（视频）/ `03 Graphic`（摄影平面）/ `04 Platform` / `05 Contact`。
+
+---
+
+## 2. 用户口味与硬性规则（最重要，违反会被打回）
+
+1. **不要个人照片**。曾经有头像图，被明确要求删掉；About 现在是纯文字。
+2. **不要教育背景列表**，只保留一行「学历 · 深圳大学 · 视觉传达设计（本科）」。国家开放大学、深圳鹏城技师学院**不要**出现。
+3. About 要短。曾被说过「太多太长、太 low」；现在 = 大标题 + 一段介绍 + 学历行 + 4 项事实 + 能力三栏。
+4. **作品板块顺序固定**：商业广告（保时捷 → iPhone 18 Pro → iPhone Duo → 舍得酒 → 扫地机器人 → HPC）→ 微电影 → 创意短片 → 纪实活动。**数组顺序 = 页面顺序**，别按分类自动排。
+5. 视频与平面**分成两个板块**，各自首屏露 **10 个** + 「展开更多」。
+6. 卡片文案是**三行**：`名称 · 片种` / `品类 · 规格（真实时长或张数）` / `职责`，右侧小字显示 `年份 · 分类`。
+7. AI 生成的商业片要写成「**AI 商业产品广告**」，职责用「AI 概念生成 / 镜头调度 / 视觉设计」这类措辞，**不要**写成普通摄影职责。
+8. 扫地机器人、HPC 是「**TVC 广告**」，不要叫「功能片 / 展示片」。
+9. 汽车运镜那条是「**创意热点**」，不是「车拍练习」。
+10. 刺绣类作品（垣象科技两条）和「模型」三张照片**已按要求删除**，不要加回来。
+11. 首屏要有动效、文字居中、右下角 01/02/03 可切镜、下滑时文字淡出。用户很在意「排版/审美」，别退回居中堆 emoji 的旧样式。
+12. 中文回复，直接给结论 + 链接，不要长篇解释。
+
+---
+
+## 3. 代码结构（零构建，纯静态）
+
+```
+index.html      语义骨架 + 内联 SVG 图标精灵；所有静态文案在这里
+styles.css      设计令牌 + 组件样式（一个文件，含响应式与 reduced-motion）
+content.js      ★ 唯一数据源：作品、图集、平台数据、分类名
+app.js          渲染与交互：首屏轮播、双网格、筛选、弹层、计数、悬停预览
+assets/favicon.svg
+images/works/   母版图片（用户原件，不参与页面直达）
+images/web/800/   卡片封面（webp，长边 ≤800，q80）
+images/web/1600/  详情大图（webp，长边 ≤1600，q82）
+videos/         视频原片（H.264 直接引用）
+videos/web/     非 H.264 源（HEVC）转出的网页版
+videos/web/preview/  5 秒静音悬停预览
+videos/hero/    首屏轮播片（slide-porsche-cut / slide-iphone18 / slide-shede + mobile 版本）
+documents/resume.pdf  用户自己做的简历（不是脚本生成的）
+scripts/        serve.mjs / audit.mjs / dom-test.mjs / build-assets.ps1 / make-covers.py / build-resume.py / fetch-assets.mjs
+_backup/        旧站原文件 + 备用素材（不参与页面）
+```
+
+`index.html` 里**没有内联 CSS/JS**；`<script defer src="content.js">` + `app.js`。全站无框架、无打包、无接口请求 —— 所以 `file://` 也能直接打开。
+
+---
+
+## 4. 数据模型（`content.js`）
+
+```js
+{ id, cat, title, desc, roles:[], year?, video?, preview?, poster?, full?, images?[], kind?, collection?, credit? }
+```
+
+- `title` = 卡片第一行（`名称 · 片种`），`desc` = 第二行（`品类 · 规格`），`roles` = 第三行。
+- **`video` 有值 → 进「作品」板块；没有 → 进「摄影平面」板块。** 这是唯一的板块归属规则。
+- `kind: "collection"` + `collection: "brand"|"cultural"` → 图集弹层，数据在 `collections` 里。
+- `year` 可选：写了就在卡片右上显示，没写不占位。
+- `catLabels` 是分类中文名；筛选按钮**按分类在数组里出现的顺序自动生成**，不需要另配。
+- `DEFAULT_ROLES` 是没写 `roles` 时的兜底。
+
+### 渲染规则（`app.js` 的 `buildGallery`）
+
+- `initial: 10` → 首屏 10 张，其余进「展开更多 · 还有 N 件」。
+- 计数：未筛选 `25 Projects`，筛选后 `2 / 25 Projects`（平面用 `Works`）。
+- 悬停 220ms 后挂静音预览（仅 `hover:hover` 且非 reduced-motion）。
+- 封面加载失败：先退回 `full` 大图 → 再不行显示标题占位（`.work-ph`）；视频作品则用 `#t=0.5` 首帧兜底。
+- 弹层：视频静音自动播放 + 右下「开启声音」；图集缩略图 + ←/→；Esc 关闭并把焦点还给触发按钮；body 锁滚动；Tab 焦点陷阱。
+
+### 首屏（Hero）
+
+- 三条 8 秒无声循环片轮播，交叉淡入（旧片垫在下面，**不能透黑**）。
+- 右下 `01/02/03` 手动切镜 + 当前作品名 + 暂停按钮；鼠标悬停暂停自动切换。
+- 文字居中：小标签 → `XIAN / ZHENG.` 巨型两行 → `TIGA` → 中文名 + 身份 → 斜杠分隔的方向行 → `探索我的作品 (↗)`。
+- 滚动时 `--hp`（0→1）驱动文字上移淡出、画面轻微推近；滚出首屏自动暂停视频。
+- `prefers-reduced-motion` 下：不加载视频、只显示各镜封面、不自动轮播。
+
+---
+
+## 5. 内容清单（当前线上状态）
+
+### 视频 25 件
+
+| # | id | 标题 | 第二行 | 职责 | 年份 |
+|---|---|---|---|---|---|
+| 1 | `commercial-04` | 保时捷 Taycan Turbo GT · 汽车概念影像 | AI 商业产品广告 · 0:30 | AI 概念生成 / 镜头调度 / 视觉设计 | 2026 |
+| 2 | `commercial-05` | iPhone 18 Pro · 产品概念 TVC | AI 商业产品广告 · 0:30 | AI 概念生成 / 工业设计推演 / 镜头调度 | 2026 |
+| 3 | `commercial-06` | iPhone Duo · 双机概念 TVC | AI 商业产品广告 · 0:30 | AI 创意生成 / 运镜推演 / 三维解构 | 2026 |
+| 4 | `commercial-02` | 舍得酒 · 水墨品牌短片 | AI 商业产品广告 · 0:50 | AI 概念生成 / 视觉设计 / 创意 | 2026 |
+| 5 | `commercial-01` | 扫地机器人 · TVC 广告 | 清洁电器 · 2:20 | 摄影 / 剪辑 | 2026 |
+| 6 | `commercial-03` | HPC 显示器 · TVC 广告 | 商业广告 · 0:30 | 摄影 / 剪辑 | 2026 |
+| 7 | `microfilm-01` | 罪饿 · 校园剧情短片 | 剧情微电影 · 11:48 · 一等奖 | 摄影 / 剪辑 | 2025 |
+| 8 | `microfilm-02` | 重启今日 · 校园剧情短片 | 剧情微电影 · 7:10 · 最佳影片 | 摄影 / 剪辑 | 2025 |
+| 9 | `creative-01` | 时空 · 定格动画 | 创意短片 · 2:45 | 摄影 / 剪辑 / 创意 | 2025 |
+| 10 | `creative-02` | 变速摩天轮 · 变速运镜 | 创意短片 · 0:10 | 摄影 / 剪辑 / 创意 | 2025 |
+| 11 | `creative-03` | 国庆节 · 节日创意 | 创意短片 · 0:07 | 摄影 / 剪辑 / 创意 | 2025 |
+| 12 | `creative-04` | 马里奥灯 · 布光创意 | 创意短片 · 0:22 | 摄影 / 剪辑 / 创意 | 2025 |
+| 13 | `creative-05` | 汽车运镜 · 创意热点 | 创意短片 · 0:11 | 摄影 / 剪辑 / 创意 | 2025 |
+| 14 | `event-01` | 青春的底色 · 百千万工程纪实 | 行动纪实片 · 5:00 | 摄影 | 2025 |
+| 15 | `event-02` | 中国联通 · 企业活动纪实 | 活动记录 · 1:08 | 摄影 / 剪辑 | 2025 |
+| 16 | `event-03` | 五四汇演 · 校园汇演 | 活动记录 · 1:34 | 摄影 / 剪辑 | 2025 |
+| 17 | `event-04` | 人大代表媒体见面会 · 政务会议 | 会议记录 · 1:00 | 摄影 / 剪辑 | 2025 |
+| 18 | `event-05` | 夏季嘉年华 · 校园活动 | 活动记录 · 0:40 | 摄影 / 剪辑 | 2025 |
+| 19 | `event-06` | 工商联新春联谊会 · 商会活动 | 活动记录 · 1:05 | 摄影 / 剪辑 | 2025 |
+| 20 | `event-07` | 恒丰银行 · 品牌活动 | 活动记录 · 1:00 | 摄影 / 剪辑 | 2025 |
+| 21 | `event-08` | 极氪 · 品牌活动 | 活动记录 · 0:31 | 摄影 / 剪辑 | 2025 |
+| 22 | `event-09` | 破蝶重生 · 舞台演出 | 演出记录 · 1:02 | 摄影 / 剪辑 | 2025 |
+| 23 | `event-10` | 素质街舞 · 校园街舞 | 活动记录 · 1:04 | 摄影 / 剪辑 | 2025 |
+| 24 | `event-11` | 蒙牛 · 品牌活动 | 活动记录 · 0:29 | 摄影 / 剪辑 | 2025 |
+| 25 | `event-12` | 香港珠海学院 · 院校活动 | 活动记录 · 1:21 | 摄影 / 剪辑 | 2025 |
+
+### 平面 20 件（顺序：极氪 4 → 风光 8 → 版式 6 → VI → 重阳节）
+
+| # | id | 标题 | 第二行 | 职责 |
+|---|---|---|---|---|
+| 1 | `poster-01` | 极氪冬日咖啡 · 产品静物 | 平面摄影 · 1 张 | 摄影 / 后期 |
+| 2 | `poster-02` | 极氪咖啡 · 产品静物 | 平面摄影 · 1 张 | 摄影 / 后期 |
+| 3 | `poster-03` | 极氪联名杯子 · 联名产品 | 平面摄影 · 1 张 | 摄影 / 后期 |
+| 4 | `poster-04` | 极氪联名饮料 · 联名产品 | 平面摄影 · 1 张 | 摄影 / 后期 |
+| 5–12 | `landscape-01…08` | DJI 航拍 / 城中镜 / 夜春笋 / 惬意人生 / 海与陆 / 舟游 / 苏州 / 黄昏摩天轮 | 风光 · 1 张 | 摄影 / 后期 |
+| 13–18 | `layout-01…06` | 中国武侠风场景 / 咖啡店页面设计 / 啤酒 / 电影网页设计 / 羊城晚报 / 耳机 | 版式 · 1 张 | 版式设计 |
+| 19 | `brand-vi` | 品牌 VI 手册 · 品牌视觉识别 | 品牌 VI · 54 页 | 视觉设计 |
+| 20 | `chongyang` | 重阳节主题 · 展板 + 海报 + 文创 | 重阳节 · 15 件 | 视觉设计 / 版式设计 |
+
+平面 20 件**还没有年份**（用户尚未提供）。
+
+---
+
+## 6. 素材管线
+
+### 图片 → webp（`scripts/build-assets.ps1`）
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/build-assets.ps1 [-OnlyImages|-OnlyVideos|-ForceVideoTranscode]
+```
+
+- 800（q80）给卡片，1600（q82）给详情；母版不动。
+- 视频：只有源不是 H.264 时才转 H.264（`-crf 26 -preset veryfast -movflags +faststart`）；另出 5 秒静音预览。
+
+### 竖构图 / 方图 → 16:9 封面（`scripts/make-covers.py`）
+
+原图比例 < 1.2 的，**不要硬塞 16:9**（会裁成一条）。用 Pillow 生成「完整画面居中 + 同图虚化铺底」的 `cover-*.webp`（`COVERS` 表里加条目）。
+
+### 首屏三镜（ffmpeg，源片在用户本机 `D:\my rice bowl`）
+
+- `slide-porsche-cut.mp4`：4 秒四镜硬切（车尾 0.8s / 轮毂 4.2s / 全身 11.8s / 行驶 17.8s，各取 1 秒），**不淡黑**。
+- `slide-iphone18.mp4`：原片 14.5–22.5s 相机模组。
+- `slide-shede.mp4`：原片 16–24s 酿酒/勾调。
+- 全部 1920×1080、H.264、无音轨、`+faststart`；移动端另出 1280×720。
+
+### 体积预算（audit 会卡）
+
+首屏 < 3.5MB、首页文字资源 < 600KB、封面合计 < 25MB、预览小样 < 6MB、单条播放版 < 45MB、无缺失引用、无数据错误、图片文件头有效。
+
+---
+
+## 7. 校验脚本
+
+```powershell
+node scripts/audit.mjs      # 45 条作品 / 289 引用 / 0 缺失；检查 webp/png/jpg 文件头与体积
+node scripts/dom-test.mjs   # 25 条断言：数据、筛选、展开、年份、弹层、焦点、Hero、About
+```
+
+`dom-test` 会真执行 `content.js` + `app.js`，任何运行时异常都会 fail —— 改完必须 0 错。
+
+---
+
+## 8. 部署（这台机器踩过的两个坑）
+
+```powershell
+git add -A
+git commit -m "说明"
+git push origin main
+```
+
+**坑 1：schannel 坏**。`git` 用默认 TLS 后端会报 `schannel: AcquireCredentialsHandle failed: SEC_E_NO_CREDENTIALS`。HTTPS 操作加 `-c http.sslBackend=openssl`。
+
+**坑 2：MSYS 的 `sh.exe` 在受限沙箱里起不来**（`couldn't create signal pipe, Win32 error 5`），导致 git 的 ssh 包装器失败。解法：做一个 `.cmd` 包装器，让 git 直接调 **Windows 自带 OpenSSH**：
+
+```cmd
+@echo off
+"C:\Windows\System32\OpenSSH\ssh.exe" -o StrictHostKeyChecking=no -o UserKnownHostsFile="<某个可写路径>\known_hosts" -o ConnectTimeout=20 %*
+```
+
+```powershell
+$env:GIT_SSH = "<包装器路径>"; $env:GIT_SSH_VARIANT = "ssh"
+git clone git@github.com:qingtianyouling-ai/tiga.git
+```
+
+认证用的是 `~/.ssh/id_ed25519`（已授权给 qingtianyouling-ai）。**能连 GitHub 的方法**：SSH（22 或 443 都行，`ssh.github.com:443` 更稳）。
+
+**Pages 缓存**：推完 1–2 分钟构建，HTML 在 CDN 上还会缓存约 10 分钟。验证新版要加参数（`/?v=时间戳`）或强刷。
+
+---
+
+## 9. 已经修掉的老坑（别重复踩）
+
+1. 旧站 `openLightbox` 定义在 IIFE 里却被内联 `onclick` 调用 → 点击报 `ReferenceError`。
+2. 旧站 `mediaCategories` 里 `commercial` 键重复定义两次。
+3. 旧站空状态和轮播同时带 `active`，无 JS 时显示「暂无视频」。
+4. 旧站两个全局 ←/→ 监听互相打架。
+5. 旧站计数器不到视口就永远是 0。
+6. **0 字节 webp**：个别 PNG 其实是 APNG，ffmpeg 解析第二帧时报 `Invalid PNG signature` 并留下空文件 → 用 `make-covers.py`（Pillow 取首帧）。
+7. 轮播交叉淡入时新旧两屏都半透明 → 透出黑底；现在旧镜垫在下面保持不透明。
+8. 竖构图封面在 16:9 卡里被裁成一条 → 模糊底填充。
+9. 卡片封面 404 时原来 `visibility:hidden` 变空白 → 改三级兜底（大图 → 标题占位 / 视频首帧）。
+
+---
+
+## 10. 待确认 / 可继续做的事
+
+1. **HPC 显示器**的第二行还是「商业广告 · 0:30」，问过是否改成「显示设备 · 0:30」，用户未答。
+2. **《青春的底色》年份**：用户说「剩下都是 2025」，但 About 叙述里写的是 2024 —— 已按 2025 填，待确认。
+3. 平面 20 件是否也加年份（可统一 2025 或逐条提供）。
+4. 保时捷 / iPhone 两条的是否需要和参考站一样显示更详细的项目信息（职责已有）。
+5. 平台数据（2万粉/15万赞/100万播放/200作品）是用户口头给的，未核实，文案里标了「截至 2026 年 6 月」。
+6. 简历 `documents/resume.pdf` 是用户自己做的 PDF（623KB），**不要**用脚本覆盖。
+
+---
+
+## 11. 不要做的事
+
+- 不要加个人照片、不要恢复教育/设备/获奖/项目四块（已被明确删除）。
+- 不要引入框架、构建链、Tailwind、CDN 依赖 —— 站点要能 `file://` 直开。
+- 不要按分类自动排序作品；顺序是人工定的。
+- 不要把视频全量预载；只用 `preload="none"` + 封面 + 5 秒预览小样。
+- 不要用 PowerShell 的 `Set-Content/Get-Content` 处理含中文的源码文件（PS 5.1 会按 ANSI 读写，把 UTF-8 写坏）。改文件用编辑工具或 Node 脚本。
+- 不要删 `images/works` 里的母版（那是用户唯一的原始素材副本）。
+
+---
+
+## 12. 用户机器上的原始素材（仅那台机器有效）
+
+- `D:\my rice bowl\` —— 全部作品母版：`商业广告/`、`校园微电影/`、`创意视频/`、`纪实活动/`、`风光纪实/`、`平面摄影/`、`版式设计/`、`VI手册/`、`重阳节/`、`小红书/`、`冼正/`（简历 PDF/DOCX）。
+- 每个视频旁通常有同名「XXX封面.png」，那是用户自己做的封面，优先用它们。
+- `保时捷taycan turbo gt.mp4`（30s HEVC）、`Iphone 18 pro.mp4`、`Iphone Duo.mp4` 都在根目录。
