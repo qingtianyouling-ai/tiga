@@ -22,10 +22,7 @@ window.portfolio = (function () {
     creative: "创意短片",
     event: "纪实活动",
     poster: "平面摄影",
-    landscape: "风光纪实",
-    layout: "版式设计",
-    brand: "品牌 VI",
-    cultural: "重阳节主题"
+    landscape: "风光纪实"
   };
 
   /* 分类默认职责（作品没写 roles 时兜底） */
@@ -35,13 +32,10 @@ window.portfolio = (function () {
     creative: ["摄影", "剪辑", "创意"],
     commercial: ["摄影", "剪辑"],
     landscape: ["摄影", "后期"],
-    poster: ["摄影", "后期"],
-    layout: ["版式设计"],
-    brand: ["视觉设计"],
-    cultural: ["视觉设计", "版式设计"]
+    poster: ["摄影", "后期"]
   };
 
-  /* ── 作品：45 条（视频 25 / 平面 20）────────────────────────────────── */
+  /* ── 作品：39 条（视频 27 / 平面 12）────────────────────────────────── */
   var works = [
     /* ── 商业广告 ───────────────────────────────────────────────────── */
     { id: "commercial-07", cat: "commercial", year: "2026", title: "小米 SU7 · 汽车概念短片", desc: "AI 商业产品广告 · 0:40", video: "videos/web/xiaomi-su7.mp4", preview: PV + "xiaomi-su7.mp4", poster: M + "xiaomi-su7.webp", full: F + "xiaomi-su7.webp", roles: ["AI 概念生成", "视觉方向", "成片审阅"] },
@@ -92,61 +86,11 @@ window.portfolio = (function () {
     { id: "landscape-05", cat: "landscape", title: "海与陆 · 海岸线", desc: "风光 · 1 张", images: [F + "photo-landscape-05.webp"], poster: M + "photo-landscape-05.webp", full: F + "photo-landscape-05.webp" },
     { id: "landscape-06", cat: "landscape", title: "舟游 · 水上行舟", desc: "风光 · 1 张", images: [F + "photo-landscape-06.webp"], poster: M + "photo-landscape-06.webp", full: F + "photo-landscape-06.webp" },
     { id: "landscape-07", cat: "landscape", title: "苏州 · 园林城市", desc: "风光 · 1 张", images: [F + "photo-landscape-07.webp"], poster: M + "photo-landscape-07.webp", full: F + "photo-landscape-07.webp" },
-    { id: "landscape-08", cat: "landscape", title: "黄昏摩天轮 · 城市天际线", desc: "风光 · 1 张", images: [F + "photo-landscape-08.webp"], poster: M + "photo-landscape-08.webp", full: F + "photo-landscape-08.webp" },
-
-    /* ── 摄影平面：版式 ─────────────────────────────────────────────── */
-    { id: "layout-01", cat: "layout", title: "中国武侠风场景 · 场景视觉", desc: "版式 · 1 张", images: [F + "design-ecommerce-01.webp"], poster: M + "design-ecommerce-01.webp", full: F + "design-ecommerce-01.webp" },
-    { id: "layout-02", cat: "layout", title: "咖啡店页面设计 · 网页版式", desc: "版式 · 1 张", images: [F + "design-ecommerce-02.webp"], poster: M + "cover-layout-02.webp", full: F + "design-ecommerce-02.webp" },
-    { id: "layout-03", cat: "layout", title: "啤酒 · 产品视觉", desc: "版式 · 1 张", images: [F + "design-ecommerce-03.webp"], poster: M + "design-ecommerce-03.webp", full: F + "design-ecommerce-03.webp" },
-    { id: "layout-04", cat: "layout", title: "电影网页设计 · 网页版式", desc: "版式 · 1 张", images: [F + "design-ecommerce-04.webp"], poster: M + "cover-layout-04.webp", full: F + "design-ecommerce-04.webp" },
-    { id: "layout-05", cat: "layout", title: "羊城晚报 · 媒体版面", desc: "版式 · 1 张", images: [F + "design-ecommerce-05.webp"], poster: M + "cover-layout-05.webp", full: F + "design-ecommerce-05.webp" },
-    { id: "layout-06", cat: "layout", title: "耳机 · 产品视觉", desc: "版式 · 1 张", images: [F + "design-ecommerce-06.webp"], poster: M + "design-ecommerce-06.webp", full: F + "design-ecommerce-06.webp" },
-
-    /* ── 摄影平面：图集 ─────────────────────────────────────────────── */
-    { id: "brand-vi", cat: "brand", title: "品牌 VI 手册 · 品牌视觉识别", desc: "品牌 VI · 54 页", kind: "collection", collection: "brand", poster: M + "design-brand-001.webp" },
-    { id: "chongyang", cat: "cultural", title: "重阳节主题 · 展板 + 海报 + 文创", desc: "重阳节 · 15 件", kind: "collection", collection: "cultural", poster: M + "cover-chongyang.webp" }
+    { id: "landscape-08", cat: "landscape", title: "黄昏摩天轮 · 城市天际线", desc: "风光 · 1 张", images: [F + "photo-landscape-08.webp"], poster: M + "photo-landscape-08.webp", full: F + "photo-landscape-08.webp" }
   ];
-
-  /* ── 图集内容 ────────────────────────────────────────────────────────── */
-  var brandPages = [];
-  for (var i = 1; i <= 55; i++) {
-    if (i === 38) continue; /* 038 缺图 */
-    var num = (i < 10 ? "00" : i < 100 ? "0" : "") + i;
-    brandPages.push({ src: F + "design-brand-" + num + ".webp", thumb: M + "design-brand-" + num + ".webp", name: "VI 手册 · P" + i });
-  }
-
-  var collections = {
-    brand: {
-      title: "品牌 VI 手册",
-      summary: "一套完整的品牌视觉识别系统：标志规范、辅助图形、色彩与字体、版式应用与落地物料，共 54 页。",
-      items: brandPages
-    },
-    cultural: {
-      title: "重阳节主题",
-      summary: "以重阳节为线索的完整视觉方案：一块展板、六张系列海报与八件文创，从节气氛围到落地成品的统一表达。",
-      items: [
-        { src: F + "chongyang-board.webp", thumb: M + "chongyang-board.webp", name: "重阳节展板" },
-        { src: F + "chongyang-poster-01.webp", thumb: M + "chongyang-poster-01.webp", name: "海报 · 敬老" },
-        { src: F + "chongyang-poster-02.webp", thumb: M + "chongyang-poster-02.webp", name: "海报 · 期盼" },
-        { src: F + "chongyang-poster-03.webp", thumb: M + "chongyang-poster-03.webp", name: "海报 · 牵挂" },
-        { src: F + "chongyang-poster-04.webp", thumb: M + "chongyang-poster-04.webp", name: "海报 · 登高" },
-        { src: F + "chongyang-poster-05.webp", thumb: M + "chongyang-poster-05.webp", name: "海报 · 盼归" },
-        { src: F + "chongyang-poster-06.webp", thumb: M + "chongyang-poster-06.webp", name: "海报 · 采菊" },
-        { src: F + "design-cultural-01.webp", thumb: M + "design-cultural-01.webp", name: "文创 · 01" },
-        { src: F + "design-cultural-02.webp", thumb: M + "design-cultural-02.webp", name: "文创 · 02" },
-        { src: F + "design-cultural-03.webp", thumb: M + "design-cultural-03.webp", name: "文创 · 03" },
-        { src: F + "design-cultural-04.webp", thumb: M + "design-cultural-04.webp", name: "文创 · 04" },
-        { src: F + "design-cultural-05.webp", thumb: M + "design-cultural-05.webp", name: "文创 · 05" },
-        { src: F + "design-cultural-06.webp", thumb: M + "design-cultural-06.webp", name: "文创 · 06" },
-        { src: F + "design-cultural-07.webp", thumb: M + "design-cultural-07.webp", name: "文创 · 07" },
-        { src: F + "design-cultural-08.webp", thumb: M + "design-cultural-08.webp", name: "文创 · 08" }
-      ]
-    }
-  };
 
   return {
     works: works,
-    collections: collections,
     catLabels: catLabels,
     defaultRoles: DEFAULT_ROLES
   };

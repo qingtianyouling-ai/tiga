@@ -74,25 +74,27 @@ const P = window.portfolio;
 const titles = (sel) => $$(sel + " .work-title").map((n) => n.textContent);
 
 /* ── 数据 ─────────────────────────────────────────────────────────────── */
-check("数据：47 条 = 27 视频 + 20 平面，刺绣与模型已删", () => {
-  assert(P && P.works.length === 47, `作品数应为 47，实际 ${P && P.works.length}`);
+check("数据：39 条 = 27 视频 + 12 平面，刺绣 / 模型 / 版式 / 图集都已删", () => {
+  assert(P && P.works.length === 39, `作品数应为 39，实际 ${P && P.works.length}`);
   const video = P.works.filter((w) => !!w.video);
   const still = P.works.filter((w) => !w.video);
   assert(video.length === 27, `视频应为 27，实际 ${video.length}`);
-  assert(still.length === 20, `平面应为 20，实际 ${still.length}`);
+  assert(still.length === 12, `平面应为 12，实际 ${still.length}`);
   assert(!P.works.some((w) => /yuanxiang|刺绣|Mom deserve/i.test(w.video + w.title)), "刺绣两条应已移除");
   assert(!P.works.some((w) => w.id === "poster-05" || w.id === "poster-06" || w.id === "poster-07"), "模型三条应已移除");
-  assert(P.collections.brand.items.length === 54 && P.collections.cultural.items.length === 15, "图集数量不对");
+  const gone = ["layout-01","layout-02","layout-03","layout-04","layout-05","layout-06","brand-vi","chongyang"];
+  assert(!P.works.some((w) => gone.includes(w.id)), "版式 6 条与两个图集应已删除");
+  assert(!P.collections, "图集数据应已删除");
   const noPreview = video.filter((w) => !w.preview);
   assert(noPreview.length === 0, `缺预览：${noPreview.map((w) => w.id).join(",")}`);
-  return "27 视频 / 20 平面";
+  return "27 视频 / 12 平面";
 });
 
 check("作品板块筛选按钮按分类顺序生成", () => {
   const chips = $$("#workFilters .filter").map((c) => c.textContent);
   assert(chips.join("/") === "全部/商业广告/微电影/创意短片/纪实活动", `实际：${chips.join("/")}`);
   const gchips = $$("#graphicFilters .filter").map((c) => c.textContent);
-  assert(gchips.join("/") === "全部/平面摄影/风光纪实/版式设计/品牌 VI/重阳节主题", `实际：${gchips.join("/")}`);
+  assert(gchips.join("/") === "全部/平面摄影/风光纪实", `实际：${gchips.join("/")}`);
   return `${chips.length} + ${gchips.length} 个`;
 });
 
@@ -173,14 +175,14 @@ check("摄影平面：标题 + 首屏 10 张 + 展开按钮", () => {
   assert($$("#graphicGrid .work-card").length === 10, `应为 10 张，实际 ${$$("#graphicGrid .work-card").length}`);
   const btn = $("#graphicExpand");
   assert(btn && btn.hidden === false, "展开按钮应可见");
-  assert(btn.textContent.includes("10"), `应提示还剩 10 件，实际「${btn.textContent}」`);
-  assert($("#graphicCount").textContent === "20 Works", `计数不对：${$("#graphicCount").textContent}`);
+  assert(btn.textContent.includes("2"), `应提示还剩 2 件，实际「${btn.textContent}」`);
+  assert($("#graphicCount").textContent === "12 Works", `计数不对：${$("#graphicCount").textContent}`);
   return btn.textContent;
 });
 
-check("展开 → 20 张，顺序 极氪 → 风光 → 版式", () => {
+check("展开 → 12 张，顺序 极氪 4 → 风光 8", () => {
   $("#graphicExpand").click();
-  assert($$("#graphicGrid .work-card").length === 20, `应为 20，实际 ${$$("#graphicGrid .work-card").length}`);
+  assert($$("#graphicGrid .work-card").length === 12, `应为 12，实际 ${$$("#graphicGrid .work-card").length}`);
   assert($("#graphicExpand").hidden === true, "展开后按钮应隐藏");
   const t = titles("#graphicGrid");
   const head = [
@@ -197,23 +199,21 @@ check("展开 → 20 张，顺序 极氪 → 风光 → 版式", () => {
   ];
   assert(t.slice(0, 10).join("|") === head.join("|"), `前十张顺序不对：${t.slice(0, 10).join(" | ")}`);
   assert(t[3] === "极氪联名饮料 · 联名产品" && t[4] === "DJI · 航拍视角", "极氪之后应直接接风光");
-  assert(t[11] === "黄昏摩天轮 · 城市天际线", `第 12 张应为最后一张风光，实际 ${t[11]}`);
-  assert(t[12] === "中国武侠风场景 · 场景视觉", `第 13 张应为版式，实际 ${t[12]}`);
-  assert(t[t.length - 1] === "重阳节主题 · 展板 + 海报 + 文创", `末张不对：${t[t.length - 1]}`);
-  assert(!t.some((x) => x.startsWith("模型")), "模型照片应已移除");
-  return `${t[0]} → ${t[4]} → ${t[12]} → ${t[t.length - 1]}`;
+  assert(t[11] === "黄昏摩天轮 · 城市天际线", `最后一张应为黄昏摩天轮，实际 ${t[11]}`);
+  assert(!t.some((x) => /版式|VI|重阳|武侠|咖啡店|啤酒|电影网页|羊城晚报|耳机/.test(x)), "版式 / 图集作品应已移除");
+  return `${t[0]} → ${t[4]} → ${t[11]}`;
 });
 
 /* ── 弹层 ─────────────────────────────────────────────────────────────── */
-check("平面板块打开图集弹层（15 张缩略图）", () => {
+check("平面板块打开单图弹层", () => {
   const cards = $$("#graphicGrid .work-card");
   cards[cards.length - 1].querySelector(".work-trigger").click();
   const dialog = $("#dialog");
   assert(dialog.classList.contains("is-open"), "弹层应打开");
-  assert($("#dialogTitle").textContent.startsWith("重阳节主题"), `标题不对：${$("#dialogTitle").textContent}`);
-  assert($$("#dialog .gallery-thumb").length === 15, "缩略图应为 15");
+  assert($("#dialogTitle").textContent.startsWith("黄昏摩天轮"), `标题不对：${$("#dialogTitle").textContent}`);
+  assert($("#dialog img"), "应渲染图片");
   assert(doc.activeElement === $("#dialogClose"), "焦点应在关闭按钮");
-  return "15 张";
+  return $("#dialogTitle").textContent;
 });
 
 check("Esc 关闭弹层并还原焦点", () => {

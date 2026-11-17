@@ -40,12 +40,6 @@ for (const w of P.works) {
   if (w.preview && !w.video) errors.push(`work ${w.id} 有 preview 但没有 video`);
   if (w.video && !w.preview) errors.push(`work ${w.id} 缺少 preview（悬停预览会失效）`);
 }
-for (const [key, col] of Object.entries(P.collections)) {
-  col.items.forEach((it, i) => {
-    add(it.src, `collection:${key}:${i}:src`);
-    add(it.thumb, `collection:${key}:${i}:thumb`);
-  });
-}
 
 /* index.html 里写死的引用 */
 const html = read("index.html");
@@ -154,7 +148,7 @@ const biggest = refs
   .slice(0, 8);
 
 console.log("=== TIGA SITE AUDIT ===");
-console.log(`作品: ${P.works.length} 条 | 图集: ${Object.values(P.collections).map((c) => c.items.length).join(" / ")} 张`);
+console.log(`作品: ${P.works.length} 条（视频 ${P.works.filter((w) => w.video).length} / 平面 ${P.works.filter((w) => !w.video).length}）`);
 console.log(`被引用文件: ${refs.length} | 缺失: ${missing}`);
 console.log(`首屏负载(未压缩): ${kb(firstBytes)}`);
 console.log(`封面合计: ${mb(totalImg)} | 播放版视频合计: ${mb(totalVid)} | 预览小样合计: ${mb(totalPrev)}`);

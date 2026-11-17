@@ -388,17 +388,8 @@
 
     var badges = el("span", "work-badges");
     var kind = el("span", "work-kind");
-    var isCollection = work.kind === "collection";
-    kind.appendChild(icon(isCollection ? "i-layers" : work.video ? "i-play" : "i-image"));
-    kind.appendChild(
-      document.createTextNode(
-        isCollection
-          ? (P.collections[work.collection] || {}).items.length + " 张"
-          : work.video
-          ? "视频"
-          : "图片"
-      )
-    );
+    kind.appendChild(icon(work.video ? "i-play" : "i-image"));
+    kind.appendChild(document.createTextNode(work.video ? "视频" : "图片"));
     var open = el("span", "work-open");
     open.textContent = "查看详情";
     badges.appendChild(kind);
@@ -665,11 +656,7 @@
     dialogMedia.textContent = "";
     gallery = null;
 
-    var collection = work.kind === "collection" ? P.collections[work.collection] : null;
-
-    if (collection) {
-      gallery = openGallery(collection);
-    } else if (work.video) {
+    if (work.video) {
       var v = document.createElement("video");
       v.src = work.video;
       v.poster = work.poster || work.full;
@@ -718,18 +705,15 @@
       }
     }
 
-    dialogEyebrow.textContent = catLabel(work.cat) + " / " + (work.kind === "collection" ? "图集" : work.video ? "视频" : "图片");
+    dialogEyebrow.textContent = catLabel(work.cat) + " / " + (work.video ? "视频" : "图片");
     dialogTitle.textContent = work.title;
-    dialogDesc.textContent = collection ? collection.summary : work.desc;
+    dialogDesc.textContent = work.desc;
 
     dialogFacts.textContent = "";
     dialogFacts.appendChild(factRow("职责", rolesOf(work).join(" / ")));
     if (work.credit) dialogFacts.appendChild(factRow("荣誉", work.credit));
-    if (collection) dialogFacts.appendChild(factRow("数量", collection.items.length + " 张"));
 
-    dialogNote.textContent = collection
-      ? "点击缩略图切换，← → 键也可翻页。原图请在本地素材中查看。"
-      : work.video
+    dialogNote.textContent = work.video
       ? "视频为网页压缩版，原片请向本人索取。"
       : "图片为网页压缩版，原图请向本人索取。";
 
