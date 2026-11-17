@@ -74,7 +74,7 @@ const og = html.match(/<meta property="og:image" content="([^"]+)"/);
 if (!og) {
   errors.push("缺少 og:image（分享到微信/微博时没有大图）");
 } else {
-  const ogRel = og[1].replace(/^https?:\/\/[^/]+\/tiga\//, "");
+  const ogRel = og[1].replace(/^https?:\/\/[^/]+\/(?:[^/]+\/)?/, "");
   if (!exists(ogRel)) errors.push(`og:image 指向的文件不存在: ${ogRel}`);
   else if (sizeOf(ogRel) > 300 * 1024) errors.push(`og:image 过大: ${mb(sizeOf(ogRel))}（应 < 300KB）`);
 }
