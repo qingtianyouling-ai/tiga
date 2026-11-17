@@ -1,7 +1,8 @@
 # TIGA 个人站 · AI 交接文档
 
 > 这份文档是给「另一个 AI／另一台电脑」看的：读完就能接手，不需要历史对话。
-> 最后更新：2026-11-17 ｜ 线上版本：commit `4a61150` ｜ 本地 main 已领先 origin/main、尚未推送（`git log origin/main..HEAD` 可看），推上去后线上才生效
+> 最后更新：2026-11-17 ｜ 线上版本：commit `7dc8d8a`（已推送，Pages 已上线）｜ 本地 main 与 origin/main 同步
+> 给 GPT／别的 AI 接手：直接给仓库地址 <https://github.com/qingtianyouling-ai/tiga> 最稳；聊天里传文件就用 `tiga-code-*.zip`。
 
 ---
 
@@ -209,7 +210,21 @@ node scripts/dom-test.mjs   # 25 条断言：数据、筛选、展开与焦点�
 
 ---
 
-## 8. 部署（这台机器踩过的两个坑）
+## 8. 部署
+
+### 这台 Mac（2026-11-17 起用的方式）
+
+仓库 remote 是 HTTPS，本机没有 HTTPS 凭据；推的是 **SSH + 仓库部署密钥**（deploy key，只对 tiga 有写权限）：
+
+```bash
+KEY=/Users/edy/Documents/deepseek-harness/default-workspace/.keys/tiga_deploy
+GIT_SSH_COMMAND="ssh -i $KEY -o IdentitiesOnly=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" \
+  git push git@github.com:qingtianyouling-ai/tiga.git main
+```
+
+私钥在 workspace 的 `.keys/`（不在仓库里）。密钥失效就去 <https://github.com/qingtianyouling-ai/tiga/settings/keys> 重新加一个。
+
+### 早期 Windows 机器（历史记录）
 
 ```powershell
 git add -A
@@ -293,3 +308,4 @@ git clone git@github.com:qingtianyouling-ai/tiga.git
 - `tiga-full-2026-11-17.zip`：**整站**，不含 `.git` / `.tmp` / `node_modules`；解压后 `node scripts/serve.mjs` 就能跑，也可以直接推到 GitHub Pages（约 460MB）。
 - `tiga-code-2026-11-17.zip`：**给 AI 上传的源码包**（约 18MB），含全部代码、文档、`images/web` 封面、首屏片与 5 秒预览；**不含** 27 条详情播放版和 `images/works` 母版。这个包里 audit 要加 `--no-media`（跳过视频缺失），否则会报 27 条缺失——**别靠删数据去「修」**。
 - 两个包都带 `START-HERE.md`（30 秒上手）和这份 `HANDOFF-AI.md`。
+- **仓库已公开推送**：之后让别的 AI 接手，优先给 <https://github.com/qingtianyouling-ai/tiga>；`tiga-code` 包只作为聊天上传的备选。
