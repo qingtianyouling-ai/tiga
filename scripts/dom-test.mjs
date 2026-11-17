@@ -352,19 +352,18 @@ check("Hero：下滑引导 + 滚动淡出已接线", () => {
 });
 
 /* ── About / 标题区 ───────────────────────────────────────────────────── */
-check("关于区：标题 + 介绍 + 学历（只留深大）+ 4 项事实 + 三栏能力", () => {
+check("关于区：标题 + 短自述 + 合作品牌（学历/职务/技能交给简历）", () => {
   const about = $("#about");
   assert(about.querySelectorAll("img").length === 0, "不应有图片");
   assert(about.querySelector(".about-heading"), "应有大标题");
-  assert(about.querySelector(".about-lead"), "应有介绍段");
-  const edu = about.querySelector(".about-edu");
-  assert(edu, "应有学历行");
-  assert(edu.textContent.includes("深圳大学"), "学历应保留深圳大学");
-  assert(!/国家开放大学|鹏城技师/.test(about.textContent), "其他学历应已移除");
-  assert(about.querySelectorAll(".about-facts div").length === 4, "事实应为 4 项");
-  assert(about.querySelectorAll(".craft > div").length === 3, "能力应为三栏");
-  assert(about.querySelectorAll(".detail-block, .edu-item, .equip-row, .award-item, .timeline").length === 0, "履历四块应已移除");
-  return edu.textContent.replace(/\s+/g, " ").trim();
+  const lead = about.querySelector(".about-lead");
+  assert(lead && lead.textContent.replace(/\s+/g, "").length > 20, "应有介绍段");
+  const brand = about.querySelector(".about-brand");
+  assert(brand && brand.textContent.includes("极氪"), "应有合作品牌行");
+  assert(!/学历|深圳大学|在校职务|融媒体中心社长/.test(about.textContent), "学历/职务等简历里有的内容不应在站点重复");
+  assert(!about.querySelector(".craft, .about-facts"), "技能三栏与事实清单应已移除（与简历重复）");
+  assert(!doc.querySelector(".resume-btn"), "简历下载按钮应已移除（随简历一起投递）");
+  return "标题 + 自述 + 合作品牌";
 });
 
 check("作品区：主标题独立，说明降为右侧小字", () => {

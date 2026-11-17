@@ -22,7 +22,7 @@
 | 缺陷 | 重阳节海报点击报 `ReferenceError`；`commercial` 数据键重复；空状态与轮播同时可见；两个全局 ←/→ 监听互相打架 | 全部消除（事件委托、单一数据源、单一键盘监听） |
 | 无障碍 | 无 skip-link、无焦点陷阱、无 `prefers-reduced-motion` | skip-link、`role="dialog"` + 焦点陷阱 + 焦点归还、`aria-expanded/pressed/current`、降级动效、关闭态不可聚焦 |
 | SEO/分享 | 无 favicon、无 og | SVG favicon、og:title/description/image（1200×630 分享大图 `assets/og.jpg`）、twitter card、theme-color、canonical |
-| 简历 | 无 | `documents/resume.pdf`（一页 A4 深色，含作品精选条） |
+| 简历 | 无 | `documents/resume.pdf` 存在仓库里，但**页面已不放下载按钮**（简历随投递单独附上，避免和作品集重复） |
 
 ---
 
@@ -41,7 +41,7 @@ videos/                 视频母版（除 3 条 HEVC 外，页面直接引用�
 videos/hero/            首屏循环片：porsche-desktop.mp4(2.33MB) / porsche-mobile.mp4(0.60MB)
 videos/web/             可直接播放的 H.264 版（3 条 HEVC 转换 + 5 条新增作品的网页压版）
 videos/web/preview/     27 条 5 秒静音预览
-documents/resume.pdf    可下载简历
+documents/resume.pdf    简历原件（页面不再链接，随投递单独附上）
 scripts/                构建与自检脚本
 _backup/index-2026-10-24.html   改造前的整站原文件（回滚用）
 ```
@@ -187,8 +187,7 @@ GitHub Pages 建议仓库 <1GB，当前总量约 386MB，仍在安全范围内�
    - `.hero-slide--light` 这个 class 用于偏亮画面（如舍得酒），会把视频再压暗一点，保证白字可读。
    - 首屏第 1 镜的封面同时写在 `index.html` 的 `<link rel="preload">` 与 `styles.css` 的 `.hero-media` 背景里。
 
-**简历**：站点直接用**你自己做的那份**（`D:\my rice bowl\冼正\冼正简历.pdf` → 已复制为 `documents/resume.pdf`，623KB）。
-换简历 = 用新 PDF 覆盖 `documents/resume.pdf` 即可，不用改代码。
+**简历**：站点**不再链接**简历（作品集连同简历一起投递，页面上重复出现内容已删）。`documents/resume.pdf` 只是仓库里的备份，换简历直接覆盖这个文件即可，不用改代码。
 
 我早先生成的深色版简历保留在 `_backup/resume-generated-2026-10-24.pdf`，脚本 `scripts/build-resume.py` 默认只输出到 `_backup/`，不会覆盖你的文件（真要覆盖加 `--overwrite-site`）。
 

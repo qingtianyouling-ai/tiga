@@ -1,7 +1,7 @@
 # TIGA 个人站 · AI 交接文档
 
 > 这份文档是给「另一个 AI／另一台电脑」看的：读完就能接手，不需要历史对话。
-> 最后更新：2026-11-17 ｜ 线上版本：commit `4a61150` ｜ 本地 main 已比 origin 多 3 个提交、尚未推送（`git log origin/main..HEAD` 可看），推上去后线上才生效
+> 最后更新：2026-11-17 ｜ 线上版本：commit `4a61150` ｜ 本地 main 已比 origin 多 4 个提交、尚未推送（`git log origin/main..HEAD` 可看），推上去后线上才生效
 
 ---
 
@@ -42,8 +42,8 @@ node scripts/dom-test.mjs         # jsdom 真跑页面，25 条断言
 ## 2. 用户口味与硬性规则（最重要，违反会被打回）
 
 1. **不要个人照片**。曾经有头像图，被明确要求删掉；About 现在是纯文字。
-2. **不要教育背景列表**，只保留一行「学历 · 深圳大学 · 视觉传达设计（本科）」。国家开放大学、深圳鹏城技师学院**不要**出现。
-3. About 要短。曾被说过「太多太长、太 low」；现在 = 大标题 + 一段介绍 + 学历行 + 4 项事实 + 能力三栏。
+2. **教育和经历都交给简历**：作品集是连同简历一起投递的，所以学历、所在城市、在校职务、技能三栏**都不在站点重复**（原先有一行「学历 · 深圳大学」，后来也删了）。国家开放大学、深圳鹏城技师学院永远不要出现。
+3. About 要短。曾被说过「太多太长、太 low」；现在 = 大标题 + 3 行自述 + 一行合作品牌，整块不超过一屏的一半。**别把简历内容搬回来。**
 4. **作品板块顺序固定**：商业广告（保时捷 → iPhone 18 Pro → iPhone Duo → 舍得酒 → 扫地机器人 → HPC）→ 微电影 → 创意短片 → 纪实活动。**数组顺序 = 页面顺序**，别按分类自动排。
 5. 视频与平面**分成两个板块**，各自首屏露 **10 个** + 「展开更多」。
 6. 卡片文案是**三行**：`名称 · 片种` / `品类 · 规格（真实时长或张数）` / `职责`，右侧小字显示 `年份 · 分类`。
@@ -72,7 +72,7 @@ videos/         视频原片（H.264 直接引用）
 videos/web/     非 H.264 源（HEVC）转出的网页版
 videos/web/preview/  5 秒静音悬停预览
 videos/hero/    首屏轮播片（slide-porsche-cut / slide-iphone18 / slide-shede + mobile 版本）
-documents/resume.pdf  用户自己做的简历（不是脚本生成的）
+documents/resume.pdf  用户自己做的简历（不是脚本生成的；页面已不链接它，随简历单独投递）
 scripts/        serve.mjs / audit.mjs / dom-test.mjs / build-assets.ps1 / make-covers.py / build-resume.py / fetch-assets.mjs
 _backup/        旧站原文件 + 备用素材（不参与页面）
 ```
@@ -196,7 +196,7 @@ powershell -ExecutionPolicy Bypass -File scripts/build-assets.ps1 [-OnlyImages|-
 ## 7. 校验脚本
 
 ```powershell
-node scripts/audit.mjs      # 45 条作品 / 289 引用 / 0 缺失；检查 webp/png/jpg 文件头与体积、og:image
+node scripts/audit.mjs      # 45 条作品 / 288 引用 / 0 缺失；检查 webp/png/jpg 文件头与体积、og:image
 node scripts/dom-test.mjs   # 28 条断言：数据、筛选、展开与焦点、年份、弹层、导航（桌面+移动）、联系区、Hero、About
 ```
 
