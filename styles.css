@@ -633,6 +633,9 @@ button,
   color: rgba(241, 240, 237, 0.55);
   white-space: nowrap;
 }
+.filters[hidden] {
+  display: none;
+}
 .filters {
   display: flex;
   flex-wrap: wrap;

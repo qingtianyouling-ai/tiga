@@ -74,29 +74,31 @@ const P = window.portfolio;
 const titles = (sel) => $$(sel + " .work-title").map((n) => n.textContent);
 
 /* ── 数据 ─────────────────────────────────────────────────────────────── */
-check("数据：37 条 = 25 视频 + 12 平面，微电影 / 刺绣 / 模型 / 版式 / 图集都已删", () => {
-  assert(P && P.works.length === 37, `作品数应为 37，实际 ${P && P.works.length}`);
+check("数据：33 条 = 25 视频 + 8 风光；微电影 / 极氪 / 版式 / 图集都已删", () => {
+  assert(P && P.works.length === 33, `作品数应为 33，实际 ${P && P.works.length}`);
   const video = P.works.filter((w) => !!w.video);
   const still = P.works.filter((w) => !w.video);
   assert(video.length === 25, `视频应为 25，实际 ${video.length}`);
-  assert(still.length === 12, `平面应为 12，实际 ${still.length}`);
+  assert(still.length === 8, `平面应为 8，实际 ${still.length}`);
   assert(!P.works.some((w) => /yuanxiang|刺绣|Mom deserve/i.test(w.video + w.title)), "刺绣两条应已移除");
   assert(!P.works.some((w) => w.cat === "microfilm"), "两条微电影应已删除");
   assert(!P.works.some((w) => w.id === "poster-05" || w.id === "poster-06" || w.id === "poster-07"), "模型三条应已移除");
+  assert(!P.works.some((w) => /^poster-/.test(w.id) || w.cat === "poster"), "极氪 4 条商业平面应已删除");
   const gone = ["layout-01","layout-02","layout-03","layout-04","layout-05","layout-06","brand-vi","chongyang"];
   assert(!P.works.some((w) => gone.includes(w.id)), "版式 6 条与两个图集应已删除");
   assert(!P.collections, "图集数据应已删除");
   const noPreview = video.filter((w) => !w.preview);
   assert(noPreview.length === 0, `缺预览：${noPreview.map((w) => w.id).join(",")}`);
-  return "25 视频 / 12 平面";
+  return "25 视频 / 8 风光";
 });
 
 check("作品板块筛选按钮按分类顺序生成", () => {
   const chips = $$("#workFilters .filter").map((c) => c.textContent);
   assert(chips.join("/") === "全部/商业广告/创意短片/纪实活动", `实际：${chips.join("/")}`);
   const gchips = $$("#graphicFilters .filter").map((c) => c.textContent);
-  assert(gchips.join("/") === "全部/平面摄影/风光纪实", `实际：${gchips.join("/")}`);
-  return `${chips.length} + ${gchips.length} 个`;
+  assert(gchips.length === 0, `平面只剩一个分类，不应有筛选按钮，实际 ${gchips.join("/")}`);
+  assert($("#graphicFilters").hidden === true, "平面筛选条应隐藏");
+  return `${chips.length} 个（平面无筛选）`;
 });
 
 check("作品板块首屏只露 10 个 + 展开按钮", () => {
@@ -171,38 +173,29 @@ check("创意短片筛选 → 5 张，计数 5 / 25", () => {
   return $("#workCount").textContent;
 });
 
-check("摄影平面：标题 + 首屏 10 张 + 展开按钮", () => {
+check("摄影平面：标题 + 8 张风光，不出现展开按钮", () => {
   assert($("#graphic .work-heading").textContent.trim() === "摄影平面。", "标题应为「摄影平面。」");
-  assert($$("#graphicGrid .work-card").length === 10, `应为 10 张，实际 ${$$("#graphicGrid .work-card").length}`);
-  const btn = $("#graphicExpand");
-  assert(btn && btn.hidden === false, "展开按钮应可见");
-  assert(btn.textContent.includes("2"), `应提示还剩 2 件，实际「${btn.textContent}」`);
-  assert($("#graphicCount").textContent === "12 Works", `计数不对：${$("#graphicCount").textContent}`);
-  return btn.textContent;
+  assert($$("#graphicGrid .work-card").length === 8, `应为 8 张，实际 ${$$("#graphicGrid .work-card").length}`);
+  assert($("#graphicExpand").hidden === true, "8 张不足首屏 10 张，展开按钮应隐藏");
+  assert($("#graphicCount").textContent === "8 Works", `计数不对：${$("#graphicCount").textContent}`);
+  return $("#graphicCount").textContent;
 });
 
-check("展开 → 12 张，顺序 极氪 4 → 风光 8", () => {
-  $("#graphicExpand").click();
-  assert($$("#graphicGrid .work-card").length === 12, `应为 12，实际 ${$$("#graphicGrid .work-card").length}`);
-  assert($("#graphicExpand").hidden === true, "展开后按钮应隐藏");
+check("风光 8 张顺序：DJI → 城中镜 → … → 黄昏摩天轮", () => {
   const t = titles("#graphicGrid");
   const head = [
-    "极氪冬日咖啡 · 产品静物",
-    "极氪咖啡 · 产品静物",
-    "极氪联名杯子 · 联名产品",
-    "极氪联名饮料 · 联名产品",
     "DJI · 航拍视角",
     "城中镜 · 城市倒影",
     "夜春笋 · 城市夜景",
     "惬意人生 · 生活切片",
     "海与陆 · 海岸线",
-    "舟游 · 水上行舟"
+    "舟游 · 水上行舟",
+    "苏州 · 园林城市",
+    "黄昏摩天轮 · 城市天际线"
   ];
-  assert(t.slice(0, 10).join("|") === head.join("|"), `前十张顺序不对：${t.slice(0, 10).join(" | ")}`);
-  assert(t[3] === "极氪联名饮料 · 联名产品" && t[4] === "DJI · 航拍视角", "极氪之后应直接接风光");
-  assert(t[11] === "黄昏摩天轮 · 城市天际线", `最后一张应为黄昏摩天轮，实际 ${t[11]}`);
-  assert(!t.some((x) => /版式|VI|重阳|武侠|咖啡店|啤酒|电影网页|羊城晚报|耳机/.test(x)), "版式 / 图集作品应已移除");
-  return `${t[0]} → ${t[4]} → ${t[11]}`;
+  assert(t.join("|") === head.join("|"), `顺序不对：${t.join(" | ")}`);
+  assert(!t.some((x) => /极氪|版式|VI|重阳|武侠|咖啡店|啤酒|电影网页|羊城晚报|耳机/.test(x)), "商业平面 / 版式 / 图集应已移除");
+  return `${t[0]} → ${t[7]}`;
 });
 
 /* ── 弹层 ─────────────────────────────────────────────────────────────── */

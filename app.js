@@ -85,7 +85,10 @@
   var motionToggle = $("#motionToggle");
   var HERO_NAMES = ["小米 SU7 · 自在而行", "雷鸟眼镜 iO", "舍得酒 · 大师勾调"];
   var HERO_FALLBACK = 9000; /* 视频没触发 ended 时的兜底，正常情况由 ended 接力 */
-  var heroEnabled = !reducedMotion.matches;
+  /* 省流 / 2G 网络下不自动播首屏视频，只留封面，免得拖慢首屏 */
+  var conn = navigator.connection || {};
+  var slowNet = !!(conn.saveData || /(^|-)(2g|slow-2g)$/.test(conn.effectiveType || ""));
+  var heroEnabled = !reducedMotion.matches && !slowNet;
   var heroIndex = 0;
   var heroTimer = null;
   var heroPaused = false;
@@ -141,6 +144,18 @@
     if (v && !v.paused) v.pause();
   }
 
+  var heroPrefetchTimer = null;
+  function heroSchedulePrefetch() {
+    if (!heroEnabled) return;
+    if (heroPrefetchTimer) clearTimeout(heroPrefetchTimer);
+    heroPrefetchTimer = setTimeout(function () {
+      heroPrefetchTimer = null;
+      if (document.hidden || heroPaused || heroOffscreen) return;
+      if (conn.saveData || /(^|-)(2g|slow-2g|3g)$/.test(conn.effectiveType || "")) return;
+      heroLoad((heroIndex + 1) % heroSlides.length);
+    }, 5000);
+  }
+
   var heroLeaveTimers = new Map();
 
   function heroSet(i) {
@@ -182,8 +197,8 @@
         if (n !== heroIndex && !v.paused) v.pause();
       });
       heroPlay();
-      /* 提前把下一镜的元数据拉回来，切换时不至于停在封面上 */
-      heroLoad((heroIndex + 1) % heroSlides.length);
+      /* 下一镜只在当前镜播了两秒、且网络不差时才预取，避免首屏一次拉两条视频 */
+      heroSchedulePrefetch();
       heroStartTimer();
     }
   }
@@ -483,21 +498,25 @@
       paint(true);
     }
 
-    /* 筛选按钮：按数组里分类出现的顺序自动生成 */
+    /* 筛选按钮：按数组里分类出现的顺序自动生成；只有一个分类时没必要显示 */
     var cats = [];
     items.forEach(function (w) {
       if (cats.indexOf(w.cat) < 0) cats.push(w.cat);
     });
-    [{ id: "all", label: "全部" }]
-      .concat(cats.map(function (c) { return { id: c, label: catLabel(c) }; }))
-      .forEach(function (f, i) {
-        var b = el("button", "filter", f.label);
-        b.type = "button";
-        b.setAttribute("data-filter", f.id);
-        b.setAttribute("aria-pressed", String(i === 0));
-        b.addEventListener("click", function () { applyFilter(f.id); });
-        filtersEl.appendChild(b);
-      });
+    if (cats.length <= 1) {
+      filtersEl.hidden = true;
+    } else {
+      [{ id: "all", label: "全部" }]
+        .concat(cats.map(function (c) { return { id: c, label: catLabel(c) }; }))
+        .forEach(function (f, i) {
+          var b = el("button", "filter", f.label);
+          b.type = "button";
+          b.setAttribute("data-filter", f.id);
+          b.setAttribute("aria-pressed", String(i === 0));
+          b.addEventListener("click", function () { applyFilter(f.id); });
+          filtersEl.appendChild(b);
+        });
+    }
 
     if (expandBtn) {
       expandBtn.addEventListener("click", function (e) {

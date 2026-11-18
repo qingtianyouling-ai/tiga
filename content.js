@@ -20,7 +20,6 @@ window.portfolio = (function () {
     commercial: "商业广告",
     creative: "创意短片",
     event: "纪实活动",
-    poster: "平面摄影",
     landscape: "风光纪实"
   };
 
@@ -29,11 +28,10 @@ window.portfolio = (function () {
     event: ["摄影", "剪辑"],
     creative: ["摄影", "剪辑", "创意"],
     commercial: ["摄影", "剪辑"],
-    landscape: ["摄影", "后期"],
-    poster: ["摄影", "后期"]
+    landscape: ["摄影", "后期"]
   };
 
-  /* ── 作品：37 条（视频 25 / 平面 12）────────────────────────────────── */
+  /* ── 作品：33 条（视频 25 / 平面 8）────────────────────────────────── */
   var works = [
     /* ── 商业广告 ───────────────────────────────────────────────────── */
     { id: "commercial-07", cat: "commercial", year: "2026", title: "小米 SU7 · 汽车概念短片", desc: "AI 商业产品广告 · 0:40", video: "videos/web/opt-commercial-07.mp4", preview: PV + "xiaomi-su7.mp4", poster: M + "xiaomi-su7.webp", full: F + "xiaomi-su7.webp", roles: ["AI 概念生成", "视觉方向", "成片审阅"] },
@@ -69,10 +67,6 @@ window.portfolio = (function () {
     { id: "event-12", cat: "event", year: "2025", title: "香港珠海学院 · 院校活动", desc: "活动记录 · 1:21", video: "videos/web/opt-event-12.mp4", preview: PV + "香港珠海学院.mp4", poster: M + "event-poster-12.webp", full: F + "event-poster-12.webp", roles: ["摄影", "剪辑"] },
 
     /* ── 摄影平面：产品静物 ─────────────────────────────────────────── */
-    { id: "poster-01", cat: "poster", title: "极氪冬日咖啡 · 产品静物", desc: "平面摄影 · 1 张", images: [F + "design-poster-01.webp"], poster: M + "design-poster-01.webp", full: F + "design-poster-01.webp" },
-    { id: "poster-02", cat: "poster", title: "极氪咖啡 · 产品静物", desc: "平面摄影 · 1 张", images: [F + "design-poster-02.webp"], poster: M + "cover-poster-02.webp", full: F + "design-poster-02.webp" },
-    { id: "poster-03", cat: "poster", title: "极氪联名杯子 · 联名产品", desc: "平面摄影 · 1 张", images: [F + "design-poster-03.webp"], poster: M + "cover-poster-03.webp", full: F + "design-poster-03.webp" },
-    { id: "poster-04", cat: "poster", title: "极氪联名饮料 · 联名产品", desc: "平面摄影 · 1 张", images: [F + "design-poster-04.webp"], poster: M + "cover-poster-04.webp", full: F + "design-poster-04.webp" },
 
     /* ── 摄影平面：风光 ─────────────────────────────────────────────── */
     { id: "landscape-01", cat: "landscape", title: "DJI · 航拍视角", desc: "风光 · 1 张", images: [F + "photo-landscape-01.webp"], poster: M + "cover-landscape-01.webp", full: F + "photo-landscape-01.webp" },
