@@ -147,13 +147,16 @@ _backup/        旧站原文件 + 备用素材（不参与页面）
 | 24 | `event-11` | 蒙牛 · 品牌活动 | 活动记录 · 0:29 | 摄影 / 剪辑 | 2025 |
 | 25 | `event-12` | 香港珠海学院 · 院校活动 | 活动记录 · 1:21 | 摄影 / 剪辑 | 2025 |
 
-### 平面 8 件（只有风光）
+### 平面 11 件（模型 3 + 风光 8）
 
 | # | id | 标题 | 第二行 | 职责 |
 |---|---|---|---|---|
-| 1–8 | `landscape-01…08` | DJI 航拍 / 城中镜 / 夜春笋 / 惬意人生 / 海与陆 / 舟游 / 苏州 / 黄昏摩天轮 | 风光 · 1 张 | 摄影 / 后期 |
+| 1–3 | `model-01…03` | 机甲 · 樱花 / 战衣 · 城市 / 机甲 · 机库 | 平面摄影 · 1 张 | AI 生成 / 后期 |
+| 4–11 | `landscape-01…08` | DJI 航拍 / 城中镜 / 夜春笋 / 惬意人生 / 海与陆 / 舟游 / 苏州 / 黄昏摩天轮 | 风光 · 1 张 | 摄影 / 后期 |
 
 **极氪 4 条商业平面、版式 6 条、两个图集都已按要求删除**，别加回来；对应 webp 也从 `images/web` 删了（母版还在 `images/works`）。
+
+「模型」3 张（机甲 / 战衣，AI 生成）2026-11-24 按用户要求**恢复**，母版从 git 历史 `c48bddd:images/works/design-poster-05…07.jpg` 取回。
 
 平面只剩**一个分类**，`app.js` 会自动隐藏筛选条（`cats.length <= 1` 时把 `filtersEl` 设 `hidden`）。
 
@@ -198,7 +201,7 @@ powershell -ExecutionPolicy Bypass -File scripts/build-assets.ps1 [-OnlyImages|-
 ## 7. 校验脚本
 
 ```powershell
-node scripts/audit.mjs      # 33 条作品 / 129 引用 / 0 缺失；检查 webp/png/jpg 文件头与体积、og:image、首屏 poster/data-src
+node scripts/audit.mjs      # 36 条作品 / 135 引用 / 0 缺失；检查 webp/png/jpg 文件头与体积、og:image、首屏 poster/data-src
 node scripts/audit.mjs --no-media   # 代码包里用：跳过 videos/ 下缺失的详情播放版
 node scripts/dom-test.mjs   # 25 条断言：数据、筛选、展开与焦点、年份、弹层、导航（桌面+移动）、联系区、Hero
 ```
@@ -273,7 +276,7 @@ git clone git@github.com:qingtianyouling-ai/tiga.git
 1. **扫地机器人首屏高清版**：归档里没有这个项目，站点这条只有 960×544；用户决定先不上首屏。以后拿到高清原片，再把 `slide-xiaomi.mp4` 或第一镜换掉。
 2. **HPC 显示器**的第二行还是「商业广告 · 0:30」，问过是否改成「显示设备 · 0:30」，用户未答。
 3. **《青春的底色》年份**：用户说「剩下都是 2025」—— 已按 2025 填，待确认。
-4. 平面 8 件是否也加年份（可统一 2025 或逐条提供）。
+4. 平面 11 件是否也加年份（模型 3 张暂填 2025，风光未填）。
 5. 保时捷 / iPhone 两条的是否需要和参考站一样显示更详细的项目信息（职责已有）。
 6. 简历 `documents/resume.pdf` 是用户自己做的 PDF（623KB），**不要**用脚本覆盖。
 
