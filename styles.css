@@ -1475,3 +1475,56 @@ button,
     grid-template-columns: 1fr;
   }
 }
+
+/* ── Craft：案例小标题 / 实拍三栏 / 双 CTA ─────────────────────────────── */
+.case-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: clamp(34px, 4vw, 54px);
+  padding-top: 14px;
+  border-top: 1px solid var(--line, rgba(255, 255, 255, 0.14));
+}
+.case-head b {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: #6f7c93;
+  font-weight: 400;
+  margin-right: 14px;
+}
+.case-head span {
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+.case-head .case-meta {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--muted, #7d7d79);
+  text-align: right;
+}
+.ai-steps.is-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.ai-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 26px;
+}
+.ai-cta-row .ai-cta {
+  margin-top: 0;
+}
+
+@media (max-width: 900px) {
+  .ai-steps.is-3 {
+    grid-template-columns: 1fr;
+  }
+  .case-head {
+    flex-direction: column;
+    gap: 6px;
+  }
+  .case-head .case-meta {
+    text-align: left;
+  }
+}

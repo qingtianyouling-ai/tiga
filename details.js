@@ -116,5 +116,73 @@ window.workDetails = {
       { src: "images/detail/gamepv/frame-09.webp", cap: "ZOA 落版" }
     ],
     note: "独立练习，片中游戏与角色均为虚构。"
+  },
+
+  "commercial-01": {
+    kicker: "LIVE-ACTION PRODUCT FILM",
+    facts: [
+      ["项目", "扫地机器人 · 产品片"],
+      ["性质", "实拍产品片"],
+      ["年份", "2026"],
+      ["片长", "2:20"],
+      ["职责", "摄影 / 布光 / 剪辑"]
+    ],
+    brief: [
+      "室内实景拍一台扫地机器人：地面刷头、尘杯、滤芯、整机，按功能点逐段拍。现场最难的是控制反光——机身是亮面，地面会映，背景还要留层次。",
+      "这条片不是 AI 生成的，机器、灯、机位、剪辑都是实拍完成。"
+    ],
+    approach: [
+      { h: "先布光再开机", p: "地面压暗、机身用柔光提亮，侧逆光勾边；每一步都先看监视器，确认高光不炸再拍。" },
+      { h: "按功能分镜", p: "把产品拆成刷头、尘杯、滤芯、整机几个段落，低机位贴地拍工作状态，手持跟拍补动势。" },
+      { h: "剪辑与输出", p: "按卖点分段剪，字幕和音效对齐，同时出竖版和横版两个规格。" }
+    ],
+    pipeline: [
+      { n: "01", t: "布光", d: "室内实景控反光，机身与背景分开打。" },
+      { n: "02", t: "拍摄", d: "低机位贴地、手持跟拍、特写切分。", img: "images/detail/vac/frame-02.webp" },
+      { n: "03", t: "剪辑 · 输出", d: "按卖点分段，出竖版与横版。", img: "images/detail/vac/frame-05.webp" }
+    ],
+    frames: [
+      { src: "images/detail/vac/frame-01.webp", cap: "机身与光" },
+      { src: "images/detail/vac/frame-02.webp", cap: "手持跟拍" },
+      { src: "images/detail/vac/frame-03.webp", cap: "地面刷头" },
+      { src: "images/detail/vac/frame-04.webp", cap: "整机使用" },
+      { src: "images/detail/vac/frame-05.webp", cap: "尘杯特写" },
+      { src: "images/detail/vac/frame-06.webp", cap: "滤芯细节" }
+    ],
+    note: "实拍项目，非 AI 生成。"
+  },
+
+  "commercial-03": {
+    kicker: "LIVE-ACTION PRODUCT FILM / DARK SET",
+    facts: [
+      ["项目", "HPC 显示器 · 产品片"],
+      ["性质", "实拍产品片"],
+      ["年份", "2026"],
+      ["片长", "0:30"],
+      ["职责", "摄影 / 布光 / 剪辑"]
+    ],
+    brief: [
+      "暗调产品片：屏幕是画面的主光源，靠屏幕内容和高光位塑形。黑位要黑得住，边框的高光又不能脏。",
+      "实拍完成，没有用 AI 生成画面。"
+    ],
+    approach: [
+      { h: "暗场布光", p: "关掉环境光，屏幕亮度作为主光，侧逆光勾边框；用黑旗压掉多余反射。" },
+      { h: "屏幕内容对位", p: "拍摄时同步播放素材，保证画面内容、亮度和运镜方向一致。" },
+      { h: "剪辑", p: "短节奏卡点，保留黑场呼吸，输出 16:9 与竖版。" }
+    ],
+    pipeline: [
+      { n: "01", t: "暗场布光", d: "屏幕主光 + 侧逆勾边，黑旗控反射。" },
+      { n: "02", t: "拍摄", d: "屏幕内容对位，控曝光与黑位。", img: "images/detail/hpc/frame-02.webp" },
+      { n: "03", t: "剪辑", d: "卡点剪辑，保留黑场呼吸。", img: "images/detail/hpc/frame-04.webp" }
+    ],
+    frames: [
+      { src: "images/detail/hpc/frame-01.webp", cap: "暗场开场" },
+      { src: "images/detail/hpc/frame-02.webp", cap: "屏幕主光" },
+      { src: "images/detail/hpc/frame-03.webp", cap: "边框高光" },
+      { src: "images/detail/hpc/frame-04.webp", cap: "游戏画面" },
+      { src: "images/detail/hpc/frame-05.webp", cap: "细节" },
+      { src: "images/detail/hpc/frame-06.webp", cap: "收尾" }
+    ],
+    note: "实拍项目，非 AI 生成。"
   }
 };
