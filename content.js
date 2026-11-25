@@ -33,7 +33,7 @@ window.portfolio = (function () {
     landscape: ["摄影", "后期"]
   };
 
-  /* ── 作品：36 条（视频 25 / 平面 11）──────────────────────────────── */
+  /* ── 作品：33 条（视频 22 / 平面 11）──────────────────────────────── */
   var works = [
     /* ── 商业广告 ───────────────────────────────────────────────────── */
     { id: "commercial-07", cat: "commercial", year: "2026", title: "小米 SU7 · 汽车概念短片", desc: "AI 商业产品广告 · 0:40", video: "videos/web/opt-commercial-07.mp4", preview: PV + "xiaomi-su7.mp4", poster: M + "xiaomi-su7.webp", full: F + "xiaomi-su7.webp", roles: ["AI 概念生成", "视觉方向", "成片审阅"] },
@@ -49,10 +49,7 @@ window.portfolio = (function () {
 
     /* ── 创意短片 ───────────────────────────────────────────────────── */
     { id: "creative-01", cat: "creative", year: "2025", title: "时空 · 定格动画", desc: "创意短片 · 2:45", video: "videos/web/opt-creative-01.mp4", preview: PV + "creative-01.mp4", poster: M + "creative-poster-01.webp", full: F + "creative-poster-01.webp", roles: ["摄影", "剪辑", "创意"] },
-    { id: "creative-02", cat: "creative", year: "2025", title: "变速摩天轮 · 变速运镜", desc: "创意短片 · 0:10", video: "videos/web/creative-02.mp4", preview: PV + "creative-02.mp4", poster: M + "creative-poster-02.webp", full: F + "creative-poster-02.webp", roles: ["摄影", "剪辑", "创意"] },
     { id: "creative-03", cat: "creative", year: "2025", title: "国庆节 · 节日创意", desc: "创意短片 · 0:07", video: "videos/web/creative-03.mp4", preview: PV + "creative-03.mp4", poster: M + "creative-poster-03.webp", full: F + "creative-poster-03.webp", roles: ["摄影", "剪辑", "创意"] },
-    { id: "creative-04", cat: "creative", year: "2025", title: "马里奥灯 · 布光创意", desc: "创意短片 · 0:22", video: V + "creative-04.mp4", preview: PV + "creative-04.mp4", poster: M + "creative-poster-04.webp", full: F + "creative-poster-04.webp", roles: ["摄影", "剪辑", "创意"] },
-    { id: "creative-05", cat: "creative", year: "2025", title: "汽车运镜 · 创意热点", desc: "创意短片 · 0:11", video: "videos/web/creative-05.mp4", preview: PV + "creative-05.mp4", poster: M + "cover-auto-motion.webp", full: F + "cover-auto-motion.webp", roles: ["摄影", "剪辑", "创意"] },
 
     /* ── 纪实活动 ───────────────────────────────────────────────────── */
     { id: "event-01", cat: "event", year: "2025", title: "青春的底色 · 百千万工程纪实", desc: "行动纪实片 · 5:00", video: "videos/web/opt-event-01.mp4", preview: PV + "青春的底色.mp4", poster: M + "event-poster-01.webp", full: F + "event-poster-01.webp", roles: ["摄影"] },
