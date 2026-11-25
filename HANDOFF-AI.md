@@ -6,6 +6,14 @@
 
 ---
 
+## 项目详情页（work.html）
+
+- 地址：`work.html?id=<作品 id>`，数据来自 `details.js`（`window.workDetails`）
+- 字段：`kicker / facts / brief / approach / pipeline / frames / note`
+- `pipeline` 可缺省（微电影、活动、创意短片不写 AI 管线）；某一步没有图时只给 `n/t/d`，页面会渲染编号占位块
+- 首页作品卡片点开是弹层；弹层里若该作品有 detail，会出现「查看完整案例 →」
+- 首页 02 Craft 分两个案例：CASE 01 AI（小米 SU7）、CASE 02 实拍（扫地机器人），器材写「索尼相机 / DJI / 神牛 / 南光」
+
 ## 0. 三步接手
 
 ```powershell
