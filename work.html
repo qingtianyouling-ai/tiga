@@ -45,14 +45,6 @@
   /* 奇数条时最后一条占满整行，避免右侧露出网格底色 */
   .d-approach article:last-child:nth-child(odd) { grid-column: 1 / -1; }
 
-  .d-pipe { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 22px; }
-  .d-pipe figure { background: #151515; border: 1px solid rgba(255,255,255,.1); }
-  .d-pipe img { display: block; width: 100%; aspect-ratio: 16/10; object-fit: cover; }
-  .d-pipe-ph { aspect-ratio: 16/10; display: grid; place-items: center; font-size: 40px; font-weight: 600; color: rgba(255,255,255,.14); background: repeating-linear-gradient(135deg, #141414 0 10px, #101010 10px 20px); }
-  .d-pipe figcaption { padding: 14px 14px 16px; }
-  .d-pipe b { display: block; font-size: 10px; letter-spacing: .2em; color: #6f7c93; }
-  .d-pipe h4 { font-size: 13px; margin-top: 6px; font-weight: 600; }
-  .d-pipe p { font-size: 12px; line-height: 1.8; color: #9b9b95; margin-top: 6px; }
 
   .d-frames { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 22px; }
   .d-frames figure { position: relative; overflow: hidden; background: #000; }
@@ -70,7 +62,6 @@
   @media (max-width: 860px) {
     .d-head { grid-template-columns: 1fr; gap: 24px; }
     .d-approach { grid-template-columns: 1fr; }
-    .d-pipe { grid-template-columns: repeat(2, 1fr); }
     .d-frames { grid-template-columns: repeat(2, 1fr); }
   }
 </style>
@@ -192,34 +183,6 @@
       });
       s2.appendChild(grid);
       root.appendChild(s2);
-    }
-
-    if (d && d.pipeline && d.pipeline.length) {
-      var s3 = el("section", "d-sec");
-      s3.appendChild(el("h2", null, "AI 管线"));
-      var pipe = el("div", "d-pipe");
-      d.pipeline.forEach(function (s) {
-        var fig = el("figure");
-        if (s.img) {
-          var img = document.createElement("img");
-          img.src = s.img;
-          img.alt = s.t;
-          img.loading = "lazy";
-          fig.appendChild(img);
-        } else {
-          var ph = el("div", "d-pipe-ph");
-          ph.textContent = s.n;
-          fig.appendChild(ph);
-        }
-        var cap = el("figcaption");
-        cap.appendChild(el("b", null, s.n));
-        cap.appendChild(el("h4", null, s.t));
-        cap.appendChild(el("p", null, s.d));
-        fig.appendChild(cap);
-        pipe.appendChild(fig);
-      });
-      s3.appendChild(pipe);
-      root.appendChild(s3);
     }
 
     if (d && d.frames && d.frames.length) {

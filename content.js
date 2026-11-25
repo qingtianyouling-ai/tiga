@@ -35,7 +35,7 @@ window.portfolio = (function () {
     landscape: ["摄影", "后期"]
   };
 
-  /* ── 作品：35 条（视频 24 / 平面 11）──────────────────────────────── */
+  /* ── 作品：27 条（视频 16 / 平面 11）──────────────────────────────── */
   var works = [
     /* ── 商业广告（按用户排序：小米 > 舍得 > 雷鸟 > iPhone 18 > 保时捷 > Duo > 游戏 PV > 扫地机器人 > HPC）── */
     { id: "commercial-07", cat: "commercial", year: "2026", title: "小米 SU7 · 汽车概念短片", desc: "AI 商业产品广告 · 0:40", video: "videos/web/opt-commercial-07.mp4", preview: PV + "xiaomi-su7.mp4", poster: M + "xiaomi-su7.webp", full: F + "xiaomi-su7.webp", roles: ["AI 概念生成", "视觉方向", "成片审阅"] },
@@ -49,12 +49,9 @@ window.portfolio = (function () {
     { id: "commercial-03", cat: "commercial", year: "2026", title: "HPC 显示器 · TVC 广告", desc: "商业广告 · 0:30", video: V + "HPC显示器.mp4", preview: PV + "HPC显示器.mp4", poster: M + "commercial-poster-02.webp", full: F + "commercial-poster-02.webp", roles: ["摄影", "剪辑"] },
 
     /* ── 微电影（重启今日 > 罪饿）─────────────────────────────────── */
-    { id: "microfilm-02", cat: "microfilm", year: "2025", title: "重启今日 · 校园剧情短片", desc: "剧情微电影 · 7:10", video: "videos/web/microfilm-02.mp4", preview: PV + "microfilm-02.mp4", poster: M + "microfilm-poster-02.webp", full: F + "microfilm-poster-02.webp", roles: ["摄影", "剪辑"], credit: "2025 大学生短片电影节最佳影片" },
-    { id: "microfilm-01", cat: "microfilm", year: "2025", title: "罪饿 · 校园剧情短片", desc: "剧情微电影 · 11:48", video: "videos/web/microfilm-01.mp4", preview: PV + "microfilm-01.mp4", poster: M + "microfilm-poster-01.webp", full: F + "microfilm-poster-01.webp", roles: ["摄影", "剪辑"], credit: "大学生原创微电影大赛 · 剧情片一等奖" },
 
     /* ── 创意短片 ───────────────────────────────────────────────────── */
     { id: "creative-01", cat: "creative", year: "2025", title: "时空 · 定格动画", desc: "创意短片 · 2:45", video: "videos/web/opt-creative-01.mp4", preview: PV + "creative-01.mp4", poster: M + "creative-poster-01.webp", full: F + "creative-poster-01.webp", roles: ["摄影", "剪辑", "创意"] },
-    { id: "creative-03", cat: "creative", year: "2025", title: "国庆节 · 节日创意", desc: "创意短片 · 0:07", video: "videos/web/creative-03.mp4", preview: PV + "creative-03.mp4", poster: M + "creative-poster-03.webp", full: F + "creative-poster-03.webp", roles: ["摄影", "剪辑", "创意"] },
 
     /* ── 纪实活动（青春的底色 > 香港珠海 > 五四汇演 > 极氪 > 嘉年华 > 蒙牛）── */
     { id: "event-01", cat: "event", year: "2025", title: "青春的底色 · 百千万工程纪实", desc: "行动纪实片 · 5:00", video: "videos/web/opt-event-01.mp4", preview: PV + "青春的底色.mp4", poster: M + "event-poster-01.webp", full: F + "event-poster-01.webp", roles: ["摄影"] },

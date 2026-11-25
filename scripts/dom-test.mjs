@@ -74,15 +74,15 @@ const P = window.portfolio;
 const titles = (sel) => $$(sel + " .work-title").map((n) => n.textContent);
 
 /* ── 数据 ─────────────────────────────────────────────────────────────── */
-check("数据：30 条 = 19 视频 + 11 平面（含游戏 PV 与两部微电影）", () => {
-  assert(P && P.works.length === 30, `作品数应为 30，实际 ${P && P.works.length}`);
+check("数据：27 条 = 16 视频 + 11 平面（含游戏 PV）", () => {
+  assert(P && P.works.length === 27, `作品数应为 27，实际 ${P && P.works.length}`);
   const video = P.works.filter((w) => !!w.video);
   const still = P.works.filter((w) => !w.video);
-  assert(video.length === 19, `视频应为 19，实际 ${video.length}`);
+  assert(video.length === 16, `视频应为 16，实际 ${video.length}`);
   assert(still.length === 11, `平面应为 11，实际 ${still.length}`);
   assert(still.filter((w) => w.cat === "poster").length === 3, "模型应为 3 张");
   assert(!P.works.some((w) => /yuanxiang|刺绣|Mom deserve/i.test(w.video + w.title)), "刺绣两条应已移除");
-  assert(P.works.filter((w) => w.cat === "microfilm").length === 2, "应有两部微电影（罪饿 / 重启今日）");
+  assert(P.works.filter((w) => w.cat === "microfilm").length === 0, "微电影已全部下线");
   assert(!P.works.some((w) => w.id === "poster-05" || w.id === "poster-06" || w.id === "poster-07"), "模型三条应已移除");
   assert(!P.works.some((w) => /^poster-0[1-4]$/.test(w.id)), "极氪 4 条商业平面应已删除（极氪品牌活动 event-08 保留）");
   const gone = ["layout-01","layout-02","layout-03","layout-04","layout-05","layout-06","brand-vi","chongyang"];
@@ -90,12 +90,12 @@ check("数据：30 条 = 19 视频 + 11 平面（含游戏 PV 与两部微电影
   assert(!P.collections, "图集数据应已删除");
   const noPreview = video.filter((w) => !w.preview);
   assert(noPreview.length === 0, `缺预览：${noPreview.map((w) => w.id).join(",")}`);
-  return "19 视频 / 11 平面";
+  return "16 视频 / 11 平面";
 });
 
 check("作品板块筛选按钮按分类顺序生成", () => {
   const chips = $$("#workFilters .filter").map((c) => c.textContent);
-  assert(chips.join("/") === "全部/商业广告/微电影/创意短片/纪实活动", `实际：${chips.join("/")}`);
+  assert(chips.join("/") === "全部/商业广告/创意短片/纪实活动", `实际：${chips.join("/")}`);
   const gchips = $$("#graphicFilters .filter").map((c) => c.textContent);
   assert(gchips.join("/") === "全部/平面摄影/风光纪实", `平面筛选不对：${gchips.join("/")}`);
   assert($("#graphicFilters").hidden === false, "平面筛选条应显示");
@@ -106,15 +106,15 @@ check("作品板块首屏只露 12 个 + 展开按钮", () => {
   assert($$("#workGrid .work-card").length === 12, `应为 12，实际 ${$$("#workGrid .work-card").length}`);
   const btn = $("#workExpand");
   assert(btn && btn.hidden === false, "展开按钮应可见");
-  assert(btn.textContent.includes("7"), `应提示还剩 7 件，实际「${btn.textContent}」`);
+  assert(btn.textContent.includes("4"), `应提示还剩 4 件，实际「${btn.textContent}」`);
   return btn.textContent;
 });
 
-check("点展开 → 19 个，按钮隐藏，焦点交给第一张新卡片", () => {
+check("点展开 → 16 个，按钮隐藏，焦点交给第一张新卡片", () => {
   $("#workExpand").click();
-  assert($$("#workGrid .work-card").length === 19, `应为 19，实际 ${$$("#workGrid .work-card").length}`);
+  assert($$("#workGrid .work-card").length === 16, `应为 16，实际 ${$$("#workGrid .work-card").length}`);
   assert($("#workExpand").hidden === true, "展开后按钮应隐藏");
-  assert($("#workCount").textContent === "19 Projects", `计数不对：${$("#workCount").textContent}`);
+  assert($("#workCount").textContent === "16 Projects", `计数不对：${$("#workCount").textContent}`);
   const cards = $$("#workGrid .work-trigger");
   assert(doc.activeElement === cards[12], "键盘展开后焦点应落到第 13 张（第一张新增）");
   return $("#workCount").textContent + " · 焦点 → 第 13 张";
@@ -136,7 +136,7 @@ check("年份：前九条 2026，其余 2025", () => {
   assert(y(cards.length - 1) === "2025", `末张应为 2025，实际 ${y(cards.length - 1)}`);
   const years = cards.map((c, i) => y(i));
   assert(years.filter((x) => x === "2026").length === 9, "2026 应正好 9 条");
-  return "2026 ×9 ｜ 2025 ×10";
+  return "2026 ×9 ｜ 2025 ×7";
 });
 
 check("商业广告排序：小米 → 舍得 → 雷鸟 → 苹果 18 → 保时捷 → Duo", () => {
@@ -168,10 +168,10 @@ check("卡片三行文案：标题 / 规格 / 职责", () => {
   return `${sub.textContent} ｜ ${roles.textContent}`;
 });
 
-check("创意短片筛选 → 2 张，计数 2 / 19", () => {
+check("创意短片筛选 → 1 张，计数 1 / 16", () => {
   $$("#workFilters .filter").find((c) => c.textContent === "创意短片").click();
-  assert($$("#workGrid .work-card").length === 2, `应为 2 张，实际 ${$$("#workGrid .work-card").length}`);
-  assert($("#workCount").textContent === "2 / 19 Projects", `计数不对：${$("#workCount").textContent}`);
+  assert($$("#workGrid .work-card").length === 1, `应为 1 张，实际 ${$$("#workGrid .work-card").length}`);
+  assert($("#workCount").textContent === "1 / 16 Projects", `计数不对：${$("#workCount").textContent}`);
   return $("#workCount").textContent;
 });
 
@@ -293,22 +293,38 @@ check("所有卡片都有可读名称与封面", () => {
 });
 
 /* ── Hero ─────────────────────────────────────────────────────────────── */
-check("Hero：单条 showreel + 信息条", () => {
+check("Hero：三镜头 + 01/02/03 编号", () => {
   const slides = $$(".hero-slide");
-  assert(slides.length === 1, `应只有一个视频层，实际 ${slides.length}`);
-  assert($$(".hero-dot").length === 0, "切换编号应已移除");
-  assert($("#heroNow").textContent.includes("SHOWREEL"), `信息条不对：${$("#heroNow").textContent}`);
-  return $("#heroNow").textContent.trim();
+  assert(slides.length === 3, `应有 3 个镜头，实际 ${slides.length}`);
+  const dots = $$(".hero-dot");
+  assert(dots.length === 3, `应有 3 个编号，实际 ${dots.length}`);
+  assert(dots.map((d) => d.textContent.trim()).join("/") === "01/02/03", "编号不对");
+  return dots.map((d) => d.textContent.trim()).join(" / ");
 });
 
-check("Hero：showreel 静音循环 + 封面 + 移动端片源", () => {
-  const v = $(".hero-video");
-  assert(v.hasAttribute("muted") && v.hasAttribute("playsinline"), "缺 muted / playsinline");
-  assert(v.hasAttribute("loop"), "showreel 应循环");
-  assert(v.getAttribute("poster") === "images/hero/showreel-poster.jpg", `封面不对：${v.getAttribute("poster")}`);
-  assert(v.getAttribute("data-src") === "videos/hero/showreel.mp4", "桌面片源不对");
-  assert(v.getAttribute("data-src-mobile") === "videos/hero/showreel-mobile.mp4", "移动片源不对");
-  return v.getAttribute("data-src");
+check("Hero：每个镜头都有封面、静音与懒加载地址（不带 loop，靠播完接力）", () => {
+  const vids = $$(".hero-video");
+  assert(vids.length === 3, "应有 3 个视频层");
+  vids.forEach((v, i) => {
+    assert(v.hasAttribute("muted") && v.hasAttribute("playsinline"), `第 ${i + 1} 个缺 muted / playsinline`);
+    assert(!v.hasAttribute("loop"), `第 ${i + 1} 个不应带 loop（要一条播完接一条）`);
+    assert(v.getAttribute("poster"), `第 ${i + 1} 个缺封面`);
+    assert(v.getAttribute("data-src"), `第 ${i + 1} 个缺 data-src`);
+  });
+  assert(vids[0].getAttribute("data-src") === "videos/hero/slide-xiaomi.mp4", "首镜应为小米 SU7");
+  assert(vids[1].getAttribute("data-src") === "videos/hero/slide-rayneo.mp4", "第二镜应为雷鸟眼镜");
+  assert(appJs.includes('addEventListener("ended", heroNext)'), "app.js 应监听 ended 接力下一镜");
+  return vids.map((v) => v.getAttribute("poster").split("/").pop()).join(", ");
+});
+
+check("Hero：点 03 切到舍得酒并同步作品名", () => {
+  const dots = $$(".hero-dot");
+  dots[2].click();
+  assert($$(".hero-slide")[2].classList.contains("is-active"), "第 3 镜应激活");
+  assert(dots[2].getAttribute("aria-pressed") === "true", "第 3 个应选中");
+  assert($("#heroNow").textContent.includes("舍得酒"), "作品名未同步");
+  dots[0].click();
+  return $("#heroNow").textContent;
 });
 
 check("Hero：暂停按钮切换", () => {
