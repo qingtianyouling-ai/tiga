@@ -159,15 +159,6 @@
       root.appendChild(stage);
     }
 
-    if (d && d.brief && d.brief.length) {
-      var s1 = el("section", "d-sec");
-      s1.appendChild(el("h2", null, "背景"));
-      var lead = el("div", "lead");
-      d.brief.forEach(function (p) { lead.appendChild(el("p", null, p)); });
-      s1.appendChild(lead);
-      root.appendChild(s1);
-    }
-
     if (d && d.approach && d.approach.length) {
       var s2 = el("section", "d-sec");
       s2.appendChild(el("h2", null, "做法"));
