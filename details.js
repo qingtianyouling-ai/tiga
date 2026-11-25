@@ -35,7 +35,7 @@ window.workDetails = {
     pipeline: [
       { n: "01", t: "脚本 → 24 镜表", d: "每一镜写清画面、运镜、时长和参考，先定结构再生成。", img: "images/detail/xiaomi/story-01.webp" },
       { n: "02", t: "静帧 · Nano Banana Pro", d: "24 张分镜静帧，产品一致性在第一帧就锁死。", img: "images/detail/xiaomi/story-04.webp" },
-      { n: "03", t: "视频 · Seedance 2.5", d: "逐镜生成，单镜 4 秒起，超长段落分段整合。", img: "images/detail/xiaomi/story-06.webp" },
+      { n: "03", t: "视频 · 即梦 AI", d: "即梦（Seedance）逐镜生成，单镜 4 秒起，超长段落分段整合。", img: "images/detail/xiaomi/story-06.webp" },
       { n: "04", t: "剪辑 · 39.64 秒", d: "24 镜按节奏表拼接，配乐与实录音效对齐。", img: "images/detail/xiaomi/final-02.jpg" }
     ],
     frames: [
@@ -47,5 +47,74 @@ window.workDetails = {
       { src: "images/detail/xiaomi/final-06.jpg", cap: "环形轨迹" }
     ],
     note: "独立概念练习，未投放；片中车辆与品牌仅为练习对象。"
+  },
+"commercial-08": {
+    kicker: "AI PRODUCT FILM / 30 SHOTS",
+    facts: [
+      ["项目", "雷鸟眼镜 iO《不同的眼光》"],
+      ["性质", "独立练习"],
+      ["年份", "2026"],
+      ["片长", "1:20 · 30 镜"],
+      ["职责", "创意 / 脚本 / 分镜 / 参考图 / 视频生成 / 剪辑"]
+    ],
+    brief: [
+      "用光学线条进入创作者的日常：前 21 秒是黑底、灰金属和荧光绿，之后转进有纸张、陶器和鼓点的工作室。全片 30 个镜头逐镜生成、拼接，最后统一混音。",
+      "想验证的是风格一致性——30 个镜头分别生成，但看起来要像同一天、同一台机器拍的。"
+    ],
+    approach: [
+      { h: "先定光学语言", p: "前段用冷黑、镜面反射和荧光绿建立科技感，后段切暖色工作室，用材质反差讲「从产品到生活」。" },
+      { h: "参考图锁风格", p: "先用 Nano Banana 出参考图，定下金属质感、环境光和构图，再拿参考图去生成视频，减少镜头之间的漂移。" },
+      { h: "逐镜生成再统一", p: "即梦 AI 逐镜生成，每镜检查镜腿比例、佩戴位置和形变，不合格就重生成；最后统一调色和混音。" }
+    ],
+    pipeline: [
+      { n: "01", t: "脚本 · ChatGPT", d: "创意与脚本、30 镜拆解，先定每镜要讲什么。" },
+      { n: "02", t: "参考图 · Nano Banana", d: "定金属质感、环境光和构图，作为生成参考。" },
+      { n: "03", t: "视频 · 即梦 AI", d: "逐镜生成，控制镜腿细节和佩戴位置。", img: "images/detail/rayneo/frame-02.webp" },
+      { n: "04", t: "剪辑 · 1:20", d: "按节奏拼接，统一调色与混音。", img: "images/detail/rayneo/frame-04.webp" }
+    ],
+    frames: [
+      { src: "images/detail/rayneo/frame-01.webp", cap: "光学结构" },
+      { src: "images/detail/rayneo/frame-02.webp", cap: "金属细节" },
+      { src: "images/detail/rayneo/frame-03.webp", cap: "线条与光" },
+      { src: "images/detail/rayneo/frame-04.webp", cap: "工作室 · 夜" },
+      { src: "images/detail/rayneo/frame-05.webp", cap: "纸张与桌面" },
+      { src: "images/detail/rayneo/frame-06.webp", cap: "鼓点 · 收尾" }
+    ],
+    note: "独立练习，非品牌委托。"
+  },
+
+  "commercial-09": {
+    kicker: "AI GAME TRAILER / 0:42",
+    facts: [
+      ["项目", "游戏 PV（ZOA 概念片）"],
+      ["性质", "独立练习"],
+      ["年份", "2026"],
+      ["片长", "0:42 · 16:9"],
+      ["职责", "概念 / 分镜 / 参考图 / 视频生成 / 剪辑"]
+    ],
+    brief: [
+      "一条游戏宣传片的概念练习：从云海上的浮空岛开场，进遗迹、点传送、唤出无人机，最后落在 ZOA 的徽章上。42 秒里把世界观、角色和玩法信号都交待一遍。",
+      "没有真实游戏资产，全部画面由 AI 生成，重点是把「预告片该有的节奏」做出来：开场给世界、中段给角色、结尾给 logo。"
+    ],
+    approach: [
+      { h: "先写世界观", p: "用一句话定世界（浮空岛 + 遗迹文明），再拆成 12 个镜头的功能：建立、人物、奇观、钩子、落版。" },
+      { h: "参考图统一质感", p: "Nano Banana 出概念图，锁住写实 CG 的材质、光线和色调，避免不同镜头像两个游戏。" },
+      { h: "逐镜生成 + 节奏剪辑", p: "即梦 AI 逐镜生成，按预告片节奏剪：前 10 秒慢、中段加速、结尾留白给 logo。" }
+    ],
+    pipeline: [
+      { n: "01", t: "脚本 · ChatGPT", d: "世界观、12 镜功能表、旁白与字幕节奏。" },
+      { n: "02", t: "参考图 · Nano Banana", d: "锁写实 CG 的材质与色调，统一全片质感。" },
+      { n: "03", t: "视频 · 即梦 AI", d: "逐镜生成，控制镜头运动与角色一致性。", img: "images/detail/gamepv/frame-03.webp" },
+      { n: "04", t: "剪辑 · 0:42", d: "按预告片节奏拼接，落版收在徽章上。", img: "images/detail/gamepv/frame-09.webp" }
+    ],
+    frames: [
+      { src: "images/detail/gamepv/frame-01.webp", cap: "浮空岛 · 开场" },
+      { src: "images/detail/gamepv/frame-03.webp", cap: "遗迹入口" },
+      { src: "images/detail/gamepv/frame-05.webp", cap: "传送点" },
+      { src: "images/detail/gamepv/frame-06.webp", cap: "角色登场" },
+      { src: "images/detail/gamepv/frame-08.webp", cap: "无人机" },
+      { src: "images/detail/gamepv/frame-09.webp", cap: "ZOA 落版" }
+    ],
+    note: "独立练习，片中游戏与角色均为虚构。"
   }
 };

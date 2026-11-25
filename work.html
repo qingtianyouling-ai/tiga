@@ -42,10 +42,13 @@
   .d-approach h3 { font-size: 15px; font-weight: 600; letter-spacing: .02em; }
   .d-approach h3 span { color: #6f7c93; margin-right: 10px; font-weight: 400; }
   .d-approach p { margin-top: 10px; font-size: 13px; line-height: 1.9; color: #a9a9a3; }
+  /* 奇数条时最后一条占满整行，避免右侧露出网格底色 */
+  .d-approach article:last-child:nth-child(odd) { grid-column: 1 / -1; }
 
   .d-pipe { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 22px; }
   .d-pipe figure { background: #151515; border: 1px solid rgba(255,255,255,.1); }
   .d-pipe img { display: block; width: 100%; aspect-ratio: 16/10; object-fit: cover; }
+  .d-pipe-ph { aspect-ratio: 16/10; display: grid; place-items: center; font-size: 40px; font-weight: 600; color: rgba(255,255,255,.14); background: repeating-linear-gradient(135deg, #141414 0 10px, #101010 10px 20px); }
   .d-pipe figcaption { padding: 14px 14px 16px; }
   .d-pipe b { display: block; font-size: 10px; letter-spacing: .2em; color: #6f7c93; }
   .d-pipe h4 { font-size: 13px; margin-top: 6px; font-weight: 600; }
@@ -197,11 +200,17 @@
       var pipe = el("div", "d-pipe");
       d.pipeline.forEach(function (s) {
         var fig = el("figure");
-        var img = document.createElement("img");
-        img.src = s.img;
-        img.alt = s.t;
-        img.loading = "lazy";
-        fig.appendChild(img);
+        if (s.img) {
+          var img = document.createElement("img");
+          img.src = s.img;
+          img.alt = s.t;
+          img.loading = "lazy";
+          fig.appendChild(img);
+        } else {
+          var ph = el("div", "d-pipe-ph");
+          ph.textContent = s.n;
+          fig.appendChild(ph);
+        }
         var cap = el("figcaption");
         cap.appendChild(el("b", null, s.n));
         cap.appendChild(el("h4", null, s.t));
