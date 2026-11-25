@@ -293,38 +293,22 @@ check("所有卡片都有可读名称与封面", () => {
 });
 
 /* ── Hero ─────────────────────────────────────────────────────────────── */
-check("Hero：三镜头 + 01/02/03 编号", () => {
+check("Hero：单条 showreel + 信息条", () => {
   const slides = $$(".hero-slide");
-  assert(slides.length === 3, `应有 3 个镜头，实际 ${slides.length}`);
-  const dots = $$(".hero-dot");
-  assert(dots.length === 3, `应有 3 个编号，实际 ${dots.length}`);
-  assert(dots.map((d) => d.textContent.trim()).join("/") === "01/02/03", "编号不对");
-  return dots.map((d) => d.textContent.trim()).join(" / ");
+  assert(slides.length === 1, `应只有一个视频层，实际 ${slides.length}`);
+  assert($$(".hero-dot").length === 0, "切换编号应已移除");
+  assert($("#heroNow").textContent.includes("SHOWREEL"), `信息条不对：${$("#heroNow").textContent}`);
+  return $("#heroNow").textContent.trim();
 });
 
-check("Hero：每个镜头都有封面、静音与懒加载地址（不带 loop，靠播完接力）", () => {
-  const vids = $$(".hero-video");
-  assert(vids.length === 3, "应有 3 个视频层");
-  vids.forEach((v, i) => {
-    assert(v.hasAttribute("muted") && v.hasAttribute("playsinline"), `第 ${i + 1} 个缺 muted / playsinline`);
-    assert(!v.hasAttribute("loop"), `第 ${i + 1} 个不应带 loop（要一条播完接一条）`);
-    assert(v.getAttribute("poster"), `第 ${i + 1} 个缺封面`);
-    assert(v.getAttribute("data-src"), `第 ${i + 1} 个缺 data-src`);
-  });
-  assert(vids[0].getAttribute("data-src") === "videos/hero/slide-xiaomi.mp4", "首镜应为小米 SU7");
-  assert(vids[1].getAttribute("data-src") === "videos/hero/slide-rayneo.mp4", "第二镜应为雷鸟眼镜");
-  assert(appJs.includes('addEventListener("ended", heroNext)'), "app.js 应监听 ended 接力下一镜");
-  return vids.map((v) => v.getAttribute("poster").split("/").pop()).join(", ");
-});
-
-check("Hero：点 03 切到舍得酒并同步作品名", () => {
-  const dots = $$(".hero-dot");
-  dots[2].click();
-  assert($$(".hero-slide")[2].classList.contains("is-active"), "第 3 镜应激活");
-  assert(dots[2].getAttribute("aria-pressed") === "true", "第 3 个应选中");
-  assert($("#heroNow").textContent.includes("舍得酒"), "作品名未同步");
-  dots[0].click();
-  return $("#heroNow").textContent;
+check("Hero：showreel 静音循环 + 封面 + 移动端片源", () => {
+  const v = $(".hero-video");
+  assert(v.hasAttribute("muted") && v.hasAttribute("playsinline"), "缺 muted / playsinline");
+  assert(v.hasAttribute("loop"), "showreel 应循环");
+  assert(v.getAttribute("poster") === "images/hero/showreel-poster.jpg", `封面不对：${v.getAttribute("poster")}`);
+  assert(v.getAttribute("data-src") === "videos/hero/showreel.mp4", "桌面片源不对");
+  assert(v.getAttribute("data-src-mobile") === "videos/hero/showreel-mobile.mp4", "移动片源不对");
+  return v.getAttribute("data-src");
 });
 
 check("Hero：暂停按钮切换", () => {

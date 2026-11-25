@@ -76,21 +76,14 @@
     a.addEventListener("click", function () { setMobileNav(false); });
   });
 
-  /* ── Hero：精选镜头轮播（保时捷 / 苹果 18 / 舍得酒）+ 滚动淡出 ────────── */
+  /* ── Hero：Showreel 单条循环 + 滚动淡出 ──────────────────────────────── */
   var hero = $("#top");
-  var heroSlides = $$(".hero-slide");
-  var heroVideos = $$(".hero-video");
-  var heroDots = $$(".hero-dot");
-  var heroNow = $("#heroNow");
+  var heroVideo = $(".hero-video");
   var motionToggle = $("#motionToggle");
-  var HERO_NAMES = ["小米 SU7 · 自在而行", "雷鸟眼镜 iO", "舍得酒 · 大师勾调"];
-  var HERO_FALLBACK = 9000; /* 视频没触发 ended 时的兜底，正常情况由 ended 接力 */
-  /* 省流 / 2G 网络下不自动播首屏视频，只留封面，免得拖慢首屏 */
+  /* 省流 / 2G 网络下不自动播首屏视频，只留封面 */
   var conn = navigator.connection || {};
   var slowNet = !!(conn.saveData || /(^|-)(2g|slow-2g)$/.test(conn.effectiveType || ""));
   var heroEnabled = !reducedMotion.matches && !slowNet;
-  var heroIndex = 0;
-  var heroTimer = null;
   var heroPaused = false;
   var heroOffscreen = false;
 
@@ -99,175 +92,61 @@
     return (mobile && video.getAttribute("data-src-mobile")) || video.getAttribute("data-src");
   }
 
-  function heroLoad(i) {
-    var v = heroVideos[i];
-    if (!v || v.getAttribute("src")) return;
-    v.src = heroSrcOf(v);
-    v.setAttribute("preload", "auto");
-    v.load();
+  function heroLoad() {
+    if (!heroVideo || heroVideo.getAttribute("src")) return;
+    heroVideo.src = heroSrcOf(heroVideo);
+    heroVideo.setAttribute("preload", "auto");
+    heroVideo.load();
   }
 
   function heroPlay() {
-    if (!heroEnabled || heroPaused || heroOffscreen) return;
-    var v = heroVideos[heroIndex];
-    if (!v) return;
-    var p = v.play();
-    if (p && p.catch) p.catch(function () { /* 被拒时停在封面上 */ });
-  }
-
-  function heroStopAll() {
-    heroVideos.forEach(function (v) {
-      if (!v.paused) v.pause();
-    });
-  }
-
-  function heroNext() {
     if (!heroEnabled || heroPaused || heroOffscreen || document.hidden) return;
-    heroSet(heroIndex + 1);
+    if (!heroVideo) return;
+    var p = heroVideo.play();
+    if (p && p.catch) p.catch(function () { /* 自动播放被拒时停在封面 */ });
   }
 
-  /* 一个播完接下一个：优先听 ended，兜底 9 秒（自动播放被拒 / 解码失败时也能走） */
-  function heroStartTimer() {
-    heroStopTimer();
-    if (!heroEnabled || heroPaused || heroOffscreen) return;
-    heroTimer = setTimeout(heroNext, HERO_FALLBACK);
-  }
-  function heroStopTimer() {
-    if (heroTimer) {
-      clearTimeout(heroTimer);
-      heroTimer = null;
-    }
+  function heroStop() {
+    if (heroVideo && !heroVideo.paused) heroVideo.pause();
   }
 
-  function heroPauseCurrent() {
-    var v = heroVideos[heroIndex];
-    if (v && !v.paused) v.pause();
+  function heroSetToggleState(off) {
+    motionToggle.setAttribute("aria-pressed", String(off));
+    motionToggle.setAttribute("aria-label", off ? "播放背景视频" : "暂停背景视频");
+    motionToggle.querySelector("span").textContent = off ? "播放" : "暂停";
   }
 
-  var heroPrefetchTimer = null;
-  function heroSchedulePrefetch() {
-    if (!heroEnabled) return;
-    if (heroPrefetchTimer) clearTimeout(heroPrefetchTimer);
-    heroPrefetchTimer = setTimeout(function () {
-      heroPrefetchTimer = null;
-      if (document.hidden || heroPaused || heroOffscreen) return;
-      if (conn.saveData || /(^|-)(2g|slow-2g|3g)$/.test(conn.effectiveType || "")) return;
-      heroLoad((heroIndex + 1) % heroSlides.length);
-    }, 5000);
-  }
-
-  var heroLeaveTimers = new Map();
-
-  function heroSet(i) {
-    if (!heroSlides.length) return;
-    heroIndex = (i + heroSlides.length) % heroSlides.length;
-    heroSlides.forEach(function (s, n) {
-      var timer = heroLeaveTimers.get(s);
-      if (timer) {
-        clearTimeout(timer);
-        heroLeaveTimers.delete(s);
-        s.classList.remove("is-leaving");
-      }
-      if (n === heroIndex) {
-        s.classList.add("is-active");
-      } else if (s.classList.contains("is-active")) {
-        /* 旧镜头留在下面垫着，等新镜头淡入完成再收掉，避免中间透黑 */
-        s.classList.remove("is-active");
-        s.classList.add("is-leaving");
-        heroLeaveTimers.set(
-          s,
-          setTimeout(function () {
-            s.classList.remove("is-leaving");
-            heroLeaveTimers.delete(s);
-          }, 1100)
-        );
-      }
-    });
-    heroDots.forEach(function (d, n) {
-      var on = n === heroIndex;
-      d.classList.toggle("is-active", on);
-      d.setAttribute("aria-pressed", String(on));
-    });
-    if (hero) hero.setAttribute("data-slide", String(heroIndex));
-    if (heroNow) heroNow.textContent = HERO_NAMES[heroIndex] || "";
-
+  if (hero && heroVideo) {
     if (heroEnabled) {
-      heroLoad(heroIndex);
-      heroVideos.forEach(function (v, n) {
-        if (n !== heroIndex && !v.paused) v.pause();
-      });
+      heroLoad();
       heroPlay();
-      /* 下一镜只在当前镜播了两秒、且网络不差时才预取，避免首屏一次拉两条视频 */
-      heroSchedulePrefetch();
-      heroStartTimer();
-    }
-  }
-
-  if (hero && heroSlides.length) {
-    if (heroEnabled) {
-      heroSet(0);
-      heroStartTimer();
     } else {
-      /* 降级动效：只显示各镜封面，不播视频、不自动轮播 */
-      motionToggle.setAttribute("aria-pressed", "true");
-      motionToggle.setAttribute("aria-label", "播放背景视频");
-      motionToggle.querySelector("span").textContent = "播放";
+      /* 降级：只显示封面，不自动播 */
+      heroPaused = true;
+      heroSetToggleState(true);
     }
-
-    heroDots.forEach(function (dot) {
-      dot.addEventListener("click", function () {
-        heroSet(Number(dot.getAttribute("data-slide")));
-        heroStartTimer();
-      });
-    });
 
     motionToggle.addEventListener("click", function () {
       heroPaused = !heroPaused;
-      motionToggle.setAttribute("aria-pressed", String(heroPaused));
-      motionToggle.setAttribute("aria-label", heroPaused ? "播放背景视频" : "暂停背景视频");
-      motionToggle.querySelector("span").textContent = heroPaused ? "播放" : "暂停";
+      heroSetToggleState(heroPaused);
       if (heroPaused) {
-        heroStopTimer();
-        heroStopAll();
+        heroStop();
       } else {
         heroEnabled = true;
-        heroLoad(heroIndex);
+        heroLoad();
         heroPlay();
-        heroStartTimer();
       }
     });
 
-    /* 每条放完自己接力下一条 */
-    heroVideos.forEach(function (v) {
-      v.addEventListener("ended", heroNext);
-    });
-
-    /* 鼠标停在首屏时先停住，方便看画面；移开继续 */
-    hero.addEventListener("mouseenter", function () {
-      heroStopTimer();
-      heroPauseCurrent();
-    });
-    hero.addEventListener("mouseleave", function () {
-      heroPlay();
-      heroStartTimer();
-    });
-    hero.addEventListener("focusin", function () {
-      heroStopTimer();
-      heroPauseCurrent();
-    });
-    hero.addEventListener("focusout", function () {
-      heroPlay();
-      heroStartTimer();
-    });
+    /* 鼠标停在首屏 / 键盘焦点在内时暂停，移开继续 */
+    hero.addEventListener("mouseenter", heroStop);
+    hero.addEventListener("mouseleave", heroPlay);
+    hero.addEventListener("focusin", heroStop);
+    hero.addEventListener("focusout", heroPlay);
 
     document.addEventListener("visibilitychange", function () {
-      if (document.hidden) {
-        heroStopAll();
-        heroStopTimer();
-      } else {
-        heroPlay();
-        heroStartTimer();
-      }
+      if (document.hidden) heroStop();
+      else heroPlay();
     });
 
     /* 滚动进度：文字上移淡出、画面轻微推近、滚出视口后停视频 */
@@ -279,13 +158,8 @@
       var off = window.scrollY > h * 0.92;
       if (off !== heroOffscreen) {
         heroOffscreen = off;
-        if (off) {
-          heroStopAll();
-          heroStopTimer();
-        } else {
-          heroPlay();
-          heroStartTimer();
-        }
+        if (off) heroStop();
+        else heroPlay();
       }
     }
     window.addEventListener(

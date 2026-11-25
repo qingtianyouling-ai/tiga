@@ -71,28 +71,14 @@
 
 <main id="main">
 
-  <!-- ── Hero：精选镜头轮播（保时捷 / 苹果 18 / 舍得酒）· 文字居中 ──────── -->
+  <!-- ── Hero：Showreel 2026（单条循环）· 文字居中 ───────────────────── -->
   <section class="hero" id="top" data-slide="0">
     <div class="hero-media" aria-hidden="true">
       <div class="hero-slide is-active" data-tone="dark">
-        <video class="hero-video" muted playsinline preload="none"
-               poster="images/web/1600/hero-xiaomi.webp"
-               data-src="videos/hero/slide-xiaomi.mp4"
-               data-src-mobile="videos/hero/slide-xiaomi-mobile.mp4"
-               disablepictureinpicture tabindex="-1"></video>
-      </div>
-      <div class="hero-slide" data-tone="dark">
-        <video class="hero-video" muted playsinline preload="none"
-               poster="images/web/1600/hero-rayneo.webp"
-               data-src="videos/hero/slide-rayneo.mp4"
-               data-src-mobile="videos/hero/slide-rayneo-mobile.mp4"
-               disablepictureinpicture tabindex="-1"></video>
-      </div>
-      <div class="hero-slide hero-slide--light" data-tone="light">
-        <video class="hero-video" muted playsinline preload="none"
-               poster="images/web/1600/hero-shede.webp"
-               data-src="videos/hero/slide-shede.mp4"
-               data-src-mobile="videos/hero/slide-shede-mobile.mp4"
+        <video class="hero-video" muted playsinline loop preload="none"
+               poster="images/hero/showreel-poster.jpg"
+               data-src="videos/hero/showreel.mp4"
+               data-src-mobile="videos/hero/showreel-mobile.mp4"
                disablepictureinpicture tabindex="-1"></video>
       </div>
     </div>
@@ -116,18 +102,10 @@
     </a>
 
     <div class="hero-dock">
-      <p class="hero-now" id="heroNow">小米 SU7 · 自在而行</p>
+      <p class="hero-now" id="heroNow">SHOWREEL 2026 · 38s</p>
       <button class="motion-toggle" id="motionToggle" type="button" aria-pressed="false" aria-label="暂停背景视频">
         <i aria-hidden="true"></i><span>暂停</span>
       </button>
-      <div class="hero-dots" role="group" aria-label="精选镜头切换">
-        <button class="hero-dot is-active" type="button" aria-pressed="true"
-                data-slide="0" aria-label="第 1 个镜头：小米 SU7 自在而行">01</button>
-        <button class="hero-dot" type="button" aria-pressed="false"
-                data-slide="1" aria-label="第 2 个镜头：雷鸟眼镜 iO">02</button>
-        <button class="hero-dot" type="button" aria-pressed="false"
-                data-slide="2" aria-label="第 3 个镜头：舍得酒">03</button>
-      </div>
     </div>
   </section>
 
