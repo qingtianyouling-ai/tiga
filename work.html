@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>项目详情 · 冼正</title>
+<meta name="theme-color" content="#101010">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .detail-page { background: #101010; color: #f2f2f0; min-height: 100vh; }
+  .d-top { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; justify-content: space-between;
+           padding: 14px clamp(16px, 4vw, 48px); background: rgba(16,16,16,.86); backdrop-filter: blur(12px);
+           border-bottom: 1px solid rgba(255,255,255,.1); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+  .d-top a { color: #bbb; text-decoration: none; }
+  .d-top a:hover { color: #fff; }
+  .d-wrap { max-width: 1120px; margin: 0 auto; padding: clamp(28px, 5vw, 64px) clamp(16px, 4vw, 48px) 80px; }
+
+  .d-head { display: grid; grid-template-columns: 1fr 300px; gap: 40px; align-items: end; }
+  .d-kicker { font-size: 11px; letter-spacing: .22em; color: #7d7d79; text-transform: uppercase; }
+  .d-title { font-size: clamp(30px, 5vw, 54px); line-height: 1.08; font-weight: 600; letter-spacing: .01em; margin-top: 10px; }
+  .d-facts { list-style: none; border-top: 1px solid rgba(255,255,255,.16); }
+  .d-facts li { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,.1); font-size: 12px; }
+  .d-facts b { color: #7d7d79; font-weight: 400; letter-spacing: .1em; flex: none; }
+  .d-facts span { color: #e6e6e0; text-align: right; }
+
+  .d-stage { margin-top: 34px; position: relative; background: #000; border: 1px solid rgba(255,255,255,.1); }
+  .d-stage video { display: block; width: 100%; aspect-ratio: 16/9; object-fit: cover; cursor: pointer; }
+  .d-stage .d-play { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; }
+  .d-stage .d-play span { border: 1px solid rgba(255,255,255,.5); border-radius: 999px; padding: 12px 22px; font-size: 12px; letter-spacing: .18em; background: rgba(0,0,0,.35); }
+  .d-stage.is-playing .d-play { display: none; }
+
+  .d-sec { margin-top: 56px; }
+  .d-sec h2 { font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: #8a8a86; font-weight: 400;
+              display: flex; align-items: baseline; gap: 12px; }
+  .d-sec h2::after { content: ""; flex: 1; height: 1px; background: rgba(255,255,255,.14); }
+  .d-sec .lead { margin-top: 18px; max-width: 74ch; }
+  .d-sec .lead p { font-size: 15px; line-height: 1.95; color: #d6d6d0; }
+  .d-sec .lead p + p { margin-top: 12px; }
+
+  .d-approach { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; margin-top: 22px; background: rgba(255,255,255,.12); }
+  .d-approach article { background: #101010; padding: 22px 22px 26px; }
+  .d-approach h3 { font-size: 15px; font-weight: 600; letter-spacing: .02em; }
+  .d-approach h3 span { color: #6f7c93; margin-right: 10px; font-weight: 400; }
+  .d-approach p { margin-top: 10px; font-size: 13px; line-height: 1.9; color: #a9a9a3; }
+
+  .d-pipe { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 22px; }
+  .d-pipe figure { background: #151515; border: 1px solid rgba(255,255,255,.1); }
+  .d-pipe img { display: block; width: 100%; aspect-ratio: 16/10; object-fit: cover; }
+  .d-pipe figcaption { padding: 14px 14px 16px; }
+  .d-pipe b { display: block; font-size: 10px; letter-spacing: .2em; color: #6f7c93; }
+  .d-pipe h4 { font-size: 13px; margin-top: 6px; font-weight: 600; }
+  .d-pipe p { font-size: 12px; line-height: 1.8; color: #9b9b95; margin-top: 6px; }
+
+  .d-frames { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 22px; }
+  .d-frames figure { position: relative; overflow: hidden; background: #000; }
+  .d-frames img { display: block; width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+  .d-frames figcaption { position: absolute; left: 10px; bottom: 8px; font-size: 10px; letter-spacing: .1em; color: rgba(255,255,255,.8); text-shadow: 0 1px 6px #000; }
+
+  .d-note { margin-top: 40px; font-size: 12px; color: #7d7d79; border-top: 1px solid rgba(255,255,255,.12); padding-top: 16px; }
+
+  .d-next { margin-top: 64px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .d-next a { flex: 1 1 240px; border: 1px solid rgba(255,255,255,.16); padding: 18px 20px; text-decoration: none; color: #e6e6e0; transition: border-color .2s, background .2s; }
+  .d-next a:hover { border-color: rgba(255,255,255,.4); background: rgba(255,255,255,.03); }
+  .d-next small { display: block; font-size: 10px; letter-spacing: .2em; color: #7d7d79; text-transform: uppercase; }
+  .d-next b { display: block; margin-top: 8px; font-size: 15px; font-weight: 500; }
+
+  @media (max-width: 860px) {
+    .d-head { grid-template-columns: 1fr; gap: 24px; }
+    .d-approach { grid-template-columns: 1fr; }
+    .d-pipe { grid-template-columns: repeat(2, 1fr); }
+    .d-frames { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body class="detail-page">
+  <div class="d-top">
+    <a href="index.html">← 返回首页</a>
+    <span>冼正 · 项目详情</span>
+    <a href="index.html#work">全部作品</a>
+  </div>
+
+  <main class="d-wrap" id="detailRoot"></main>
+
+  <script src="content.js"></script>
+  <script src="details.js"></script>
+  <script>
+  (function () {
+    "use strict";
+    var P = window.portfolio;
+    var D = window.workDetails || {};
+    var root = document.getElementById("detailRoot");
+    var params = new URLSearchParams(location.search);
+    var id = params.get("id");
+    var work = (P.works || []).filter(function (w) { return w.id === id; })[0];
+
+    function el(tag, cls, text) {
+      var n = document.createElement(tag);
+      if (cls) n.className = cls;
+      if (text != null) n.textContent = text;
+      return n;
+    }
+
+    if (!work) {
+      document.title = "作品未找到 · 冼正";
+      root.appendChild(el("p", "d-kicker", "404"));
+      root.appendChild(el("h1", "d-title", "没有找到这个作品"));
+      var back = el("a", "d-next-link", "← 返回作品列表");
+      back.href = "index.html#work";
+      back.style.display = "inline-block";
+      back.style.marginTop = "24px";
+      back.style.color = "#cfcfc9";
+      root.appendChild(back);
+      return;
+    }
+
+    var d = D[work.id];
+    document.title = work.title + " · 冼正";
+
+    var head = el("header", "d-head");
+    var left = el("div");
+    left.appendChild(el("p", "d-kicker", d ? d.kicker : (P.catLabels[work.cat] || "")));
+    left.appendChild(el("h1", "d-title", work.title));
+    head.appendChild(left);
+
+    var facts = d ? d.facts : [
+      ["类型", work.desc],
+      ["年份", work.year || ""],
+      ["职责", (work.roles || []).join(" / ")]
+    ];
+    var ul = el("ul", "d-facts");
+    facts.forEach(function (f) {
+      var li = el("li");
+      li.appendChild(el("b", null, f[0]));
+      li.appendChild(el("span", null, f[1]));
+      ul.appendChild(li);
+    });
+    head.appendChild(ul);
+    root.appendChild(head);
+
+    if (work.video) {
+      var stage = el("div", "d-stage");
+      var video = document.createElement("video");
+      video.src = work.video;
+      video.poster = work.poster || "";
+      video.controls = false;
+      video.preload = "none";
+      video.playsInline = true;
+      var play = el("div", "d-play");
+      play.appendChild(el("span", null, "播放成片"));
+      stage.appendChild(video);
+      stage.appendChild(play);
+      stage.addEventListener("click", function () {
+        if (video.paused) {
+          video.controls = true;
+          video.play();
+          stage.classList.add("is-playing");
+        } else {
+          video.pause();
+        }
+      });
+      stage.addEventListener("mouseleave", function () {
+        if (!video.paused) return;
+        stage.classList.remove("is-playing");
+      });
+      root.appendChild(stage);
+    }
+
+    if (d && d.brief && d.brief.length) {
+      var s1 = el("section", "d-sec");
+      s1.appendChild(el("h2", null, "背景"));
+      var lead = el("div", "lead");
+      d.brief.forEach(function (p) { lead.appendChild(el("p", null, p)); });
+      s1.appendChild(lead);
+      root.appendChild(s1);
+    }
+
+    if (d && d.approach && d.approach.length) {
+      var s2 = el("section", "d-sec");
+      s2.appendChild(el("h2", null, "做法"));
+      var grid = el("div", "d-approach");
+      d.approach.forEach(function (a, i) {
+        var art = el("article");
+        var h = el("h3");
+        h.appendChild(el("span", null, String(i + 1).padStart(2, "0")));
+        h.appendChild(document.createTextNode(a.h));
+        art.appendChild(h);
+        art.appendChild(el("p", null, a.p));
+        grid.appendChild(art);
+      });
+      s2.appendChild(grid);
+      root.appendChild(s2);
+    }
+
+    if (d && d.pipeline && d.pipeline.length) {
+      var s3 = el("section", "d-sec");
+      s3.appendChild(el("h2", null, "AI 管线"));
+      var pipe = el("div", "d-pipe");
+      d.pipeline.forEach(function (s) {
+        var fig = el("figure");
+        var img = document.createElement("img");
+        img.src = s.img;
+        img.alt = s.t;
+        img.loading = "lazy";
+        fig.appendChild(img);
+        var cap = el("figcaption");
+        cap.appendChild(el("b", null, s.n));
+        cap.appendChild(el("h4", null, s.t));
+        cap.appendChild(el("p", null, s.d));
+        fig.appendChild(cap);
+        pipe.appendChild(fig);
+      });
+      s3.appendChild(pipe);
+      root.appendChild(s3);
+    }
+
+    if (d && d.frames && d.frames.length) {
+      var s4 = el("section", "d-sec");
+      s4.appendChild(el("h2", null, "关键帧"));
+      var grid2 = el("div", "d-frames");
+      d.frames.forEach(function (f) {
+        var fig = document.createElement("figure");
+        var img = document.createElement("img");
+        img.src = f.src;
+        img.alt = f.cap;
+        img.loading = "lazy";
+        fig.appendChild(img);
+        fig.appendChild(el("figcaption", null, f.cap));
+        grid2.appendChild(fig);
+      });
+      s4.appendChild(grid2);
+      root.appendChild(s4);
+    }
+
+    if (d && d.note) root.appendChild(el("p", "d-note", d.note));
+
+    var next = el("nav", "d-next");
+    var idx = P.works.indexOf(work);
+    var nxt = P.works[(idx + 1) % P.works.length];
+    var a1 = document.createElement("a");
+    a1.href = "index.html#work";
+    a1.innerHTML = "<small>Back</small><b>← 返回作品列表</b>";
+    var a2 = document.createElement("a");
+    a2.href = "work.html?id=" + encodeURIComponent(nxt.id);
+    a2.innerHTML = "<small>Next Project</small><b>" + nxt.title + " →</b>";
+    next.appendChild(a1);
+    next.appendChild(a2);
+    root.appendChild(next);
+  })();
+  </script>
+</body>
+</html>

@@ -1372,3 +1372,106 @@ button,
     opacity: 0.6;
   }
 }
+
+/* ── AI 实践 ─────────────────────────────────────────────────────────── */
+.ai-lab .work-heading {
+  font-size: clamp(30px, 4.2vw, 56px);
+}
+
+.ai-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: clamp(28px, 4vw, 52px);
+  background: var(--line, rgba(255, 255, 255, 0.12));
+  border: 1px solid var(--line, rgba(255, 255, 255, 0.12));
+}
+
+.ai-step {
+  background: var(--bg, #101010);
+  padding: 0 0 22px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ai-thumb {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #000;
+}
+
+.ai-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.ai-step:hover .ai-thumb img {
+  transform: scale(1.03);
+}
+
+.ai-step b {
+  display: block;
+  padding: 16px 18px 0;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: #6f7c93;
+  font-weight: 400;
+}
+
+.ai-step h3 {
+  padding: 8px 18px 0;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.ai-step p {
+  padding: 8px 18px 0;
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--muted, #8a8a86);
+}
+
+.ai-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: clamp(24px, 3vw, 36px);
+  padding: 13px 22px;
+  border: 1px solid var(--line, rgba(255, 255, 255, 0.2));
+  color: var(--ink, #f2f2f0);
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.ai-cta:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.dialog-more {
+  display: inline-block;
+  margin-top: 16px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--ink, #f2f2f0);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+  padding-bottom: 3px;
+}
+
+@media (max-width: 900px) {
+  .ai-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .ai-steps {
+    grid-template-columns: 1fr;
+  }
+}

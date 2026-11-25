@@ -553,7 +553,7 @@
     count: "#workCount",
     filters: "#workFilters",
     expand: "#workExpand",
-    initial: 10,
+    initial: 12,
     unit: "Projects"
   });
 
@@ -577,6 +577,7 @@
   var dialogDesc = $("#dialogDesc");
   var dialogFacts = $("#dialogFacts");
   var dialogNote = $("#dialogNote");
+  var dialogMore = $("#dialogMore");
   var dialogClose = $("#dialogClose");
   var dialogOpen = false;
   var dialogOpener = null;
@@ -732,6 +733,11 @@
     dialogFacts.appendChild(factRow("职责", rolesOf(work).join(" / ")));
     if (work.credit) dialogFacts.appendChild(factRow("荣誉", work.credit));
 
+    if (dialogMore) {
+      var detail = window.workDetails && window.workDetails[work.id];
+      dialogMore.hidden = !detail;
+      dialogMore.href = "work.html?id=" + encodeURIComponent(work.id);
+    }
     dialogNote.textContent = work.video
       ? "视频为网页压缩版，原片请向本人索取。"
       : "图片为网页压缩版，原图请向本人索取。";

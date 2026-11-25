@@ -46,8 +46,9 @@ for (const w of P.works) {
 /* index.html 里写死的引用 */
 const html = read("index.html");
 for (const m of html.matchAll(/(?:src|href)="([^"#][^"]*)"/g)) {
-  const ref = m[1];
+  let ref = m[1];
   if (/^(https?:|mailto:|tel:|data:|#)/.test(ref)) continue; // 外链不算缺失
+  if (/\.html(\?|#)/.test(ref)) continue; // 站内页面（带查询串/锚点）不算静态资源
   add(ref, "index.html");
 }
 for (const m of html.matchAll(/href="(#[\w-]+)"/g)) {

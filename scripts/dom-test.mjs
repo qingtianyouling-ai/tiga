@@ -102,11 +102,11 @@ check("作品板块筛选按钮按分类顺序生成", () => {
   return `${chips.length} + ${gchips.length} 个`;
 });
 
-check("作品板块首屏只露 10 个 + 展开按钮", () => {
-  assert($$("#workGrid .work-card").length === 10, `应为 10，实际 ${$$("#workGrid .work-card").length}`);
+check("作品板块首屏只露 12 个 + 展开按钮", () => {
+  assert($$("#workGrid .work-card").length === 12, `应为 12，实际 ${$$("#workGrid .work-card").length}`);
   const btn = $("#workExpand");
   assert(btn && btn.hidden === false, "展开按钮应可见");
-  assert(btn.textContent.includes("9"), `应提示还剩 9 件，实际「${btn.textContent}」`);
+  assert(btn.textContent.includes("7"), `应提示还剩 7 件，实际「${btn.textContent}」`);
   return btn.textContent;
 });
 
@@ -116,8 +116,8 @@ check("点展开 → 19 个，按钮隐藏，焦点交给第一张新卡片", ()
   assert($("#workExpand").hidden === true, "展开后按钮应隐藏");
   assert($("#workCount").textContent === "19 Projects", `计数不对：${$("#workCount").textContent}`);
   const cards = $$("#workGrid .work-trigger");
-  assert(doc.activeElement === cards[10], "键盘展开后焦点应落到第 11 张（第一张新增）");
-  return $("#workCount").textContent + " · 焦点 → 第 11 张";
+  assert(doc.activeElement === cards[12], "键盘展开后焦点应落到第 13 张（第一张新增）");
+  return $("#workCount").textContent + " · 焦点 → 第 13 张";
 });
 
 check("计数变化对读屏可感知（aria-live）", () => {
