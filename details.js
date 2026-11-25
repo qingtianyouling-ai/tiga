@@ -326,5 +326,300 @@ window.workDetails = {
       { src: "images/detail/duo/frame-06.webp", cap: "双屏内容" }
     ],
     note: "AI 概念片，非品牌委托。"
+  },
+
+  "microfilm-02": {
+    kicker: "NARRATIVE SHORT / 7:10",
+    facts: [
+      ["项目", "重启今日 · 校园剧情短片"],
+      ["性质", "学生短片"],
+      ["年份", "2025"],
+      ["片长", "7:10"],
+      ["职责", "摄影 / 剪辑"],
+      ["荣誉", "2025 大学生短片电影节最佳影片"],
+    ],
+    brief: [
+      "校园剧情短片，完整叙事，7 分 10 秒。校园实景拍摄，多场景切换，从白天拍到夜戏。",
+      "我负责摄影与剪辑：机位、光比、场景衔接，以及全片的叙事节奏。",
+    ],
+    approach: [
+      { h: "按场景排机位", p: "先把场景按时间线拆开，每个场景定主光位和主机位，再补特写和反应镜头。" },
+      { h: "控制叙事节奏", p: "7 分钟的长度靠剪辑撑：删掉重复信息，用动作和视线接镜头，避免拖沓。" },
+      { h: "统一影调", p: "不同场景的光线差别大，剪辑后统一色温和对比，让全片像同一天发生的事。" },
+    ],
+    frames: [
+      { src: "images/detail/mf2/frame-01.webp", cap: "开场" },
+      { src: "images/detail/mf2/frame-02.webp", cap: "走廊" },
+      { src: "images/detail/mf2/frame-03.webp", cap: "教室" },
+      { src: "images/detail/mf2/frame-04.webp", cap: "对话" },
+      { src: "images/detail/mf2/frame-05.webp", cap: "夜戏" },
+      { src: "images/detail/mf2/frame-06.webp", cap: "收尾" },
+    ],
+    note: "学生短片作品。"
+  },
+
+  "microfilm-01": {
+    kicker: "NARRATIVE SHORT / 11:48",
+    facts: [
+      ["项目", "罪饿 · 校园剧情短片"],
+      ["性质", "学生短片"],
+      ["年份", "2025"],
+      ["片长", "11:48"],
+      ["职责", "摄影 / 剪辑"],
+      ["荣誉", "大学生原创微电影大赛 · 剧情片一等奖"],
+    ],
+    brief: [
+      "校园剧情短片，11 分 48 秒，多场景实拍。拍摄周期里跑了宿舍、走廊、街道、天台等场景。",
+      "我负责摄影与剪辑，重点是把长片的节奏控住，不让中段塌下来。",
+    ],
+    approach: [
+      { h: "多场景调度", p: "每个场景先定机位和走位，再用不同焦段区分「日常」和「冲突」两类段落。" },
+      { h: "长片剪辑", p: "按事件线剪，先粗剪到 14 分钟，再砍到 11 分 48；每砍一次都回看情绪是否断。" },
+      { h: "声音与留白", p: "环境声铺底，关键段落留白，让表演和画面自己说话。" },
+    ],
+    frames: [
+      { src: "images/detail/mf1/frame-01.webp", cap: "教室" },
+      { src: "images/detail/mf1/frame-02.webp", cap: "街道" },
+      { src: "images/detail/mf1/frame-03.webp", cap: "宿舍" },
+      { src: "images/detail/mf1/frame-04.webp", cap: "对话" },
+      { src: "images/detail/mf1/frame-05.webp", cap: "天台" },
+      { src: "images/detail/mf1/frame-06.webp", cap: "落版" },
+    ],
+    note: "学生短片作品。"
+  },
+
+  "event-01": {
+    kicker: "纪 实 / 5:00",
+    facts: [
+      ["项目", "青春的底色 · 百千万工程纪实"],
+      ["性质", "纪实片"],
+      ["年份", "2025"],
+      ["片长", "5:00"],
+      ["跟拍", "人物与场景"],
+      ["职责", "摄影 / 剪辑"],
+    ],
+    brief: [
+      "跟拍记录 + 场景空镜 + 人物采访，5 分钟成片。",
+      "我负责摄影与剪辑：跟拍机位、采访布光、以及事件线与人物线的交叉剪辑。",
+    ],
+    approach: [
+      { h: "跟拍机位", p: "手持跟拍为主，保持人物在画面里的稳定位置，走动时不丢焦。" },
+      { h: "采访布光", p: "室内采访用柔光做主光，背景压暗，让人物从环境里出来。" },
+      { h: "交叉剪辑", p: "事件线和人物线交替，避免变成流水账。" },
+    ],
+    frames: [
+      { src: "images/detail/ev01/frame-01.webp", cap: "开场" },
+      { src: "images/detail/ev01/frame-02.webp", cap: "跟拍" },
+      { src: "images/detail/ev01/frame-03.webp", cap: "采访" },
+      { src: "images/detail/ev01/frame-04.webp", cap: "场景" },
+      { src: "images/detail/ev01/frame-05.webp", cap: "细节" },
+      { src: "images/detail/ev01/frame-06.webp", cap: "收尾" },
+    ],
+    note: "现场记录，非摆拍。"
+  },
+
+  "event-03": {
+    kicker: "LIVE EVENT / 1:34",
+    facts: [
+      ["项目", "五四汇演 · 校园汇演"],
+      ["性质", "活动记录"],
+      ["年份", "2025"],
+      ["片长", "1:34"],
+      ["机位", "舞台 + 观众"],
+      ["职责", "摄影 / 剪辑"],
+    ],
+    brief: [
+      "舞台汇演的现场记录，1 分 34 秒。",
+      "负责摄影与剪辑：舞台机位、观众反应、以及按节目节奏剪出高光。",
+    ],
+    approach: [
+      { h: "机位分工", p: "舞台正面主机位保表演，侧机位抓群像和观众反应。" },
+      { h: "现场收音", p: "以现场声为主，保留掌声和欢呼，不额外配音。" },
+      { h: "高光剪辑", p: "按节目切段，每个节目留最有力的一两个动作。" },
+    ],
+    frames: [
+      { src: "images/detail/ev03/frame-01.webp", cap: "开场" },
+      { src: "images/detail/ev03/frame-02.webp", cap: "舞台" },
+      { src: "images/detail/ev03/frame-03.webp", cap: "群像" },
+      { src: "images/detail/ev03/frame-04.webp", cap: "观众" },
+      { src: "images/detail/ev03/frame-05.webp", cap: "高光" },
+      { src: "images/detail/ev03/frame-06.webp", cap: "谢幕" },
+    ],
+    note: "现场记录，非摆拍。"
+  },
+
+  "event-05": {
+    kicker: "EVENT FILM / 0:40",
+    facts: [
+      ["项目", "夏季嘉年华 · 校园活动"],
+      ["性质", "活动记录"],
+      ["年份", "2025"],
+      ["片长", "0:40"],
+      ["机位", "快剪"],
+      ["职责", "摄影 / 剪辑"],
+    ],
+    brief: [
+      "校园嘉年华的现场快剪，40 秒。",
+      "负责摄影与剪辑：手持跟拍 + 快速剪辑，用音乐卡点。",
+    ],
+    approach: [
+      { h: "手持跟拍", p: "跟着人流走，抓互动和笑脸，画面保持动势。" },
+      { h: "卡点剪辑", p: "按音乐重音切镜头，短镜头堆节奏。" },
+    ],
+    frames: [
+      { src: "images/detail/ev05/frame-01.webp", cap: "开场" },
+      { src: "images/detail/ev05/frame-02.webp", cap: "人流" },
+      { src: "images/detail/ev05/frame-03.webp", cap: "互动" },
+      { src: "images/detail/ev05/frame-04.webp", cap: "游戏" },
+      { src: "images/detail/ev05/frame-05.webp", cap: "笑脸" },
+      { src: "images/detail/ev05/frame-06.webp", cap: "收尾" },
+    ],
+    note: "现场记录，非摆拍。"
+  },
+
+  "event-08": {
+    kicker: "BRAND EVENT / 0:31",
+    facts: [
+      ["项目", "极氪 · 品牌活动"],
+      ["性质", "品牌活动记录"],
+      ["年份", "2025"],
+      ["片长", "0:31"],
+      ["机位", "展台 + 氛围"],
+      ["职责", "摄影 / 剪辑"],
+    ],
+    brief: [
+      "品牌活动现场记录，31 秒。",
+      "负责摄影与剪辑：展台产品特写、现场氛围、以及快节奏成片。",
+    ],
+    approach: [
+      { h: "展台特写", p: "产品细节和展台布置优先，保证品牌露出清晰。" },
+      { h: "氛围镜头", p: "人流、互动、灯光，补足现场感。" },
+      { h: "快剪", p: "短镜头拼接，控制在 30 秒左右。" },
+    ],
+    frames: [
+      { src: "images/detail/ev08/frame-01.webp", cap: "开场" },
+      { src: "images/detail/ev08/frame-02.webp", cap: "展台" },
+      { src: "images/detail/ev08/frame-03.webp", cap: "产品" },
+      { src: "images/detail/ev08/frame-04.webp", cap: "互动" },
+      { src: "images/detail/ev08/frame-05.webp", cap: "氛围" },
+      { src: "images/detail/ev08/frame-06.webp", cap: "收尾" },
+    ],
+    note: "现场记录，非摆拍。"
+  },
+
+  "event-11": {
+    kicker: "BRAND EVENT / 0:29",
+    facts: [
+      ["项目", "蒙牛 · 品牌活动"],
+      ["性质", "品牌活动记录"],
+      ["年份", "2025"],
+      ["片长", "0:29"],
+      ["机位", "展台 + 氛围"],
+      ["职责", "摄影 / 剪辑"],
+    ],
+    brief: [
+      "品牌活动现场记录，29 秒。",
+      "负责摄影与剪辑：展台、产品、互动环节的快剪。",
+    ],
+    approach: [
+      { h: "展台与产品", p: "先拍清品牌和产品，再拍人。" },
+      { h: "互动抓拍", p: "抓参与者的反应，让片子有人气。" },
+      { h: "统一节奏", p: "短镜头 + 音乐，收在品牌落版。" },
+    ],
+    frames: [
+      { src: "images/detail/ev11/frame-01.webp", cap: "开场" },
+      { src: "images/detail/ev11/frame-02.webp", cap: "展台" },
+      { src: "images/detail/ev11/frame-03.webp", cap: "产品" },
+      { src: "images/detail/ev11/frame-04.webp", cap: "互动" },
+      { src: "images/detail/ev11/frame-05.webp", cap: "氛围" },
+      { src: "images/detail/ev11/frame-06.webp", cap: "落版" },
+    ],
+    note: "现场记录，非摆拍。"
+  },
+
+  "event-12": {
+    kicker: "CAMPUS EVENT / 1:21",
+    facts: [
+      ["项目", "香港珠海学院 · 院校活动"],
+      ["性质", "院校活动记录"],
+      ["年份", "2025"],
+      ["片长", "1:21"],
+      ["机位", "仪式 + 场馆"],
+      ["职责", "摄影 / 剪辑"],
+    ],
+    brief: [
+      "院校活动记录，1 分 21 秒。",
+      "负责摄影与剪辑：仪式流程、场馆空间、以及人物采访片段。",
+    ],
+    approach: [
+      { h: "流程跟拍", p: "按仪式流程走位，保证关键环节不缺镜头。" },
+      { h: "空间空镜", p: "场馆、校徽、环境，用来做转场和呼吸。" },
+      { h: "结构剪辑", p: "仪式 + 人物 + 空镜三段式，控制在一分半内。" },
+    ],
+    frames: [
+      { src: "images/detail/ev12/frame-01.webp", cap: "开场" },
+      { src: "images/detail/ev12/frame-02.webp", cap: "仪式" },
+      { src: "images/detail/ev12/frame-03.webp", cap: "场馆" },
+      { src: "images/detail/ev12/frame-04.webp", cap: "人物" },
+      { src: "images/detail/ev12/frame-05.webp", cap: "空镜" },
+      { src: "images/detail/ev12/frame-06.webp", cap: "收尾" },
+    ],
+    note: "现场记录，非摆拍。"
+  },
+
+  "creative-01": {
+    kicker: "STOP MOTION / 2:45",
+    facts: [
+      ["项目", "时空 · 定格动画"],
+      ["性质", "创意短片"],
+      ["年份", "2025"],
+      ["片长", "2:45"],
+      ["职责", "摄影 / 剪辑 / 创意"],
+    ],
+    brief: [
+      "定格动画创意短片，2 分 45 秒，逐帧拍摄完成。",
+      "负责创意、逐帧拍摄与剪辑：每一帧都要重新摆位，灯光和机位不能动。",
+    ],
+    approach: [
+      { h: "逐帧拍摄", p: "相机固定、灯光固定，每拍一帧移动一次道具，保证动作连贯。" },
+      { h: "光比稳定", p: "全程用同一组灯，避免帧与帧之间亮度跳变。" },
+      { h: "剪辑节奏", p: "按帧率还原动作，再用剪辑控制快慢与停顿。" },
+    ],
+    frames: [
+      { src: "images/detail/cr01/frame-01.webp", cap: "场景" },
+      { src: "images/detail/cr01/frame-02.webp", cap: "动作" },
+      { src: "images/detail/cr01/frame-03.webp", cap: "细节" },
+      { src: "images/detail/cr01/frame-04.webp", cap: "转场" },
+      { src: "images/detail/cr01/frame-05.webp", cap: "高潮" },
+      { src: "images/detail/cr01/frame-06.webp", cap: "收尾" },
+    ],
+    note: "创意短片，逐帧拍摄。"
+  },
+
+  "creative-03": {
+    kicker: "SHORT FORM / 0:07",
+    facts: [
+      ["项目", "国庆节 · 节日创意"],
+      ["性质", "创意短片"],
+      ["年份", "2025"],
+      ["片长", "0:07"],
+      ["职责", "摄影 / 剪辑 / 创意"],
+    ],
+    brief: [
+      "7 秒节日创意短片，为一组节日内容做的开场。",
+      "负责创意、拍摄与剪辑：一个镜头讲完一件事，节奏要快。",
+    ],
+    approach: [
+      { h: "一镜到底", p: "7 秒只留一个核心动作，不堆信息。" },
+      { h: "卡点", p: "动作与音乐重音对齐，结尾留半秒落版。" },
+    ],
+    frames: [
+      { src: "images/detail/cr03/frame-01.webp", cap: "开场" },
+      { src: "images/detail/cr03/frame-02.webp", cap: "动作" },
+      { src: "images/detail/cr03/frame-03.webp", cap: "细节" },
+      { src: "images/detail/cr03/frame-04.webp", cap: "转折" },
+      { src: "images/detail/cr03/frame-05.webp", cap: "落版" },
+    ],
+    note: "创意短片。"
   }
 };
