@@ -125,6 +125,7 @@ window.workDetails = {
       ["性质", "实拍产品片"],
       ["年份", "2026"],
       ["片长", "2:20"],
+      ["器材", "索尼相机 / DJI / 神牛 / 南光"],
       ["职责", "摄影 / 布光 / 剪辑"]
     ],
     brief: [
@@ -159,6 +160,7 @@ window.workDetails = {
       ["性质", "实拍产品片"],
       ["年份", "2026"],
       ["片长", "0:30"],
+      ["器材", "索尼相机 / DJI / 神牛 / 南光"],
       ["职责", "摄影 / 布光 / 剪辑"]
     ],
     brief: [
@@ -184,5 +186,145 @@ window.workDetails = {
       { src: "images/detail/hpc/frame-06.webp", cap: "收尾" }
     ],
     note: "实拍项目，非 AI 生成。"
+  },
+
+  "commercial-02": {
+    kicker: "AI BRAND FILM / INK",
+    facts: [
+      ["项目", "舍得酒 · 水墨品牌短片"],
+      ["性质", "AI 概念片"],
+      ["年份", "2026"],
+      ["片长", "0:50"],
+      ["职责", "概念 / 脚本 / 参考图 / 视频生成 / 剪辑"]
+    ],
+    brief: [
+      "把白酒的时间感做成水墨：卷轴展开、酒液入盏、青绿山水与酿造场景交替，最后收在产品和品牌名上。",
+      "青绿山水 + 金线的视觉体系先用参考图定死，再逐镜生成，避免每一镜的「画风」不一样。"
+    ],
+    approach: [
+      { h: "定视觉体系", p: "青绿山水、金色线条、宣纸质感三件套先出参考图，全片只在这个体系里变。" },
+      { h: "产品一致性", p: "瓶型、标签、瓶盖金顶在每个镜头里保持一致，产品镜头单独盯。" },
+      { h: "按水墨节奏剪", p: "镜头之间用墨色流动做过渡，水声、器皿声铺底，节奏跟着墨的扩散走。" }
+    ],
+    pipeline: [
+      { n: "01", t: "脚本 · ChatGPT", d: "把「时间、酿造、山水」拆成镜头顺序。" },
+      { n: "02", t: "参考图 · Nano Banana", d: "青绿山水与金线质感，先定全片画风。" },
+      { n: "03", t: "视频 · 即梦 AI", d: "逐镜生成，水、墨、器皿分别控制。", img: "images/detail/shede/frame-02.webp" },
+      { n: "04", t: "剪辑 · 0:50", d: "墨色过渡串联，落版收在产品。", img: "images/detail/shede/frame-05.webp" }
+    ],
+    frames: [
+      { src: "images/detail/shede/frame-01.webp", cap: "卷轴展开" },
+      { src: "images/detail/shede/frame-02.webp", cap: "山水与瓶" },
+      { src: "images/detail/shede/frame-03.webp", cap: "酿造场景" },
+      { src: "images/detail/shede/frame-04.webp", cap: "大师勾调" },
+      { src: "images/detail/shede/frame-05.webp", cap: "酒液入盏" },
+      { src: "images/detail/shede/frame-06.webp", cap: "墨色收尾" }
+    ],
+    note: "AI 概念片，非品牌委托。"
+  },
+
+  "commercial-04": {
+    kicker: "AI AUTOMOTIVE FILM / 4 CUTS",
+    facts: [
+      ["项目", "保时捷 Taycan Turbo GT"],
+      ["性质", "AI 概念片"],
+      ["年份", "2026"],
+      ["片长", "0:30"],
+      ["职责", "概念 / 脚本 / 参考图 / 视频生成 / 剪辑"]
+    ],
+    brief: [
+      "四镜硬切的速度样本：尾灯、轮毂、前脸、行驶，每镜约一秒，不淡黑。用剪辑节奏代替转场。",
+      "画面只讲形状和光：车漆的冷蓝、轮毂的金、尾灯的红，其他都压掉。"
+    ],
+    approach: [
+      { h: "四镜一个逻辑", p: "每镜只讲一件事——灯、轮、脸、动，镜头之间硬切，靠节奏连起来。" },
+      { h: "材质与光", p: "车漆、轮毂、卡钳的材质在参考图阶段定死，生成时只改机位不改材质。" },
+      { h: "冷调统一", p: "全片压在冷蓝灰里，尾灯的红是唯一的暖色出口。" }
+    ],
+    pipeline: [
+      { n: "01", t: "脚本 · ChatGPT", d: "四镜顺序、每镜时长与机位。" },
+      { n: "02", t: "参考图 · Nano Banana", d: "车漆、轮毂、卡钳材质定版。" },
+      { n: "03", t: "视频 · 即梦 AI", d: "逐镜生成，控制车身形变。", img: "images/detail/porsche/frame-02.webp" },
+      { n: "04", t: "剪辑 · 0:30", d: "硬切卡点，不淡黑。", img: "images/detail/porsche/frame-05.webp" }
+    ],
+    frames: [
+      { src: "images/detail/porsche/frame-01.webp", cap: "尾灯" },
+      { src: "images/detail/porsche/frame-02.webp", cap: "轮毂与卡钳" },
+      { src: "images/detail/porsche/frame-03.webp", cap: "前脸" },
+      { src: "images/detail/porsche/frame-04.webp", cap: "车身全景" },
+      { src: "images/detail/porsche/frame-05.webp", cap: "行驶" },
+      { src: "images/detail/porsche/frame-06.webp", cap: "夜色尾灯" }
+    ],
+    note: "AI 概念片，非品牌委托。"
+  },
+
+  "commercial-05": {
+    kicker: "AI PRODUCT FILM / MACRO",
+    facts: [
+      ["项目", "iPhone 18 Pro · 概念 TVC"],
+      ["性质", "AI 概念片"],
+      ["年份", "2026"],
+      ["片长", "0:30"],
+      ["职责", "概念 / 脚本 / 参考图 / 视频生成 / 剪辑"]
+    ],
+    brief: [
+      "把手机拆成光影：镜头模组、边框、背部纹理，用微距和慢推讲质感。",
+      "产品片最难的是比例和细节，所以参考图阶段就把模组、按键、logo 位置定死。"
+    ],
+    approach: [
+      { h: "微距优先", p: "先用微距镜头语言建立质感，再拉开到整机，避免一上来就是「产品图」。" },
+      { h: "比例锁定", p: "镜头模组的排列、机身厚度、按键位置在参考图里逐项对，生成时只允许光变。" },
+      { h: "节奏", p: "30 秒分三段：细节 → 形态 → 留白落版。" }
+    ],
+    pipeline: [
+      { n: "01", t: "脚本 · ChatGPT", d: "三段式结构与每段时长。" },
+      { n: "02", t: "参考图 · Nano Banana", d: "模组、边框、背部纹理定版。" },
+      { n: "03", t: "视频 · 即梦 AI", d: "微距到整机的推拉运镜。", img: "images/detail/ip18/frame-02.webp" },
+      { n: "04", t: "剪辑 · 0:30", d: "三段节奏与落版。", img: "images/detail/ip18/frame-05.webp" }
+    ],
+    frames: [
+      { src: "images/detail/ip18/frame-01.webp", cap: "镜头模组" },
+      { src: "images/detail/ip18/frame-02.webp", cap: "边框" },
+      { src: "images/detail/ip18/frame-03.webp", cap: "整机" },
+      { src: "images/detail/ip18/frame-04.webp", cap: "质感" },
+      { src: "images/detail/ip18/frame-05.webp", cap: "模组特写" },
+      { src: "images/detail/ip18/frame-06.webp", cap: "背部收尾" }
+    ],
+    note: "AI 概念片，非品牌委托。"
+  },
+
+  "commercial-06": {
+    kicker: "AI PRODUCT FILM / FOLD",
+    facts: [
+      ["项目", "iPhone Duo · 双机概念 TVC"],
+      ["性质", "AI 概念片"],
+      ["年份", "2026"],
+      ["片长", "0:30"],
+      ["职责", "概念 / 脚本 / 参考图 / 视频生成 / 剪辑"]
+    ],
+    brief: [
+      "讲折叠形态：合起、展开、悬停，三个动作撑起全片。",
+      "折叠屏的难点是铰链和屏幕内容，参考图阶段就把开合角度和屏幕画面定好。"
+    ],
+    approach: [
+      { h: "动作即节奏", p: "合、开、停三个动作对应三段时间，剪辑跟着机械动作走。" },
+      { h: "铰链与屏幕", p: "铰链结构、折痕、屏幕内容逐镜检查，避免展开后画面漂移。" },
+      { h: "手部入镜", p: "加真人手部动作，让「能折叠」这件事有尺度感。" }
+    ],
+    pipeline: [
+      { n: "01", t: "脚本 · ChatGPT", d: "三个动作、三段时间。" },
+      { n: "02", t: "参考图 · Nano Banana", d: "开合角度、铰链、屏幕内容定版。" },
+      { n: "03", t: "视频 · 即梦 AI", d: "折叠动作逐镜生成。", img: "images/detail/duo/frame-02.webp" },
+      { n: "04", t: "剪辑 · 0:30", d: "动作卡点与落版。", img: "images/detail/duo/frame-06.webp" }
+    ],
+    frames: [
+      { src: "images/detail/duo/frame-01.webp", cap: "合起" },
+      { src: "images/detail/duo/frame-02.webp", cap: "铰链" },
+      { src: "images/detail/duo/frame-03.webp", cap: "整机" },
+      { src: "images/detail/duo/frame-04.webp", cap: "展开" },
+      { src: "images/detail/duo/frame-05.webp", cap: "悬停" },
+      { src: "images/detail/duo/frame-06.webp", cap: "双屏内容" }
+    ],
+    note: "AI 概念片，非品牌委托。"
   }
 };
