@@ -97,16 +97,16 @@ check("作品板块筛选按钮按分类顺序生成", () => {
   const chips = $$("#workFilters .filter").map((c) => c.textContent);
   assert(chips.join("/") === "全部/商业广告/创意短片/纪实活动", `实际：${chips.join("/")}`);
   const gchips = $$("#graphicFilters .filter").map((c) => c.textContent);
-  assert(gchips.join("/") === "全部/平面摄影/风光纪实", `平面筛选不对：${gchips.join("/")}`);
+  assert(gchips.join("/") === "全部/风光纪实/平面摄影", `平面筛选不对：${gchips.join("/")}`);
   assert($("#graphicFilters").hidden === false, "平面筛选条应显示");
   return `${chips.length} + ${gchips.length} 个`;
 });
 
-check("作品板块首屏只露 12 个 + 展开按钮", () => {
-  assert($$("#workGrid .work-card").length === 12, `应为 12，实际 ${$$("#workGrid .work-card").length}`);
+check("作品板块首屏只露 6 个 + 展开按钮", () => {
+  assert($$("#workGrid .work-card").length === 6, `应为 6，实际 ${$$("#workGrid .work-card").length}`);
   const btn = $("#workExpand");
   assert(btn && btn.hidden === false, "展开按钮应可见");
-  assert(btn.textContent.includes("4"), `应提示还剩 4 件，实际「${btn.textContent}」`);
+  assert(btn.textContent.includes("10"), `应提示还剩 10 件，实际「${btn.textContent}」`);
   return btn.textContent;
 });
 
@@ -116,8 +116,8 @@ check("点展开 → 16 个，按钮隐藏，焦点交给第一张新卡片", ()
   assert($("#workExpand").hidden === true, "展开后按钮应隐藏");
   assert($("#workCount").textContent === "16 Projects", `计数不对：${$("#workCount").textContent}`);
   const cards = $$("#workGrid .work-trigger");
-  assert(doc.activeElement === cards[12], "键盘展开后焦点应落到第 13 张（第一张新增）");
-  return $("#workCount").textContent + " · 焦点 → 第 13 张";
+  assert(doc.activeElement === cards[6], "键盘展开后焦点应落到第 7 张（第一张新增）");
+  return $("#workCount").textContent + " · 焦点 → 第 7 张";
 });
 
 check("计数变化对读屏可感知（aria-live）", () => {
@@ -139,17 +139,18 @@ check("年份：前九条 2026，其余 2025", () => {
   return "2026 ×9 ｜ 2025 ×7";
 });
 
-check("商业广告排序：小米 → 舍得 → 雷鸟 → 苹果 18 → 保时捷 → Duo", () => {
+check("商业广告排序：小米 → 舍得 → 雷鸟 → 游戏 PV → 苹果 18 → 保时捷 → Duo", () => {
   $$("#workFilters .filter").find((c) => c.textContent === "商业广告").click();
+  if (!$("#workExpand").hidden) $("#workExpand").click();
   const t = titles("#workGrid");
   const expect = [
     "小米 SU7 · 汽车概念短片",
     "舍得酒 · 水墨品牌短片",
     "雷鸟眼镜 iO · 产品概念 TVC",
+    "游戏 PV · AI 概念片",
     "iPhone 18 Pro · 产品概念 TVC",
     "保时捷 Taycan Turbo GT · 汽车概念影像",
     "iPhone Duo · 双机概念 TVC",
-    "游戏 PV · AI 概念片",
     "扫地机器人 · TVC 广告",
     "HPC 显示器 · TVC 广告"
   ];
@@ -175,33 +176,33 @@ check("创意短片筛选 → 1 张，计数 1 / 16", () => {
   return $("#workCount").textContent;
 });
 
-check("摄影平面：标题 + 首屏 10 张 + 展开按钮", () => {
+check("摄影平面：标题 + 首屏 6 张 + 展开按钮", () => {
   assert($("#graphic .work-heading").textContent.trim() === "摄影平面。", "标题应为「摄影平面。」");
-  assert($$("#graphicGrid .work-card").length === 10, `首屏应为 10 张，实际 ${$$("#graphicGrid .work-card").length}`);
+  assert($$("#graphicGrid .work-card").length === 6, `首屏应为 6 张，实际 ${$$("#graphicGrid .work-card").length}`);
   const btn = $("#graphicExpand");
   assert(btn && btn.hidden === false, "展开按钮应可见");
-  assert(btn.textContent.includes("1"), `应提示还剩 1 件，实际「${btn.textContent}」`);
+  assert(btn.textContent.includes("5"), `应提示还剩 5 件，实际「${btn.textContent}」`);
   assert($("#graphicCount").textContent === "11 Works", `计数不对：${$("#graphicCount").textContent}`);
   return btn.textContent;
 });
 
-check("展开 → 11 张，顺序 模型 3 → 风光 8", () => {
+check("展开 → 11 张，顺序 横屏 → 竖屏 → 模型", () => {
   $("#graphicExpand").click();
   assert($$("#graphicGrid .work-card").length === 11, `应为 11，实际 ${$$("#graphicGrid .work-card").length}`);
   assert($("#graphicExpand").hidden === true, "展开后按钮应隐藏");
   const t = titles("#graphicGrid");
   const head = [
-    "机甲 · 樱花",
-    "战衣 · 城市",
-    "机甲 · 机库",
-    "DJI · 航拍视角",
     "城中镜 · 城市倒影",
-    "夜春笋 · 城市夜景",
-    "惬意人生 · 生活切片",
     "海与陆 · 海岸线",
     "舟游 · 水上行舟",
     "苏州 · 园林城市",
-    "黄昏摩天轮 · 城市天际线"
+    "黄昏摩天轮 · 城市天际线",
+    "DJI · 航拍视角",
+    "夜春笋 · 城市夜景",
+    "惬意人生 · 生活切片",
+    "机甲 · 樱花",
+    "战衣 · 城市",
+    "机甲 · 机库"
   ];
   assert(t.join("|") === head.join("|"), `顺序不对：${t.join(" | ")}`);
   assert(!t.some((x) => /极氪|版式|VI|重阳|武侠|咖啡店|啤酒|电影网页|羊城晚报|耳机/.test(x)), "商业平面 / 版式 / 图集应已移除");
@@ -214,7 +215,7 @@ check("平面板块打开单图弹层", () => {
   cards[cards.length - 1].querySelector(".work-trigger").click();
   const dialog = $("#dialog");
   assert(dialog.classList.contains("is-open"), "弹层应打开");
-  assert($("#dialogTitle").textContent.startsWith("黄昏摩天轮"), `标题不对：${$("#dialogTitle").textContent}`);
+  assert($("#dialogTitle").textContent.startsWith("机甲 · 机库"), `标题不对：${$("#dialogTitle").textContent}`);
   assert($("#dialog img"), "应渲染图片");
   assert(doc.activeElement === $("#dialogClose"), "焦点应在关闭按钮");
   return $("#dialogTitle").textContent;

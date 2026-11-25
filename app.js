@@ -553,7 +553,7 @@
     count: "#workCount",
     filters: "#workFilters",
     expand: "#workExpand",
-    initial: 12,
+    initial: 6,
     unit: "Projects"
   });
 
@@ -564,7 +564,7 @@
     count: "#graphicCount",
     filters: "#graphicFilters",
     expand: "#graphicExpand",
-    initial: 10,
+    initial: 6,
     unit: "Works"
   });
 

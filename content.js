@@ -37,14 +37,14 @@ window.portfolio = (function () {
 
   /* ── 作品：27 条（视频 16 / 平面 11）──────────────────────────────── */
   var works = [
-    /* ── 商业广告（按用户排序：小米 > 舍得 > 雷鸟 > iPhone 18 > 保时捷 > Duo > 游戏 PV > 扫地机器人 > HPC）── */
+    /* ── 商业广告（按用户排序：小米 > 舍得 > 雷鸟 > 游戏 PV > iPhone 18 > 保时捷 > Duo > 扫地机器人 > HPC）── */
     { id: "commercial-07", cat: "commercial", year: "2026", title: "小米 SU7 · 汽车概念短片", desc: "AI 商业产品广告 · 0:40", video: "videos/web/opt-commercial-07.mp4", preview: PV + "xiaomi-su7.mp4", poster: M + "xiaomi-su7.webp", full: F + "xiaomi-su7.webp", roles: ["AI 概念生成", "视觉方向", "成片审阅"] },
     { id: "commercial-02", cat: "commercial", year: "2026", title: "舍得酒 · 水墨品牌短片", desc: "AI 商业产品广告 · 0:50", video: "videos/web/opt-commercial-02.mp4", preview: PV + "舍得酒.mp4", poster: M + "commercial-poster-01.webp", full: F + "commercial-poster-01.webp", roles: ["AI 概念生成", "视觉设计", "创意"] },
     { id: "commercial-08", cat: "commercial", year: "2026", title: "雷鸟眼镜 iO · 产品概念 TVC", desc: "AI 商业产品广告 · 1:20", video: "videos/web/opt-commercial-08.mp4", preview: PV + "rayneo-io.mp4", poster: M + "rayneo-io.webp", full: F + "rayneo-io.webp", roles: ["AI 概念生成", "逐镜生成", "审阅 / 混音"] },
+    { id: "commercial-09", cat: "commercial", year: "2026", title: "游戏 PV · AI 概念片", desc: "AI 游戏宣传片 · 0:42", video: "videos/web/opt-gamepv.mp4", preview: PV + "gamepv.mp4", poster: M + "cover-gamepv.webp", full: F + "cover-gamepv.webp", roles: ["概念", "分镜", "AI 生成", "剪辑"] },
     { id: "commercial-05", cat: "commercial", year: "2026", title: "iPhone 18 Pro · 产品概念 TVC", desc: "AI 商业产品广告 · 0:30", video: "videos/web/iphone18pro.mp4", preview: PV + "iphone18pro.mp4", poster: M + "cover-iphone18pro.webp", full: F + "cover-iphone18pro.webp", roles: ["AI 概念生成", "工业设计推演", "镜头调度"] },
     { id: "commercial-04", cat: "commercial", year: "2026", title: "保时捷 Taycan Turbo GT · 汽车概念影像", desc: "AI 商业产品广告 · 0:30", video: "videos/web/opt-commercial-04.mp4", preview: PV + "taycan.mp4", poster: M + "hero-porsche.webp", full: F + "hero-porsche.webp", roles: ["AI 概念生成", "镜头调度", "视觉设计"] },
     { id: "commercial-06", cat: "commercial", year: "2026", title: "iPhone Duo · 双机概念 TVC", desc: "AI 商业产品广告 · 0:30", video: "videos/web/opt-commercial-06.mp4", preview: PV + "iphoneduo.mp4", poster: M + "cover-iphoneduo.webp", full: F + "cover-iphoneduo.webp", roles: ["AI 创意生成", "运镜推演", "三维解构"] },
-    { id: "commercial-09", cat: "commercial", year: "2026", title: "游戏 PV · AI 概念片", desc: "AI 游戏宣传片 · 0:42", video: "videos/web/opt-gamepv.mp4", preview: PV + "gamepv.mp4", poster: M + "cover-gamepv.webp", full: F + "cover-gamepv.webp", roles: ["概念", "分镜", "AI 生成", "剪辑"] },
     { id: "commercial-01", cat: "commercial", year: "2026", title: "扫地机器人 · TVC 广告", desc: "清洁电器 · 2:20", video: "videos/web/opt-commercial-01.mp4", preview: PV + "扫地机器人.mp4", poster: M + "commercial-poster-03.webp", full: F + "commercial-poster-03.webp", roles: ["摄影", "剪辑"] },
     { id: "commercial-03", cat: "commercial", year: "2026", title: "HPC 显示器 · TVC 广告", desc: "商业广告 · 0:30", video: V + "HPC显示器.mp4", preview: PV + "HPC显示器.mp4", poster: M + "commercial-poster-02.webp", full: F + "commercial-poster-02.webp", roles: ["摄影", "剪辑"] },
 
@@ -61,20 +61,20 @@ window.portfolio = (function () {
     { id: "event-05", cat: "event", year: "2025", title: "夏季嘉年华 · 校园活动", desc: "活动记录 · 0:40", video: V + "夏季嘉年华.mp4", preview: PV + "夏季嘉年华.mp4", poster: M + "event-poster-05.webp", full: F + "event-poster-05.webp", roles: ["摄影", "剪辑"] },
     { id: "event-11", cat: "event", year: "2025", title: "蒙牛 · 品牌活动", desc: "活动记录 · 0:29", video: "videos/web/opt-event-11.mp4", preview: PV + "蒙牛.mp4", poster: M + "event-poster-11.webp", full: F + "event-poster-11.webp", roles: ["摄影", "剪辑"] },
 
-    /* ── 摄影平面：模型 ─────────────────────────────────────────────── */
-    { id: "model-01", cat: "poster", year: "2025", title: "机甲 · 樱花", desc: "平面摄影 · 1 张", images: [F + "model-01.webp"], poster: M + "model-01.webp", full: F + "model-01.webp" },
-    { id: "model-02", cat: "poster", year: "2025", title: "战衣 · 城市", desc: "平面摄影 · 1 张", images: [F + "model-02.webp"], poster: M + "model-02.webp", full: F + "model-02.webp" },
-    { id: "model-03", cat: "poster", year: "2025", title: "机甲 · 机库", desc: "平面摄影 · 1 张", images: [F + "model-03.webp"], poster: M + "model-03.webp", full: F + "model-03.webp" },
-
-    /* ── 摄影平面：风光 ─────────────────────────────────────────────── */
-    { id: "landscape-01", cat: "landscape", title: "DJI · 航拍视角", desc: "风光 · 1 张", images: [F + "photo-landscape-01.webp"], poster: M + "cover-landscape-01.webp", full: F + "photo-landscape-01.webp" },
+    /* ── 摄影平面：横屏 → 竖屏 → 模型 ───────────────────────────────── */
     { id: "landscape-02", cat: "landscape", title: "城中镜 · 城市倒影", desc: "风光 · 1 张", images: [F + "photo-landscape-02.webp"], poster: M + "photo-landscape-02.webp", full: F + "photo-landscape-02.webp" },
-    { id: "landscape-03", cat: "landscape", title: "夜春笋 · 城市夜景", desc: "风光 · 1 张", images: [F + "photo-landscape-03.webp"], poster: M + "cover-landscape-03.webp", full: F + "photo-landscape-03.webp" },
-    { id: "landscape-04", cat: "landscape", title: "惬意人生 · 生活切片", desc: "风光 · 1 张", images: [F + "photo-landscape-04.webp"], poster: M + "cover-landscape-04.webp", full: F + "photo-landscape-04.webp" },
     { id: "landscape-05", cat: "landscape", title: "海与陆 · 海岸线", desc: "风光 · 1 张", images: [F + "photo-landscape-05.webp"], poster: M + "photo-landscape-05.webp", full: F + "photo-landscape-05.webp" },
     { id: "landscape-06", cat: "landscape", title: "舟游 · 水上行舟", desc: "风光 · 1 张", images: [F + "photo-landscape-06.webp"], poster: M + "photo-landscape-06.webp", full: F + "photo-landscape-06.webp" },
     { id: "landscape-07", cat: "landscape", title: "苏州 · 园林城市", desc: "风光 · 1 张", images: [F + "photo-landscape-07.webp"], poster: M + "photo-landscape-07.webp", full: F + "photo-landscape-07.webp" },
-    { id: "landscape-08", cat: "landscape", title: "黄昏摩天轮 · 城市天际线", desc: "风光 · 1 张", images: [F + "photo-landscape-08.webp"], poster: M + "photo-landscape-08.webp", full: F + "photo-landscape-08.webp" }
+    { id: "landscape-08", cat: "landscape", title: "黄昏摩天轮 · 城市天际线", desc: "风光 · 1 张", images: [F + "photo-landscape-08.webp"], poster: M + "photo-landscape-08.webp", full: F + "photo-landscape-08.webp" },
+
+    { id: "landscape-01", cat: "landscape", title: "DJI · 航拍视角", desc: "风光 · 1 张", images: [F + "photo-landscape-01.webp"], poster: M + "cover-landscape-01.webp", full: F + "photo-landscape-01.webp" },
+    { id: "landscape-03", cat: "landscape", title: "夜春笋 · 城市夜景", desc: "风光 · 1 张", images: [F + "photo-landscape-03.webp"], poster: M + "cover-landscape-03.webp", full: F + "photo-landscape-03.webp" },
+    { id: "landscape-04", cat: "landscape", title: "惬意人生 · 生活切片", desc: "风光 · 1 张", images: [F + "photo-landscape-04.webp"], poster: M + "cover-landscape-04.webp", full: F + "photo-landscape-04.webp" },
+
+    { id: "model-01", cat: "poster", year: "2025", title: "机甲 · 樱花", desc: "平面摄影 · 1 张", images: [F + "model-01.webp"], poster: M + "model-01.webp", full: F + "model-01.webp" },
+    { id: "model-02", cat: "poster", year: "2025", title: "战衣 · 城市", desc: "平面摄影 · 1 张", images: [F + "model-02.webp"], poster: M + "model-02.webp", full: F + "model-02.webp" },
+    { id: "model-03", cat: "poster", year: "2025", title: "机甲 · 机库", desc: "平面摄影 · 1 张", images: [F + "model-03.webp"], poster: M + "model-03.webp", full: F + "model-03.webp" }
   ];
 
   return {
